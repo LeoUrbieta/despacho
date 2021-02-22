@@ -1,0 +1,9 @@
+<<h1>Peticiones</h1>
+
+<ul>
+  <% @peticiones.each do |peticion| %>
+    <li>
+      <%= link_to peticion.nombre_trabajador, peticion %>
+    </li>
+  <% end %>
+</ul>
