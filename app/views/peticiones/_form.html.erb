@@ -1,0 +1,84 @@
+<% if peticion.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(peticion.errors.count, "error") %> no permitieron enviar
+      esta petición.
+    </h2>
+    <ul>
+      <% @peticion.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= form_with model: peticion do |form| %>
+  <div>
+    <%= form.label :nombre_trabajador %><br>
+    <%= form.text_field :nombre_trabajador %>
+  </div>
+
+  <div>
+    <%= form.label :apellido_paterno %><br>
+    <%= form.text_area :apellido_paterno %>
+  </div>
+
+  <div>
+    <%= form.label :apellido_materno %><br>
+    <%= form.text_area :apellido_materno %>
+  </div>
+
+  <div>
+    <%= form.label :empresa_solicitante %><br>
+    <%= form.text_area :empresa_solicitante %>
+  </div>
+  <div>
+    <%= form.label :persona_solicitante %><br>
+    <%= form.text_area :persona_solicitante %>
+  </div>
+  <div>
+    <%= form.label :movimiento %><br>
+    <%= form.text_area :movimiento %>
+  </div>
+  <div>
+    <%= form.label :fecha_nacimiento %><br>
+    <%= form.text_area :fecha_nacimiento %>
+  </div>
+  <div>
+    <%= form.label :domicilio %><br>
+    <%= form.text_area :domicilio %>
+  </div>
+  <div>
+    <%= form.label :numero_imss %><br>
+    <%= form.text_area :numero_imss %>
+  </div>
+  <div>
+    <%= form.label :salario_integrado %><br>
+    <%= form.text_area :salario_integrado %>
+  </div>
+  <div>
+    <%= form.label :curp %><br>
+    <%= form.text_area :curp %>
+  </div>
+  <div>
+    <%= form.label :salario_sin_integrar %><br>
+    <%= form.text_area :salario_sin_integrar %>
+  </div>
+  <div>
+    <%= form.label :rfc %><br>
+    <%= form.text_area :rfc %>
+  </div>
+  <div>
+    <%= form.label :fecha_para_realizar_tramite %><br>
+    <%= form.text_area :fecha_para_realizar_tramite %>
+  </div>
+  <div>
+    <%= form.label :observaciones %><br>
+    <%= form.text_area :observaciones %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

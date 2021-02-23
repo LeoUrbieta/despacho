@@ -2,3 +2,8 @@
 
 <p><%= @peticion.apellido_paterno %></p>
 <p><%= @peticion.apellido_materno %></p>
+<p><%= @peticion.empresa_solicitante %></p>
+
+<ul>
+  <li><%= link_to "Editar", edit_peticion_path(@peticion)%></li>
+</ul>
