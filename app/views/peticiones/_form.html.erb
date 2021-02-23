@@ -14,19 +14,21 @@
 
 
 <%= form_with model: peticion do |form| %>
-  <div>
-    <%= form.label :nombre_trabajador %><br>
-    <%= form.text_field :nombre_trabajador %>
-  </div>
+  <div class="row">
+    <div class="form-group col-md-2">
+      <%= form.label :nombre_trabajador, :class => "form-label" %><br>
+      <%= form.text_field :nombre_trabajador, :class => "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :apellido_paterno %><br>
-    <%= form.text_area :apellido_paterno %>
-  </div>
+    <div class="form-group col-md-2">
+      <%= form.label :apellido_paterno, :class => "form-label" %><br>
+      <%= form.text_field :apellido_paterno, :class => "form-control" %>
+    </div>
 
-  <div>
-    <%= form.label :apellido_materno %><br>
-    <%= form.text_area :apellido_materno %>
+    <div class="form-group col-md-2">
+      <%= form.label :apellido_materno, :class => "form-label" %><br>
+      <%= form.text_field :apellido_materno, :class => "form-control" %>
+    </div>
   </div>
 
   <div>
@@ -78,7 +80,7 @@
     <%= form.text_area :observaciones %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.submit "Enviar", :class =>"btn btn-primary" %>
   </div>
 <% end %>
