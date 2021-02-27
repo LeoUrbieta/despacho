@@ -1,0 +1,26 @@
+<div class="row">
+  <h1 class="offset-2 col-2">Entrar</h1>
+</div>
+
+<%= form_for(:session, :html => {class: "form-horizontal", role: "form"}, url: login_path) do |form| %>
+
+<div class="row">
+  <div class="offset-2 col-4">
+    <%= form.label :nombre_usuario, :class => "form-label"  %><br>
+    <%= form.text_field :nombre_usuario, :class => "form-control" %>
+  </div>
+</div>
+<div class="row">
+  <div class="offset-2 col-4">
+    <%= form.label :password, :class => "form-label"  %><br>
+    <%= form.text_field :password, :class => "form-control" %>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="offset-2 col-4">
+    <%= form.submit "Entrar", :class =>"btn btn-primary" %>
+  </div>
+</div>
+
+<% end %>

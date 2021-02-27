@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_004855) do
+ActiveRecord::Schema.define(version: 2021_02_27_091030) do
 
   create_table "peticiones", force: :cascade do |t|
     t.string "nombre_trabajador"
@@ -21,15 +21,22 @@ ActiveRecord::Schema.define(version: 2021_02_23_004855) do
     t.string "empresa_solicitante"
     t.string "persona_solicitante"
     t.string "movimiento"
-    t.string "fecha_nacimiento"
+    t.date "fecha_nacimiento"
     t.text "domicilio"
     t.string "numero_imss"
     t.string "salario_integrado"
     t.string "curp"
     t.string "salario_sin_integrar"
     t.string "rfc"
-    t.string "fecha_para_realizar_tramite"
+    t.date "fecha_para_realizar_tramite"
     t.text "observaciones"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "nombre_usuario"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
   end
 
 end

@@ -15,72 +15,95 @@
 
 <%= form_with model: peticion do |form| %>
   <div class="row">
-    <div class="form-group col-md-2">
+    <div class="offset-md-3 col-md-2">
+      <%= form.label :movimiento, :class => "form-label"  %><br>
+      <%= form.select(:movimiento, [["Baja","Baja"], ["Alta","Alta"], ["Modificación","Modificacion"]],{},{:class => "form-control"}) %>
+    </div>
+    <div class="col-md-2"
+      <div>
+        <%= form.label :fecha_para_realizar_tramite, :class => "form-label" %><br>
+        <%= form.date_select(:fecha_para_realizar_tramite,
+                    {start_year: Date.today.year,
+                    end_year: Date.today.year+1,
+                    order: [:day, :month, :year]},
+                    {:class => "form-control"}) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="offset-md-3 col-md-2">
       <%= form.label :nombre_trabajador, :class => "form-label" %><br>
       <%= form.text_field :nombre_trabajador, :class => "form-control" %>
     </div>
 
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
       <%= form.label :apellido_paterno, :class => "form-label" %><br>
       <%= form.text_field :apellido_paterno, :class => "form-control" %>
     </div>
 
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
       <%= form.label :apellido_materno, :class => "form-label" %><br>
       <%= form.text_field :apellido_materno, :class => "form-control" %>
     </div>
   </div>
 
-  <div>
-    <%= form.label :empresa_solicitante %><br>
-    <%= form.text_area :empresa_solicitante %>
-  </div>
-  <div>
-    <%= form.label :persona_solicitante %><br>
-    <%= form.text_area :persona_solicitante %>
-  </div>
-  <div>
-    <%= form.label :movimiento %><br>
-    <%= form.text_area :movimiento %>
-  </div>
-  <div>
-    <%= form.label :fecha_nacimiento %><br>
-    <%= form.text_area :fecha_nacimiento %>
-  </div>
-  <div>
-    <%= form.label :domicilio %><br>
-    <%= form.text_area :domicilio %>
-  </div>
-  <div>
-    <%= form.label :numero_imss %><br>
-    <%= form.text_area :numero_imss %>
-  </div>
-  <div>
-    <%= form.label :salario_integrado %><br>
-    <%= form.text_area :salario_integrado %>
-  </div>
-  <div>
-    <%= form.label :curp %><br>
-    <%= form.text_area :curp %>
-  </div>
-  <div>
-    <%= form.label :salario_sin_integrar %><br>
-    <%= form.text_area :salario_sin_integrar %>
-  </div>
-  <div>
-    <%= form.label :rfc %><br>
-    <%= form.text_area :rfc %>
-  </div>
-  <div>
-    <%= form.label :fecha_para_realizar_tramite %><br>
-    <%= form.text_area :fecha_para_realizar_tramite %>
-  </div>
-  <div>
-    <%= form.label :observaciones %><br>
-    <%= form.text_area :observaciones %>
+  <div class="row">
+    <div class="offset-md-1 col-md-2">
+      <%= form.label :fecha_nacimiento, :class => "form-label" %><br>
+      <%= form.date_select(:fecha_nacimiento,
+                  {start_year: Date.today.year-1,
+                  end_year: Date.today.year-100,
+                  order: [:day, :month, :year],
+                  :include_blank => true},
+                  {:class => "form-control"}) %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :numero_imss, "Número IMSS", :class => "form-label" %><br>
+      <%= form.text_field :numero_imss, :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :rfc ,"RFC", :class => "form-label" %><br>
+      <%= form.text_field :rfc, :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :curp, "CURP", :class => "form-label" %><br>
+      <%= form.text_field :curp, :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :domicilio, :class => "form-label" %><br>
+      <%= form.text_area :domicilio, :class => "form-control" %>
+    </div>
   </div>
 
-  <div class="mb-3">
+  <div class="row">
+    <div class="offset-md-4 col-md-2">
+      <%= form.label :salario_integrado, :class => "form-label"  %><br>
+      <%= form.text_field :salario_integrado, :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :salario_sin_integrar, :class => "form-label"  %><br>
+      <%= form.text_field :salario_sin_integrar, :class => "form-control" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="offset-md-3 col-md-2">
+      <%= form.label :empresa_solicitante, :class => "form-label"  %><br>
+      <%= form.text_field :empresa_solicitante, :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :persona_solicitante, :class => "form-label"  %><br>
+      <%= form.text_field :persona_solicitante, :class => "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= form.label :observaciones, :class => "form-label"  %><br>
+      <%= form.text_area :observaciones, :class => "form-control" %>
+    </div>
+  </div>
+
+
+  <div class="mb-3" style="text-align: center">
     <%= form.submit "Enviar", :class =>"btn btn-primary" %>
   </div>
 <% end %>

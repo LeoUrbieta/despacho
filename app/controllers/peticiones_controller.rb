@@ -1,4 +1,5 @@
 class PeticionesController < ApplicationController
+
   def index
     @peticiones = Peticion.all
   end

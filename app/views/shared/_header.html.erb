@@ -1,0 +1,8 @@
+<%=link_to "Iniciar sesión", login_path %>
+<%=link_to "Terminar Sesion", logout_path, method: :delete %>
+
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>

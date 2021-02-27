@@ -1,11 +1,137 @@
-<<h1>Peticiones</h1>
-
-<ul>
+<div class="row">
+  <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Peticiones</h1>
+</div>
+<hr>
+<div>
   <% @peticiones.each do |peticion| %>
-    <li>
-      <%= link_to peticion.nombre_trabajador, peticion %>
-    </li>
+    <div class="row">
+      <div class="offset-2 col-2 offset-sm-3 col-sm-9">
+        <h3><%= peticion.movimiento%></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+        Fecha de Solicitud: <%=peticion.created_at%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+        Empresa que solicita: <%=peticion.empresa_solicitante%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+        Solicita: <%=peticion.persona_solicitante%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+        A realizar el: <%=peticion.fecha_para_realizar_tramite%>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2" >
+        Nombre:
+      </div>
+      <div class="col-4 col-sm-4">
+        <%=peticion.nombre_trabajador%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Apellido Paterno:
+      </div>
+      <div class="col-4 col-sm-4">
+        <%=peticion.apellido_paterno%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Apellido Materno:
+      </div>
+      <div class="col-4 col-sm-4">
+        <%=peticion.apellido_materno%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Dirección:
+      </div>
+      <div class="col-4 col-sm-4">
+        <%= peticion.domicilio %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Salario Integrado:
+      </div>
+      <div class="col-4 col-sm-4">
+        <%=peticion.salario_integrado%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Salario Sin Integrar:
+      </div>
+      <div class="col-4 col-sm-4">
+        <%=peticion.salario_sin_integrar%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Fecha de Nacimiento:
+      </div>
+      <div class="col-4 col-sm-4">
+         <%= peticion.fecha_nacimiento %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Fecha de Nacimiento:
+      </div>
+      <div class="col-4 col-sm-4">
+         <%= peticion.fecha_nacimiento %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        RFC:
+      </div>
+      <div class="col-4 col-sm-4">
+         <%= peticion.rfc %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        CURP:
+      </div>
+      <div class="col-4 col-sm-4">
+         <%= peticion.curp %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        IMSS:
+      </div>
+      <div class="col-4 col-sm-4">
+          <%= peticion.numero_imss %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Observaciones:
+      </div>
+      <div class="col-4 col-sm-4">
+          <%=peticion.observaciones%>
+      </div>
+    </div>
+    <hr>
   <% end %>
-</ul>
+</div>
 
-<%= link_to "Nueva Peticion", new_peticion_path %>
+<div class="row">
+  <div class="offset-2 col-2 offset-sm-3 col-sm-9">
+    <%= link_to "Nueva Peticion", new_peticion_path, :class =>"btn btn-primary" %>
+  </div>
+</div>
