@@ -107,8 +107,6 @@ GEM
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    nokogiri (1.11.1-x86_64-darwin)
-      racc (~> 1.4)
     pg (1.2.3)
     public_suffix (4.0.6)
     puma (5.2.1)
@@ -210,7 +208,6 @@ GEM
 
 PLATFORMS
   ruby
-  x86_64-darwin-19
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
@@ -238,4 +235,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.2.11
+   2.1.4
