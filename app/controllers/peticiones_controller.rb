@@ -17,9 +17,10 @@ class PeticionesController < ApplicationController
 
   def create
     @peticion = Peticion.new(peticion_params)
-    folio_peticion_anterior = Peticion.first.folio
-    if folio_peticion_anterior == 0
-      folio_peticion_anterior = 1
+    if Peticion.first.nil?
+      folio_peticion_anterior = 0
+    else
+      folio_peticion_anterior = Peticion.first.folio  
     end
     @peticion.folio = folio_peticion_anterior + 1
 
