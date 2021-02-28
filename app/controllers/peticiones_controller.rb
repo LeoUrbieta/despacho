@@ -1,11 +1,14 @@
 class PeticionesController < ApplicationController
 
+  before_action :require_user, except: [:new, :create]
+  before_action :require_admin, only: [:edit, :update, :destroy]
+
   def index
     @peticiones = Peticion.all
   end
 
   def show
-    @peticion = Peticion.find(params[:id])
+
   end
 
   def new
@@ -14,9 +17,15 @@ class PeticionesController < ApplicationController
 
   def create
     @peticion = Peticion.new(peticion_params)
+    folio_peticion_anterior = Peticion.first.folio
+    if folio_peticion_anterior == 0
+      folio_peticion_anterior = 1
+    end
+    @peticion.folio = folio_peticion_anterior + 1
 
     if @peticion.save
-      redirect_to @peticion
+      flash[:success] = "Tu solicitud se envió con éxito con folio número #" + @peticion.folio.to_s
+      redirect_to root_path
     else
       render :new
     end
@@ -30,7 +39,8 @@ class PeticionesController < ApplicationController
     @peticion = Peticion.find(params[:id])
 
     if @peticion.update(peticion_params)
-      redirect_to @peticion
+      flash[:success] = "Se editó la petición con éxito"
+      redirect_to peticiones_path
     else
       render edit
     end
@@ -40,7 +50,8 @@ class PeticionesController < ApplicationController
     @peticion = Peticion.find(params[:id])
     @peticion.destroy
 
-    redirect_to root_path
+    flash[:success] = "Se borró la petición de manera exitosa"
+    redirect_to peticiones_path
   end
 
   private
@@ -50,4 +61,10 @@ class PeticionesController < ApplicationController
       :rfc, :fecha_para_realizar_tramite, :observaciones)
     end
 
+    def require_admin
+      if !usuario_actual.admin?
+        flash[:danger] = "No puedes modificar los registros"
+        redirect_to peticiones_path
+      end
+    end
 end

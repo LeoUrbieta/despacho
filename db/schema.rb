@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_091030) do
+ActiveRecord::Schema.define(version: 2021_02_28_172231) do
 
   create_table "peticiones", force: :cascade do |t|
     t.string "nombre_trabajador"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_02_27_091030) do
     t.string "rfc"
     t.date "fecha_para_realizar_tramite"
     t.text "observaciones"
+    t.integer "folio"
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_02_27_091030) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.boolean "admin", default: false
   end
 
 end

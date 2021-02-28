@@ -1,26 +1,22 @@
-<div class="row">
+<div class="row mb-3">
   <h1 class="offset-2 col-2">Entrar</h1>
 </div>
-
 <%= form_for(:session, :html => {class: "form-horizontal", role: "form"}, url: login_path) do |form| %>
 
-<div class="row">
-  <div class="offset-2 col-4">
-    <%= form.label :nombre_usuario, :class => "form-label"  %><br>
+<div class="row mb-3">
+  <%= form.label :nombre_usuario, "Usuario", :class => "form-label offset-1 col-1 col-form-label"  %>
+  <div class="col-4">
     <%= form.text_field :nombre_usuario, :class => "form-control" %>
   </div>
 </div>
-<div class="row">
-  <div class="offset-2 col-4">
-    <%= form.label :password, :class => "form-label"  %><br>
+<div class="row mb-3">
+  <%= form.label :password, "Contraseña", :class => "form-label offset-1 col-1 col-form-label"  %>
+  <div class="col-4">
     <%= form.text_field :password, :class => "form-control" %>
   </div>
 </div>
-<br>
-<div class="row">
-  <div class="offset-2 col-4">
-    <%= form.submit "Entrar", :class =>"btn btn-primary" %>
-  </div>
+<div class="row mb-3">
+  <%= form.submit "Entrar", :class =>"btn btn-primary offset-5 col-1" %>
 </div>
 
 <% end %>

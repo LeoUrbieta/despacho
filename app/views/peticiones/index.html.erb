@@ -5,8 +5,11 @@
 <div>
   <% @peticiones.each do |peticion| %>
     <div class="row">
-      <div class="offset-2 col-2 offset-sm-3 col-sm-9">
+      <div class="offset-2 col-2 offset-sm-3 col-sm-2">
         <h3><%= peticion.movimiento%></h3>
+      </div>
+      <div class="col-2 col-sm-2">
+        <h3><%= peticion.folio %></h3>
       </div>
     </div>
     <div class="row">
@@ -88,14 +91,6 @@
     </div>
     <div class="row">
       <div class="offset-2 col-3 offset-sm-3 col-sm-2">
-        Fecha de Nacimiento:
-      </div>
-      <div class="col-4 col-sm-4">
-         <%= peticion.fecha_nacimiento %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="offset-2 col-3 offset-sm-3 col-sm-2">
         RFC:
       </div>
       <div class="col-4 col-sm-4">
@@ -126,6 +121,17 @@
           <%=peticion.observaciones%>
       </div>
     </div>
+    <% if @usuario_actual.admin? %>
+      <div class="row">
+        <div class="offset-2 col-3 offset-sm-3 col-sm-2">
+          <%= link_to "Editar Peticion", edit_peticion_path(peticion.id), :class =>"btn btn-primary" %>
+        </div>
+        <div class="col-3 col-sm-2">
+          <%= link_to "Borrar Peticion", peticion_path(peticion.id), method: :delete, data: { confirm: '¿Estás seguro de querer borrar esta petición'},
+          :class =>"btn btn-danger" %>
+        </div>
+      </div>
+    <% end %>
     <hr>
   <% end %>
 </div>
