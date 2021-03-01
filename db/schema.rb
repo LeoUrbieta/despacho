@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_02_28_172231) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "peticiones", force: :cascade do |t|
     t.string "nombre_trabajador"
     t.string "apellido_materno"
