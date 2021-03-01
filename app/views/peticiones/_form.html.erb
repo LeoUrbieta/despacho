@@ -1,7 +1,7 @@
 <% if peticion.errors.any? %>
   <div id="error_explanation">
     <h2>
-      <%= pluralize(peticion.errors.count, "error") %> no permitieron enviar
+      <%= pluralize(peticion.errors.count, "errore") %> no permitieron enviar
       esta petición.
     </h2>
     <ul>
@@ -11,7 +11,6 @@
     </ul>
   </div>
 <% end %>
-
 
 <%= form_with model: peticion do |form| %>
   <div class="row mb-3">
