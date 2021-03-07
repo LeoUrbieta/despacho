@@ -32,9 +32,9 @@
     </div>
   </div>
   <div class="row mb-3">
-    <%= form.label :nombre_trabajador, "Nombre trabajador*", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <%= form.label :numero_imss, "Número de Seguridad Social", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
     <div class="col-md-2">
-      <%= form.text_field :nombre_trabajador, :class => "form-control"%>
+      <%= form.text_field :numero_imss, :class => "form-control" %>
     </div>
     <%= form.label :salario_integrado, {:class => "form-label col-md-2 col-form-label", :style => "text-align: right"}  %>
     <div class="col-md-2">
@@ -42,9 +42,9 @@
     </div>
   </div>
   <div class="row mb-3">
-    <%= form.label :apellido_paterno, "Apellido Paterno*", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <%= form.label :nombre_trabajador, "Nombre trabajador*", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
     <div class="col-md-2">
-    <%= form.text_field :apellido_paterno, :class => "form-control" %>
+      <%= form.text_field :nombre_trabajador, :class => "form-control"%>
     </div>
     <%= form.label :salario_sin_integrar, {:class => "form-label col-md-2 col-form-label", :style => "text-align: right"}  %>
     <div class="col-md-2">
@@ -52,9 +52,9 @@
     </div>
   </div>
   <div class="row mb-3">
-    <%= form.label :apellido_materno,"Apellido Materno*", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <%= form.label :apellido_paterno, "Apellido Paterno*", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
     <div class="col-md-2">
-      <%= form.text_field :apellido_materno, :class => "form-control" %>
+    <%= form.text_field :apellido_paterno, :class => "form-control" %>
     </div>
     <%= form.label :empresa_solicitante,"Empresa Solicitante*", {:class => "form-label col-md-2 col-form-label", :style => "text-align: right"}  %>
     <div class="col-md-2">
@@ -62,9 +62,9 @@
     </div>
   </div>
   <div class="row mb-3">
-    <%= form.label :numero_imss, "Número IMSS", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <%= form.label :apellido_materno,"Apellido Materno*", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
     <div class="col-md-2">
-      <%= form.text_field :numero_imss, :class => "form-control" %>
+      <%= form.text_field :apellido_materno, :class => "form-control" %>
     </div>
     <%= form.label :persona_solicitante,"Persona Solicitante*", {:class => "form-label col-md-2 col-form-label", :style => "text-align: right"}  %>
     <div class="col-md-2">

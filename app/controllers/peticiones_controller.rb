@@ -20,12 +20,12 @@ class PeticionesController < ApplicationController
     if Peticion.first.nil?
       folio_peticion_anterior = 0
     else
-      folio_peticion_anterior = Peticion.first.folio  
+      folio_peticion_anterior = Peticion.first.folio
     end
     @peticion.folio = folio_peticion_anterior + 1
 
     if @peticion.save
-      flash[:success] = "Tu solicitud se envió con éxito con folio número #" + @peticion.folio.to_s
+      flash[:success] = "Tu solicitud se envió con éxito con folio #" + @peticion.folio.to_s
       redirect_to root_path
     else
       render :new
