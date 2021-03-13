@@ -4,8 +4,12 @@ one:
   nombre_trabajador: MyString
   apellido_materno: MyString
   apellido_paterno: MyString
+  fecha_nacimiento: "2001-01-01"
+  fecha_para_realizar_tramite: "2001-01-01"
 
 two:
   nombre_trabajador: MyString
   apellido_materno: MyString
   apellido_paterno: MyString
+  fecha_nacimiento: "2001-01-01"
+  fecha_para_realizar_tramite: "2001-01-01"
