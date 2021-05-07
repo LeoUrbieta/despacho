@@ -3,8 +3,16 @@ class PeticionesController < ApplicationController
   before_action :require_user, except: [:new, :create]
   before_action :require_admin, only: [:edit, :update, :destroy]
 
+  PETICIONES_POR_PAGINA = 50
+  PAGINA_MINIMA = 0
+
   def index
-    @peticiones = Peticion.all
+    num_peticiones = Peticion.count
+    @pag_maximas = num_peticiones / PETICIONES_POR_PAGINA
+    @pag_minimas = PAGINA_MINIMA
+    @page = params.fetch(:page,0).to_i
+    @page = pagination(@page,@pag_maximas,PAGINA_MINIMA)
+    @peticiones = Peticion.offset(@page * PETICIONES_POR_PAGINA).limit(PETICIONES_POR_PAGINA)
   end
 
   def show
@@ -67,5 +75,16 @@ class PeticionesController < ApplicationController
         flash[:danger] = "No puedes modificar los registros"
         redirect_to peticiones_path
       end
+    end
+
+    def pagination(pagina,pag_maxima,pag_minima)
+      if pagina <= pag_maxima and pagina >= pag_minima
+          pagina = params.fetch(:page,0).to_i
+      elsif pagina > pag_maxima
+        pagina = pag_maxima
+      elsif pagina < pag_minima
+        pagina = pag_minima 
+      end
+      return pagina
     end
 end

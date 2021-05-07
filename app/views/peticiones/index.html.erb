@@ -139,4 +139,12 @@
     <% end %>
     <hr>
   <% end %>
+  <div style="text-align: center">
+    <% if @page >  @pag_minimas%>
+      <  <%= link_to "Peticiones Más Recientes", peticiones_path(page: @page - 1) %> >
+    <% end %>
+    <% if @page <  @pag_maximas%>
+     < <%= link_to "Peticiones Más Antiguas", peticiones_path(page: @page + 1) %> >
+    <% end %>
+  </div>
 </div>
