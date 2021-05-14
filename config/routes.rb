@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :casos
   resources :clientes
   root "peticiones#new"
 
