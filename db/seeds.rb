@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+require 'csv'
+
+CSV.foreach((Rails.root.join('lib','seeds','clientes_total.csv')), headers: true, col_sep: ":") do |row|
+  t = Cliente.new
+  t.razon_social = row['RAZON SOCIAL']
+  t.rfc = row['RFC']
+  t.num_interno = row['NUMERO INTERNO']
+  t.save
+  puts "#{t.razon_social}, se ha guardado"
+end
+
+puts "Ahora hay #{Cliente.count} clientes en la base de datos"

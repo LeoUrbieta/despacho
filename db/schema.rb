@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_28_172231) do
+ActiveRecord::Schema.define(version: 2021_05_14_144306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "casos", force: :cascade do |t|
+    t.bigint "cliente_id"
+    t.text "texto_caso"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cliente_id"], name: "index_casos_on_cliente_id"
+  end
+
+  create_table "clientes", force: :cascade do |t|
+    t.string "razon_social"
+    t.string "rfc"
+    t.string "num_interno"
+    t.string "regimen_fiscal"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "peticiones", force: :cascade do |t|
     t.string "nombre_trabajador"
@@ -44,4 +61,5 @@ ActiveRecord::Schema.define(version: 2021_02_28_172231) do
     t.boolean "admin", default: false
   end
 
+  add_foreign_key "casos", "clientes"
 end
