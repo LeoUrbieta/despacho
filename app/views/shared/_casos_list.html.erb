@@ -1,0 +1,55 @@
+<div>
+  <div class="row mb-3">
+    <div class="col-1 col-sm-1" style="text-align: right">
+      <h5>ID CASO</h5> 
+    </div>
+    <div class="col-2 col-sm-2">
+      <h5>CLIENTE</h5> 
+    </div>
+    <div class="col-3 col-sm-3">
+      <h5>CASO</h5> 
+    </div>
+    <div class="col-1 col-sm-1">
+      <h5>CREADO EN</h5> 
+    </div>
+    <div class="col-1 col-sm-1">
+      <h5>FINALIZADO EN</h5> 
+    </div>
+  </div>
+  <% casos.each do |caso| %>
+    <div class="row mb-3">
+      <div class="col-1 col-sm-1" style="text-align: right">
+        <%= caso.id%>
+      </div>
+      <div class="col-2 col-sm-2">
+        <%= caso.cliente.razon_social%>
+      </div>
+      <div class="col-3 col-sm-3">
+        <%= caso.texto_caso%>
+      </div>
+      <div class="col-1 col-sm-1">
+        <%= caso.created_at.to_s(:day_month_year)%>
+      </div>
+      <div class="col-1 col-sm-1">
+       <% unless caso.fecha_conclusion.nil? %>
+          <%= caso.fecha_conclusion.to_s(:day_month_year)%>
+        <% end %>
+      </div>
+      <!-- <div class="col-1 col-sm-1">
+        <%= link_to 'Mostrar', caso, :class => 'btn btn-primary' %>
+      </div>-->
+      <div class="col-1 col-sm-1">
+        <%= link_to 'Editar', edit_caso_path(caso), :class => 'btn btn-secondary'%>
+      </div>
+      <div class="col-1 col-sm-1">
+        <%= link_to 'Hecho', caso_path(id: caso.id, :caso => {:fecha_conclusion => Date.today}), method: :patch, :class => 'btn btn-success'%>
+      </div>
+      <% if usuario_actual.admin? %>
+      <div class="col-1 col-sm-1">
+        <%= link_to 'Eliminar', caso, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<br>

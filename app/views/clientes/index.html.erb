@@ -1,30 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Clientes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Clientes</h1>
+</div>
 
-  <tbody>
-    <% @clientes.each do |cliente| %>
-      <tr>
-        <td><%= cliente.num_interno%></td>
-        <td><%= cliente.razon_social %></td>
-        <td><%= cliente.rfc %></td>
-      </tr>
-      <tr>
-        <td><%= link_to 'Show', cliente %></td>
-        <td><%= link_to 'Edit', edit_cliente_path(cliente) %></td>
-        <td><%= link_to 'Destroy', cliente, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+<div class="row mb-3">
+  <div class="offset-2 col-2 offset-sm-3 col-sm-9">
+    <%= link_to 'Nuevo Cliente', new_cliente_path, :class => 'btn btn-primary' %>
+  </div>
+</div>
 
-<%= link_to 'New Cliente', new_cliente_path %>
+<div>
+  <div class="row mb-3">
+    <div class="offset-2 col-1 offset-sm-2 col-sm-1" style="text-align: right">
+      <h5># CLIENTE</h5> 
+    </div>
+    <div class="col-2 col-sm-2">
+      <h5>RAZON SOCIAL</h5> 
+    </div>
+    <div class="col-3 col-sm-3">
+      <h5>RFC</h5> 
+    </div>
+    <div class="col-1 col-sm-1">
+  </div>
+  <% @clientes.each do |cliente| %>
+    <div class="row mb-3">
+      <div class="offset-2 col-1 offset-sm-2 col-sm-1" style="text-align: right">
+        <%= cliente.num_interno%>
+      </div>
+      <div class="col-2 col-sm-2">
+        <%= cliente.razon_social%>
+      </div>
+      <div class="col-1 col-sm-1">
+        <%= cliente.rfc%>
+      </div>
+      <div class="col-1 col-sm-1">
+        <%= link_to 'Mostrar Más', cliente, :class => 'btn btn-primary' %>
+      </div>
+      <% if usuario_actual.admin? %>
+      <div class="col-1 col-sm-1">
+        <%= link_to 'Eliminar', cliente, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+      <% end %>
+    </div>
+    <br>
+  <% end %>
+</div>
+

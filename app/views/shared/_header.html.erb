@@ -9,6 +9,22 @@
   </div>
 </div>
 
+<%if logged_in? %>
+  <div class="row">
+    <div class="offset-3 col-3">
+      <%=link_to "Clientes", clientes_path%>
+    </div>
+    <div class="col-3">
+      <%=link_to "Casos", casos_path%>
+    </div>
+    <div class="col-3">
+      <%=link_to "Peticiones", peticiones_path%>
+    </div>
+  </div>
+<% end %>
+
+<br>
+
 <div class="row">
   <div class="offset-3 col-5">
     <% flash.each do |type, msg| %>

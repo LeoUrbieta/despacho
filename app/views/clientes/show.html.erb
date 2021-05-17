@@ -1,4 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_cliente_path(@cliente) %> |
-<%= link_to 'Back', clientes_path %>
+<div class="row">
+  <div class="offset-1 offset-md-1">
+    <h1><%= @cliente.id.to_s + ":  " + @cliente.razon_social %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="offset-1 col-2 offset-sm-1 col-sm-2">
+    <%= link_to 'Editar Cliente', edit_cliente_path(@cliente), :class => 'btn btn-primary' %>
+    <%= link_to 'Todos Los Clientes', clientes_path, :class => 'btn btn-primary' %>
+  </div>
+</div>
+<br>
+
+<%= render 'shared/casos_list', casos: @cliente.casos %>
+

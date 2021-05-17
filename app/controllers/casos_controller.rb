@@ -4,7 +4,7 @@ class CasosController < ApplicationController
 
   # GET /casos or /casos.json
   def index
-    @casos = Caso.all
+    @casos = Caso.where("fecha_conclusion IS NULL")
   end
 
   # GET /casos/1 or /casos/1.json
@@ -14,6 +14,7 @@ class CasosController < ApplicationController
   # GET /casos/new
   def new
     @caso = Caso.new
+    @clientes = Cliente.all
   end
 
   # GET /casos/1/edit
@@ -26,7 +27,7 @@ class CasosController < ApplicationController
 
     respond_to do |format|
       if @caso.save
-        format.html { redirect_to @caso, notice: "Caso was successfully created." }
+        format.html { redirect_to casos_url, notice: "Caso was successfully created." }
         format.json { render :show, status: :created, location: @caso }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +40,7 @@ class CasosController < ApplicationController
   def update
     respond_to do |format|
       if @caso.update(caso_params)
-        format.html { redirect_to @caso, notice: "Caso was successfully updated." }
+        format.html { redirect_to casos_url, notice: "Caso was successfully updated." }
         format.json { render :show, status: :ok, location: @caso }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +66,6 @@ class CasosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def caso_params
-      params.fetch(:caso, {})
+      params.require(:caso).permit(:cliente_id,:texto_caso,:fecha_conclusion)
     end
 end
