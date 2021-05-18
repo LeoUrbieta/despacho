@@ -1,8 +1,7 @@
 <%= form_with(model: cliente) do |form| %>
   <% if cliente.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(cliente.errors.count, "error") %> prohibited this cliente from being saved:</h2>
-
+      <h2><%= pluralize(cliente.errors.count, "errore") %> no permitieron guardar este caso.</h2>
       <ul>
         <% cliente.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,7 +10,27 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="row mb-3">
+    <%= form.label :num_interno, "# Interno Despacho", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :num_interno, :class => "form-control" %> 
+    </div>
   </div>
+  <div class="row mb-3">
+    <%= form.label :razon_social, "Razon Social", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :razon_social, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :rfc, "RFC", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :rfc, :class => "form-control" %> 
+    </div>
+  </div>
+
+  <div class="offset-md-6 col-md-2">
+    <%= form.submit%>
+  </div>
+
 <% end %>

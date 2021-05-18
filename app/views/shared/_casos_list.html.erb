@@ -35,11 +35,8 @@
           <%= caso.fecha_conclusion.to_s(:day_month_year)%>
         <% end %>
       </div>
-      <!-- <div class="col-1 col-sm-1">
-        <%= link_to 'Mostrar', caso, :class => 'btn btn-primary' %>
-      </div>-->
       <div class="col-1 col-sm-1">
-        <%= link_to 'Editar', edit_caso_path(caso), :class => 'btn btn-secondary'%>
+        <%= link_to 'Editar', edit_caso_path(caso), :class => 'btn btn-primary'%>
       </div>
       <div class="col-1 col-sm-1">
         <%= link_to 'Hecho', caso_path(id: caso.id, :caso => {:fecha_conclusion => Date.today}), method: :patch, :class => 'btn btn-success'%>
