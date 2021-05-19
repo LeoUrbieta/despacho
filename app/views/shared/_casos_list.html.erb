@@ -44,7 +44,7 @@
       </div>
       <div class="col-2 col-sm-2">
         <% if request.original_fullpath.include? "clientes"%>
-          <%= link_to 'Regresar a Lista de Casos', caso_path(id: caso.id, :caso => {:fecha_conclusion => ''}), method: :patch, :class => 'btn btn-secondary'%>
+          <%= link_to 'Enviar a Lista de Casos', caso_path(id: caso.id, :caso => {:fecha_conclusion => ''}), method: :patch, :class => 'btn btn-secondary'%>
         <%else%>
           <%= link_to 'Hecho', caso_path(id: caso.id, :caso => {:fecha_conclusion => Date.today}), method: :patch, :class => 'btn btn-success'%>
         <%end%>
