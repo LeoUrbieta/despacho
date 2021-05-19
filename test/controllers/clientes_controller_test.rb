@@ -21,7 +21,10 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
   test "should create cliente" do
     sign_in_as(@usuario,"password")
     assert_difference('Cliente.count') do
-      post clientes_url, params: { cliente: {:razon_social => "Otra razon"  } }
+      post clientes_url, params: { cliente: {:razon_social => "Otra razon",
+                                             :rfc => "OTR342345IOL",
+                                             :num_interno => "432",
+                                             :clave => "ABD"  } }
     end
 
     assert_redirected_to cliente_url(Cliente.last)
@@ -41,7 +44,10 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update cliente" do
     sign_in_as(@usuario,"password")
-    patch cliente_url(@cliente), params: { cliente: {:razon_social => "Otra razon"  } }
+    patch cliente_url(@cliente), params: { cliente: {:razon_social => "Otra razon" ,
+                                             :rfc => "OTR342345IOL",
+                                             :num_interno => "432",
+                                             :clave => "ABD"  } }
     assert_redirected_to cliente_url(@cliente)
   end
 

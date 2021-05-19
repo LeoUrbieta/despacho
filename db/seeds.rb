@@ -8,13 +8,27 @@
 #
 require 'csv'
 
-CSV.foreach((Rails.root.join('lib','seeds','clientes_total.csv')), headers: true, col_sep: ":") do |row|
-  t = Cliente.new
-  t.razon_social = row['RAZON SOCIAL']
-  t.rfc = row['RFC']
-  t.num_interno = row['NUMERO INTERNO']
-  t.save
-  puts "#{t.razon_social}, se ha guardado"
+###########################################################################################################################
+
+# CSV.foreach((Rails.root.join('lib','seeds','clientes_total.csv')), headers: true, col_sep: ":") do |row|
+#   t = Cliente.new
+#   t.razon_social = row['RAZON SOCIAL']
+#   t.rfc = row['RFC']
+#   t.num_interno = row['NUMERO INTERNO']
+#   t.save
+#   puts "#{t.razon_social}, se ha guardado"
+# end
+
+# puts "Ahora hay #{Cliente.count} clientes en la base de datos"
+
+##########################################################################################################################
+
+CSV.foreach((Rails.root.join('lib','seeds','claves.csv')), headers: true, col_sep: ":") do |row|
+  cliente_encontrado = Cliente.find_by num_interno: row['NUMERO']
+  if cliente_encontrado != nil
+    cliente_encontrado.clave = row['CIEC']
+    cliente_encontrado.save
+  end
 end
 
-puts "Ahora hay #{Cliente.count} clientes en la base de datos"
+

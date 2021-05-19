@@ -17,10 +17,12 @@
     <div class="col-2 col-sm-2">
       <h5>RAZON SOCIAL</h5> 
     </div>
-    <div class="col-3 col-sm-3">
+    <div class="col-1 col-sm-1">
       <h5>RFC</h5> 
     </div>
     <div class="col-1 col-sm-1">
+      <h5>CLAVE</h5> 
+    </div>
   </div>
   <% @clientes.each do |cliente| %>
     <div class="row mb-3">
@@ -32,6 +34,9 @@
       </div>
       <div class="col-1 col-sm-1">
         <%= cliente.rfc%>
+      </div>
+      <div class="col-1 col-sm-1">
+        <%= cliente.clave%>
       </div>
       <div class="col-1 col-sm-1">
         <%= link_to 'Mostrar Más', cliente, :class => 'btn btn-primary' %>
