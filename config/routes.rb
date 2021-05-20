@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
   resources :casos
-  resources :clientes
+  resources :clientes do
+    collection do
+      get 'bajas'
+    end
+  end
   root "peticiones#new"
-
   resources :peticiones
 
   get '/login', to:'sessions#new'

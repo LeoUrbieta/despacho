@@ -37,6 +37,10 @@ class ClientesController < ApplicationController
 
   # PATCH/PUT /clientes/1 or /clientes/1.json
   def update
+    
+    if params[:cliente][:num_interno].empty?
+      params[:cliente][:num_interno] = nil
+    end
     respond_to do |format|
       if @cliente.update(cliente_params)
         format.html { redirect_to @cliente, notice: "Cliente was successfully updated." }
@@ -55,6 +59,10 @@ class ClientesController < ApplicationController
       format.html { redirect_to clientes_url, notice: "Cliente was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def bajas 
+    @clientes = Cliente.where("num_interno IS NULL") 
   end
 
   private

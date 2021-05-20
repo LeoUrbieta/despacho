@@ -1,6 +1,9 @@
 <div class="row">
   <div class="offset-1 offset-md-1">
-    <h1><%= @cliente.id.to_s + ":  " + @cliente.razon_social %></h1>
+    <h1><%= @cliente.num_interno + ": " unless @cliente.num_interno.nil? %>
+        <%= "BAJA: " if @cliente.num_interno.nil? %>
+        <%= @cliente.razon_social%> 
+    </h1>
   </div>
 </div>
 
