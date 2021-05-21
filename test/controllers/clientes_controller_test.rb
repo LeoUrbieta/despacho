@@ -62,9 +62,10 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "should send cliente to lista de baja" do
     sign_in_as(@usuario,"password")
-    patch cliente_url(@cliente), params: { cliente: { num_interno: ""} }
+    patch cliente_url(@cliente), params: { cliente: {num_interno: ""}}
+    @cliente.reload
     assert_redirected_to cliente_path(@cliente)
-    #assert_nil @cliente.num_interno    
+    assert_nil @cliente.num_interno
      
   end
 

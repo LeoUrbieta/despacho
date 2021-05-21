@@ -14,13 +14,13 @@
 <hr>
 <div>
   <div class="row mb-3">
-    <div class="offset-2 col-1 offset-sm-2 col-sm-1" style="text-align: right">
+    <div class="offset-1 col-1 offset-sm-1 col-sm-1" style="text-align: right">
       <h5># CLIENTE</h5> 
     </div>
     <div class="col-2 col-sm-2">
       <h5>RAZON SOCIAL</h5> 
     </div>
-    <div class="col-1 col-sm-1">
+    <div class="col-1 col-sm-2">
       <h5>RFC</h5> 
     </div>
     <div class="col-1 col-sm-1">
@@ -29,13 +29,13 @@
   </div>
   <% @clientes.each do |cliente| %>
     <div class="row mb-3">
-      <div class="offset-2 col-1 offset-sm-2 col-sm-1" style="text-align: right">
+      <div class="offset-1 col-1 offset-sm-1 col-sm-1" style="text-align: right">
         <%= cliente.num_interno%>
       </div>
       <div class="col-2 col-sm-2">
         <%= cliente.razon_social%>
       </div>
-      <div class="col-1 col-sm-1">
+      <div class="col-1 col-sm-2">
         <%= cliente.rfc%>
       </div>
       <div class="col-1 col-sm-1">
