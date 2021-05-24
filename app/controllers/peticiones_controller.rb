@@ -3,7 +3,7 @@ class PeticionesController < ApplicationController
   before_action :require_user, except: [:new, :create]
   before_action :require_admin, only: [:edit, :update, :destroy]
 
-  PETICIONES_POR_PAGINA = 50
+  PETICIONES_POR_PAGINA = 50 
   PAGINA_MINIMA = 0
 
   def index

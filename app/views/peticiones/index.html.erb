@@ -6,6 +6,7 @@
     <%= link_to 'Nueva Peticion', new_peticion_path, :class => 'btn btn-primary' %>
   </div>
 </div>
+<%= render "link_pagination", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
 <hr>
 <div>
   <% @peticiones.each do |peticion| %>
@@ -139,12 +140,5 @@
     <% end %>
     <hr>
   <% end %>
-  <div style="text-align: center">
-    <% if @page >  @pag_minimas%>
-      <  <%= link_to "Peticiones Más Recientes", peticiones_path(page: @page - 1) %> >
-    <% end %>
-    <% if @page <  @pag_maximas%>
-     < <%= link_to "Peticiones Más Antiguas", peticiones_path(page: @page + 1) %> >
-    <% end %>
-  </div>
 </div>
+<%= render "link_pagination", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
