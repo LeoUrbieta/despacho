@@ -4,7 +4,7 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
-    @clientes = Cliente.all.order(num_interno: :asc)
+    @clientes = Cliente.all.where("num_interno IS NOT NULL").order(num_interno: :asc)
   end
 
   # GET /clientes/1 or /clientes/1.json
