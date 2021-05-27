@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'funcional' %>
+
 <div class="row">
   <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Clientes</h1>
 </div>
@@ -20,7 +22,7 @@
     <div class="col-2 col-sm-2">
       <h5>RAZON SOCIAL</h5> 
     </div>
-    <div class="col-1 col-sm-2">
+    <div class="col-1 col-sm-1">
       <h5>RFC</h5> 
     </div>
     <div class="col-1 col-sm-1">
@@ -35,14 +37,14 @@
       <div class="col-2 col-sm-2">
         <%= cliente.razon_social%>
       </div>
-      <div class="col-1 col-sm-2">
+      <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
         <%= cliente.rfc%>
-      </div>
-      <div class="col-1 col-sm-1">
+      </button>
+      <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
         <%= cliente.clave%>
-      </div>
+      </button>
       <div class="col-1 col-sm-1">
-        <%= link_to 'Mostrar Más', cliente, :class => 'btn btn-primary' %>
+        <%= link_to 'Ver más info', cliente, :class => 'btn btn-primary' %>
       </div>
       <div class="col-1 col-sm-1">
         <%= link_to 'Dar de baja', cliente_path(id: cliente.id, :cliente => {:num_interno => nil}), method: :patch, :class => 'btn btn-secondary',
