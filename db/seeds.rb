@@ -23,12 +23,20 @@ require 'csv'
 
 ##########################################################################################################################
 
-CSV.foreach((Rails.root.join('lib','seeds','claves.csv')), headers: true, col_sep: ":") do |row|
+#CSV.foreach((Rails.root.join('lib','seeds','claves.csv')), headers: true, col_sep: ":") do |row|
+#  cliente_encontrado = Cliente.find_by num_interno: row['NUMERO']
+#  if cliente_encontrado != nil
+#    cliente_encontrado.clave = row['CIEC']
+#    cliente_encontrado.save
+#  end
+#end
+
+###################################################################################################
+
+CSV.foreach((Rails.root.join('lib','seeds','fiel.csv')), headers: true, col_sep: ":") do |row|
   cliente_encontrado = Cliente.find_by num_interno: row['NUMERO']
   if cliente_encontrado != nil
-    cliente_encontrado.clave = row['CIEC']
+    cliente_encontrado.fiel = row['CLAVE_FIEL']
     cliente_encontrado.save
   end
 end
-
-

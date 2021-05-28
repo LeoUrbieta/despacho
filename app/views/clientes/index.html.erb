@@ -6,7 +6,7 @@
 
 
 <div class="row mb-3">
-  <div class="offset-2 col-2 offset-sm-3 col-sm-2">
+  <div class="offset-3 col-1 offset-sm-3 col-sm-1">
     <%= link_to 'Nuevo Cliente', new_cliente_path, :class => 'btn btn-primary' %>
   </div>
   <div class="col-2 col-sm-2">
@@ -28,6 +28,9 @@
     <div class="col-1 col-sm-1">
       <h5>CLAVE</h5> 
     </div>
+    <div class="col-1 col-sm-1">
+      <h5>FIEL</h5> 
+    </div>
   </div>
   <% @clientes.each do |cliente| %>
     <div class="row mb-3">
@@ -43,16 +46,19 @@
       <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
         <%= cliente.clave%>
       </button>
-      <div class="col-1 col-sm-1">
-        <%= link_to 'Ver más info', cliente, :class => 'btn btn-primary' %>
+      <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
+        <%= cliente.fiel%>
+      </button>
+      <div class="col-1 col-sm-1" style="text-align: center">
+        <%= link_to '+ Info y Editar', cliente, :class => 'btn btn-primary' %>
       </div>
-      <div class="col-1 col-sm-1">
+      <div class="col-1 col-sm-1" style="text-align: center">
         <%= link_to 'Dar de baja', cliente_path(id: cliente.id, :cliente => {:num_interno => nil}), method: :patch, :class => 'btn btn-secondary',
         data: { confirm: "Se dará de baja al cliente #{cliente.razon_social}."}%>
       </div>
       <% if usuario_actual.admin? %>
-      <div class="col-1 col-sm-1">
-        <%= link_to 'Eliminar', cliente, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+      <div class="col-1 col-sm-1" style="text-align: center">
+        <%= link_to 'Eliminar', cliente, method: :delete, :class => "btn btn-danger", data: { confirm: '¿Estás seguro?' } %>
       </div>
       <% end %>
     </div>
