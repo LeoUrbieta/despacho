@@ -5,6 +5,11 @@ class ClientesController < ApplicationController
   # GET /clientes or /clientes.json
   def index
     @clientes = Cliente.all.where("num_interno IS NOT NULL").order(num_interno: :asc)
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @clientes.to_csv, filename: "clientes-#{Date.today}.csv"}
+    end
   end
 
   # GET /clientes/1 or /clientes/1.json
