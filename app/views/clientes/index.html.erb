@@ -9,32 +9,15 @@
   <div class="offset-3 col-1 offset-sm-3 col-sm-1">
     <%= link_to 'Nuevo Cliente', new_cliente_path, :class => 'btn btn-primary' %>
   </div>
-  <div class="col-2 col-sm-2">
+  <div class="col-1 col-sm-1">
     <%= link_to 'Descargar Lista de Clientes', url_options = {format: 'csv'}, html_options = {class: 'btn btn-secondary'} %>
   </div>
-  <div class="col-2 col-sm-2">
+  <div class="col-1 col-sm-1">
     <%= link_to 'Clientes Dados de Baja', bajas_clientes_path, :class => 'btn btn-secondary'%>
   </div>
 </div>
 <hr>
 <div>
-  <div class="row mb-3">
-    <div class="offset-1 col-1 offset-sm-1 col-sm-1" style="text-align: right">
-      <h5># CLIENTE</h5> 
-    </div>
-    <div class="col-2 col-sm-2">
-      <h5>RAZON SOCIAL</h5> 
-    </div>
-    <div class="col-1 col-sm-1">
-      <h5>RFC</h5> 
-    </div>
-    <div class="col-1 col-sm-1">
-      <h5>CLAVE</h5> 
-    </div>
-    <div class="col-1 col-sm-1">
-      <h5>FIEL</h5> 
-    </div>
-  </div>
   <% @clientes.each do |cliente| %>
     <div class="row mb-3">
       <div class="offset-1 col-1 offset-sm-1 col-sm-1" style="text-align: right">
@@ -43,24 +26,26 @@
       <div class="col-2 col-sm-2">
         <%= cliente.razon_social%>
       </div>
-      <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
-        <%= cliente.rfc%>
-      </button>
-      <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
-        <%= cliente.clave%>
-      </button>
-      <button onclick="copyToClipboard(event)" class="col-1 col-sm-1">
-        <%= cliente.fiel%>
-      </button>
-      <div class="col-1 col-sm-1" style="text-align: center">
+      <div class="col-2 col-sm-2"> 
+        <div class="row mb-3">
+          <button onclick = "copyToClipboard(event)" class="btn btn-warning">RFC: <%= cliente.rfc%></button>
+        </div>
+        <div class="row mb-3">
+          <button onclick = "copyToClipboard(event)" class="btn btn-warning">CIEC: <%= cliente.clave%></button>
+        </div>
+        <div class="row mb-3">
+          <button onclick = "copyToClipboard(event)" class="btn btn-warning">FIEL: <%= cliente.fiel%></button>
+        </div>
+      </div>
+      <div class="col-1 col-sm-1">
         <%= link_to '+ Info y Editar', cliente, :class => 'btn btn-primary' %>
       </div>
-      <div class="col-1 col-sm-1" style="text-align: center">
+      <div class="col-1 col-sm-1">
         <%= link_to 'Dar de baja', cliente_path(id: cliente.id, :cliente => {:num_interno => nil}), method: :patch, :class => 'btn btn-secondary',
         data: { confirm: "Se dará de baja al cliente #{cliente.razon_social}."}%>
       </div>
       <% if usuario_actual.admin? %>
-      <div class="col-1 col-sm-1" style="text-align: center">
+      <div class="col-1 col-sm-1">
         <%= link_to 'Eliminar', cliente, method: :delete, :class => "btn btn-danger", data: { confirm: '¿Estás seguro?' } %>
       </div>
       <% end %>

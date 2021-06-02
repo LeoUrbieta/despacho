@@ -1,10 +1,12 @@
 window.copyToClipboard = function(event) {
 
-  var str = event.target.innerHTML;
-  str = str.replace(/\s+/g,""); 
+  var str = event.target.textContent;
+  str = str.replace(/\s+/g,"");
+  var dos_puntos = str.indexOf(':');
+  var contenido = str.substring(dos_puntos+1); 
   function listener(e) {
-    e.clipboardData.setData("text/html", str);
-    e.clipboardData.setData("text/plain", str);
+    e.clipboardData.setData("text/html", contenido);
+    e.clipboardData.setData("text/plain", contenido);
     e.preventDefault();
   }
   document.addEventListener("copy", listener);
