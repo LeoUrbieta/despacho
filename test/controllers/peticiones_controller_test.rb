@@ -14,4 +14,5 @@ class PeticionesControllerTest < ActionDispatch::IntegrationTest
     get peticiones_path
     assert_response :success
   end
+
 end
