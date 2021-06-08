@@ -5,11 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  razon_social: MyString
-  rfc: MyString
-  num_interno: MyString
+  razon_social: MyString1
+  rfc: MyString1
+  num_interno: MyString1
 two:
-  razon_social: MyString
-  rfc: MyString
-  num_interno: MyString
+  razon_social: MyString2
+  rfc: MyString2
+  num_interno: MyString2
 

@@ -3,7 +3,8 @@ require "test_helper"
 class ClientesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @usuario = User.create!(nombre_usuario: "Leo", password: "password")
-    @cliente = clientes(:one)
+    @cliente_uno = clientes(:one)
+    @cliente_dos = clientes(:two)
   end
 
   test "should get index" do
@@ -32,29 +33,30 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "should show cliente" do
     sign_in_as(@usuario,"password")
-    get cliente_url(@cliente)
+    get cliente_url(@cliente_uno)
     assert_response :success
   end
 
   test "should get edit" do
     sign_in_as(@usuario,"password")
-    get edit_cliente_url(@cliente)
+    get edit_cliente_url(@cliente_uno)
     assert_response :success
   end
 
   test "should update cliente" do
     sign_in_as(@usuario,"password")
-    patch cliente_url(@cliente), params: { cliente: {:razon_social => "Otra razon" ,
+    patch cliente_url(@cliente_uno), params: { cliente: {:razon_social => "Otra razon" ,
                                              :rfc => "OTR342345IOL",
                                              :num_interno => "432",
-                                             :clave => "ABD"  } }
-    assert_redirected_to cliente_url(@cliente)
+                                             :clave => "ABD",
+                                             :fiel => "Clave"  } }
+    assert_redirected_to cliente_url(@cliente_uno)
   end
 
   test "should destroy cliente" do
     sign_in_as(@usuario,"password")
     assert_difference('Cliente.count', -1) do
-      delete cliente_url(@cliente)
+      delete cliente_url(@cliente_uno)
     end
 
     assert_redirected_to clientes_url
@@ -62,12 +64,20 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "should send cliente to lista de baja" do
     sign_in_as(@usuario,"password")
-    patch cliente_url(@cliente), params: { cliente: {num_interno: ""}}
-    @cliente.reload
-    assert_redirected_to cliente_path(@cliente)
-    assert_nil @cliente.num_interno
-     
+    patch cliente_url(@cliente_uno), params: { cliente: {:num_interno => ""}}
+    @cliente_uno.reload
+    assert_redirected_to cliente_path(@cliente_uno)
+    assert_nil @cliente_uno.num_interno
   end
 
-
+  test "El rfc y num_interno deben ser únicos" do
+    sign_in_as(@usuario,"password")
+    rfc_cliente_uno = @cliente_uno.rfc
+    num_interno_cliente_uno = @cliente_uno.num_interno
+    assert_no_difference 'Cliente.count' do
+      patch cliente_url(@cliente_dos), params: { cliente: {:rfc => rfc_cliente_uno}}
+      patch cliente_url(@cliente_dos), params: { cliente: {:num_interno => num_interno_cliente_uno}}
+    end
+  end
+  
 end
