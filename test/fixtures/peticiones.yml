@@ -6,6 +6,9 @@ one:
   apellido_paterno: MyString
   fecha_nacimiento: "2001-01-01"
   fecha_para_realizar_tramite: "2001-01-01"
+  empresa_solicitante: "BARAJAS SA DE CV"
+  persona_solicitante: "Benjamin Metta"
+  folio: 1
 
 two:
   nombre_trabajador: MyString
@@ -13,3 +16,6 @@ two:
   apellido_paterno: MyString
   fecha_nacimiento: "2001-01-01"
   fecha_para_realizar_tramite: "2001-01-01"
+  empresa_solicitante: "CONBERAJA SA DE CV"
+  persona_solicitante: "Amelia Jacome"
+  folio: 2

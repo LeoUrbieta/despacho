@@ -1,15 +1,7 @@
 <%= form_with(model: cliente) do |form| %>
-  <% if cliente.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(cliente.errors.count, "errore") %> no permitieron guardar este caso.</h2>
-      <ul>
-        <% cliente.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  
+  <%= render "/shared/errores", modelo: @cliente %> 
+ 
   <div class="row mb-3">
     <%= form.label :num_interno, "# Interno Despacho*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
     <div class="col-md-4">

@@ -1,18 +1,6 @@
 <%= form_with(model: caso) do |form|%>
 
-
-  <% if caso.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(caso.errors.count, "errore") %> no permitieron guardar
-      este caso.</h2>
-      <ul>
-        <% caso.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render "/shared/errores", modelo: @caso %> 
 
   <div class="row mb-3">
     <div class="offset-md-3 col-md-4">

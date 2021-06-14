@@ -1,16 +1,4 @@
-<% if peticion.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(peticion.errors.count, "errore") %> no permitieron enviar
-      esta petición.
-    </h2>
-    <ul>
-      <% @peticion.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render '/shared/errores', modelo: @peticion %>
 
 <%= form_with model: peticion do |form| %>
   <div class="row mb-3">

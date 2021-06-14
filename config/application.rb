@@ -18,5 +18,6 @@ module Despacho
     #
     config.time_zone = "America/Mexico_City"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.i18n.default_locale = :"es-MX"
   end
 end
