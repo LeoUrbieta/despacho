@@ -23,8 +23,8 @@
       <div class="offset-1 col-1 offset-sm-1 col-sm-1" style="text-align: right">
         <%= cliente.num_interno%>
       </div>
-      <div class="col-2 col-sm-2">
-        <%= cliente.razon_social%>
+      <div class="col-2 col-sm-2" style="text-align: center;">
+        <%= link_to cliente.razon_social, cliente, :class => 'btn btn-primary' %>
       </div>
       <div class="col-2 col-sm-2"> 
         <div class="row mb-3">
@@ -37,18 +37,6 @@
           <button onclick = "copyToClipboard(event)" class="btn btn-warning">FIEL: <%= cliente.fiel%></button>
         </div>
       </div>
-      <div class="col-1 col-sm-1">
-        <%= link_to '+ Info y Editar', cliente, :class => 'btn btn-primary' %>
-      </div>
-      <div class="col-1 col-sm-1">
-        <%= link_to 'Dar de baja', cliente_path(id: cliente.id, :cliente => {:num_interno => nil}), method: :patch, :class => 'btn btn-secondary',
-        data: { confirm: "Se dará de baja al cliente #{cliente.razon_social}."}%>
-      </div>
-      <% if usuario_actual.admin? %>
-      <div class="col-1 col-sm-1">
-        <%= link_to 'Eliminar', cliente, method: :delete, :class => "btn btn-danger", data: { confirm: '¿Estás seguro?' } %>
-      </div>
-      <% end %>
     </div>
     <br>
   <% end %>

@@ -11,6 +11,17 @@
   <div class="offset-1 col-2 offset-sm-1 col-sm-2">
     <%= link_to 'Editar Cliente', edit_cliente_path(@cliente), :class => 'btn btn-primary' %>
   </div>
+  <div class="col-2 col-sm-2">
+    <% if not @cliente.num_interno.nil? %>
+      <%= link_to 'Dar de baja', cliente_path(id: @cliente.id, :cliente => {:num_interno => nil}), method: :patch, :class => 'btn btn-warning',
+        data: { confirm: "Se dará de baja al cliente #{@cliente.razon_social}."}%>
+    <% end %>
+  </div>
+  <% if usuario_actual.admin? %>
+    <div class="offset-1 col-2 offset-sm-1 col-sm-2">
+      <%= link_to 'Eliminar', @cliente, method: :delete, :class => "btn btn-danger", data: { confirm: '¿Estás seguro?' } %>
+    </div>
+  <% end %>
 </div>
 <br>
 
