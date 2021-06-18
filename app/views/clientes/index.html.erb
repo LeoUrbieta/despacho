@@ -16,53 +16,39 @@
     <%= link_to 'Clientes Dados de Baja', bajas_clientes_path, :class => 'btn btn-secondary'%>
   </div>
 </div>
-<table class="table table-hover table-bordered table-striped">
-  <thead style="position:sticky; top: 0; position: -webkit-sticky;" class="table-dark">
+<table class="table table-hover align-middle">
+  <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
     <tr>
-      <td>Número Interno</td>
-      <td>Razón Social</td>
-      <td>RFC</td>
-      <td>CIEC</td>
-      <td>FIEL</td>
-      <td>CSD</td>
+      <th></th>
+      <th class="col-md-1">Número Interno</th>
+      <th class="col-md-3">Razón Social</th>
+      <th style="text-align:center" class="col-md-1">RFC</th>
+      <th style="text-align:center" class="col-md-1">CIEC</th>
+      <th style="text-align:center" class="col-md-1">FIEL</th>
+      <th style="text-align:center">CSD</th>
     </tr>
   </thead>
   <tbody>
     <% @clientes.each do |cliente| %>
       <tr> 
+        <td></td>
         <td><%= cliente.num_interno %></td>
         <td><%= link_to cliente.razon_social, cliente %></td>
-        <td onclick="copyToClipboard(event)" ><%= cliente.rfc%></td>
-        <td onclick="copyToClipboard(event)" ><%= cliente.clave%></td>
-        <td onclick="copyToClipboard(event)" ><%= cliente.fiel%></td>
-        <td>CSD</td>
+        <td style="text-align:center">
+          <button onclick="copyToClipboard(event)" class="btn btn-success"><%= cliente.rfc%></button>
+        </td>
+        <td style="text-align:center">
+          <% if not cliente.clave == nil || cliente.clave == "" %>
+            <button onclick="copyToClipboard(event)" class="btn btn-success"><%= cliente.clave%></button>
+          <% end%>
+        </td>
+        <td style="text-align:center">
+          <% if not cliente.fiel == nil || cliente.fiel == "" %>
+            <button onclick="copyToClipboard(event)" class="btn btn-success"><%= cliente.fiel%></button>
+          <% end %>
+        </td>
+        <td></td>
       </tr>
   <% end %>
   </tbody>
 </table>
-<div>
-<!--
-  <% @clientes.each do |cliente| %>
-    <div class="row mb-3">
-      <div class="offset-1 col-1 offset-sm-1 col-sm-1" style="text-align: right">
-        <%= cliente.num_interno%>
-      </div>
-      <div class="col-2 col-sm-2" style="text-align: center;">
-        <%= link_to cliente.razon_social, cliente  %>
-      </div>
-      <div class="col-2 col-sm-2"> 
-        <div class="row mb-3">
-          <button onclick = "copyToClipboard(event)" class="btn btn-warning">RFC: <%= cliente.rfc%></button>
-        </div>
-        <div class="row mb-3">
-          <button onclick = "copyToClipboard(event)" class="btn btn-warning">CIEC: <%= cliente.clave%></button>
-        </div>
-        <div class="row mb-3">
-          <button onclick = "copyToClipboard(event)" class="btn btn-warning">FIEL: <%= cliente.fiel%></button>
-        </div>
-      </div>
-    </div>
-    <br>
-  <% end %>
-</div>
--->
