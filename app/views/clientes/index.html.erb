@@ -1,31 +1,31 @@
 <%= javascript_pack_tag 'funcional' %>
 
 <div class="row">
-  <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Clientes</h1>
+  <h1 class="offset-3 col-3">Clientes</h1>
 </div>
 
 
 <div class="row mb-3">
-  <div class="offset-3 col-1 offset-sm-3 col-sm-1">
+  <div class="offset-3 col-1">
     <%= link_to 'Nuevo Cliente', new_cliente_path, :class => 'btn btn-primary' %>
   </div>
-  <div class="col-1 col-sm-1">
-    <%= link_to 'Descargar Lista de Clientes', url_options = {format: 'csv'}, html_options = {class: 'btn btn-secondary'} %>
+  <div class="col-2">
+    <%= link_to 'Descargar Lista de Clientes Activos', url_options = {format: 'csv'}, html_options = {class: 'btn btn-secondary'} %>
   </div>
-  <div class="col-1 col-sm-1">
+  <div class="col-2">
     <%= link_to 'Clientes Dados de Baja', bajas_clientes_path, :class => 'btn btn-secondary'%>
   </div>
 </div>
 <table class="table table-hover align-middle">
   <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
     <tr>
-      <th></th>
-      <th class="col-md-1">Número Interno</th>
-      <th class="col-md-3">Razón Social</th>
-      <th style="text-align:center" class="col-md-1">RFC</th>
-      <th style="text-align:center" class="col-md-1">CIEC</th>
-      <th style="text-align:center" class="col-md-1">FIEL</th>
-      <th style="text-align:center">CSD</th>
+      <th class="col-1"></th>
+      <th class="col-1">Número Interno</th>
+      <th class="col-3">Razón Social</th>
+      <th style="text-align:center" class="col-1">RFC</th>
+      <th style="text-align:center" class="col-1">CIEC</th>
+      <th style="text-align:center" class="col-1">FIEL</th>
+      <th style="text-align:center" class="col-1">CSD</th>
     </tr>
   </thead>
   <tbody>
@@ -35,16 +35,16 @@
         <td><%= cliente.num_interno %></td>
         <td><%= link_to cliente.razon_social, cliente %></td>
         <td style="text-align:center">
-          <button onclick="copyToClipboard(event)" class="btn btn-success"><%= cliente.rfc%></button>
+          <button onclick="copyToClipboard(event)" class="btn btn-success col-10"><%= cliente.rfc%></button>
         </td>
         <td style="text-align:center">
           <% if not cliente.clave == nil || cliente.clave == "" %>
-            <button onclick="copyToClipboard(event)" class="btn btn-success"><%= cliente.clave%></button>
+            <button onclick="copyToClipboard(event)" class="btn btn-success col-10"><%= cliente.clave%></button>
           <% end%>
         </td>
         <td style="text-align:center">
           <% if not cliente.fiel == nil || cliente.fiel == "" %>
-            <button onclick="copyToClipboard(event)" class="btn btn-success"><%= cliente.fiel%></button>
+            <button onclick="copyToClipboard(event)" class="btn btn-success col-10"><%= cliente.fiel%></button>
           <% end %>
         </td>
         <td></td>
