@@ -7,7 +7,7 @@ class Cliente < ApplicationRecord
   has_many :casos
 
   def self.to_csv
-    attributes = %w{num_interno razon_social clave fiel}
+    attributes = %w{num_interno razon_social clave fiel csd}
 
     CSV.generate(headers: true, col_sep: ",") do |csv|
       csv << attributes

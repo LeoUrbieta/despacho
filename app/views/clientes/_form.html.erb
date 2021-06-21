@@ -32,7 +32,41 @@
       <%= form.text_field :fiel, :class => "form-control" %> 
     </div>
   </div>
-
+  <div class="row mb-3">
+    <%= form.label :fiel_vencimiento, "Vencimiento FIEL:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.date_select(:fiel_vencimiento,
+                  {start_year: Date.today.year,
+                  end_year: Date.today.year+5,
+                  order: [:day, :month, :year],
+                  :use_month_names => ['Enero', 'Febrero',
+                  'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre',
+                  'Diciembre']},
+                  {:class => "form-select date-select"}) %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :csd, "CSD:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :csd, :class => "form-control" %> 
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :csd_vencimiento, "Vencimiento CSD:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.date_select(:csd_vencimiento,
+                  {start_year: Date.today.year,
+                  end_year: Date.today.year+5,
+                  order: [:day, :month, :year],
+                  :use_month_names => ['Enero', 'Febrero',
+                  'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre',
+                  'Diciembre']},
+                  {:class => "form-select date-select"}) %>
+    </div>
+  </div>
+  
   <div class="offset-md-6 col-md-2">
     <%= form.submit%>
   </div>

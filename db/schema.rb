@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_154520) do
+ActiveRecord::Schema.define(version: 2021_06_21_151218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 2021_05_28_154520) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "clave"
     t.string "fiel"
+    t.string "csd"
+    t.date "fiel_vencimiento", default: "2022-06-21"
+    t.date "csd_vencimiento", default: "2022-06-21"
   end
 
   create_table "peticiones", force: :cascade do |t|

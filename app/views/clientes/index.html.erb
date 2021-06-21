@@ -44,10 +44,14 @@
         </td>
         <td style="text-align:center">
           <% if not cliente.fiel == nil || cliente.fiel == "" %>
-            <button onclick="copyToClipboard(event)" class="btn btn-success col-10"><%= cliente.fiel%></button>
+            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.fiel_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> col-10"><%= cliente.fiel%></button>
           <% end %>
         </td>
-        <td></td>
+        <td style="text-align:center">
+          <% if not cliente.csd == nil || cliente.csd == "" %>
+            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.csd_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.csd_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> btn-success col-10"><%= cliente.csd %></button>
+          <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>
