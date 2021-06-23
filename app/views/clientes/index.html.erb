@@ -44,7 +44,7 @@
         </td>
         <td style="text-align:center">
           <% if not cliente.fiel == nil || cliente.fiel == "" %>
-            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.fiel_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> col-10"><%= cliente.fiel%></button>
+            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.fiel_vencimiento - Time.zone.today) < 0 %>btn-dark<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 180%>btn-warning<%else%>btn-success<%end%> col-10"><%= cliente.fiel%></button>
           <% end %>
         </td>
         <td style="text-align:center">
