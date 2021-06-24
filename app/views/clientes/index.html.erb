@@ -49,7 +49,7 @@
         </td>
         <td style="text-align:center">
           <% if not cliente.csd == nil || cliente.csd == "" %>
-            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.csd_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.csd_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> btn-success col-10"><%= cliente.csd %></button>
+            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.csd_vencimiento - Time.zone.today) < 0 %>btn-dark<%elsif (cliente.csd_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.csd_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> btn-success col-10"><%= cliente.csd %></button>
           <% end %>
         </td>
       </tr>
