@@ -18,7 +18,6 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
 
   inflect.irregular 'peticion', 'peticiones'
-  inflect.irregular 'representante_legal', 'representantes_legales'
 
 end
 
