@@ -75,7 +75,7 @@
     <div class="col-md-4">
       <%= collection_select :clienteasociado, :cliente_id, Cliente.where("num_interno < CAST(600 AS varchar)"), #Cliente.left_outer_joins(:replegales)
         #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)"),
-        :id, :razon_social,{}, {include_blank: true, :class => "form-select"}%>
+        :id, :razon_social,{include_blank: true}, {:class => "form-select"}%>
     </div>
   </div>
   <div class="offset-md-6 col-md-2">
