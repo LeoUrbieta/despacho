@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :replegales
   resources :casos
   resources :clientes do
     collection do

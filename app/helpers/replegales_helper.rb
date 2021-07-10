@@ -1,0 +1,2 @@
+module ReplegalesHelper
+end

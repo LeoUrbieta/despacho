@@ -27,7 +27,7 @@
 
 <div class="row">
   <div class="offset-1 col-11 offset-sm-1 col-sm-11">
-    <h3>Representante Legal: <%= @cliente.replegales[0].nombre_completo + " --- RFC: " + 
+    <h3>Representante Legal: <%= @cliente.replegales[0].nombre_completo + "-- RFC: " + 
       @cliente.replegales[0].rfc if not @cliente.replegales.empty? %></h3>
   </div>
 </div>

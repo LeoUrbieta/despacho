@@ -1,0 +1,20 @@
+class CreateRepresentantesLegales < ActiveRecord::Migration[6.1]
+  def change
+    create_table :representantes_legales do |t|
+        t.string :nombre_completo
+        t.string :rfc
+        t.string :clave
+        t.string :fiel
+        t.string :csd
+        t.date   :vencimiento_fiel
+        t.date   :vencimiento_clave
+        t.date   :vencimiento_csd
+      t.timestamps
+    end
+
+    create_join_table :representantes_legales, :clientes do |t|
+      t.index :representante_legal_id
+      t.index :cliente_id
+    end
+  end
+end

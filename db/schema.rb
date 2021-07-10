@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_151218) do
+ActiveRecord::Schema.define(version: 2021_07_06_180613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 2021_06_21_151218) do
     t.date "csd_vencimiento", default: "2022-06-21"
   end
 
+  create_table "clientes_replegales", id: false, force: :cascade do |t|
+    t.bigint "replegal_id", null: false
+    t.bigint "cliente_id", null: false
+    t.index ["cliente_id"], name: "index_clientes_replegales_on_cliente_id", unique: true
+    t.index ["replegal_id"], name: "index_clientes_replegales_on_replegal_id"
+  end
+
   create_table "peticiones", force: :cascade do |t|
     t.string "nombre_trabajador"
     t.string "apellido_materno"
@@ -57,6 +64,19 @@ ActiveRecord::Schema.define(version: 2021_06_21_151218) do
     t.date "fecha_para_realizar_tramite"
     t.text "observaciones"
     t.integer "folio"
+  end
+
+  create_table "replegales", force: :cascade do |t|
+    t.string "nombre_completo"
+    t.string "rfc"
+    t.string "clave"
+    t.string "fiel"
+    t.string "csd"
+    t.date "vencimiento_fiel"
+    t.date "vencimiento_clave"
+    t.date "vencimiento_csd"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

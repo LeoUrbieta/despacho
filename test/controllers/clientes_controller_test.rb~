@@ -75,11 +75,9 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     rfc_cliente_uno = @cliente_uno.rfc
     razon_cliente_uno = @cliente_uno.razon_social
     num_interno_cliente_uno = @cliente_uno.num_interno
-    rfc_cliente_dos = @cliente_dos.rfc
-    razon_cliente_dos = @cliente_dos.razon_social
     assert_no_difference 'Cliente.count' do
       patch cliente_url(@cliente_dos), params: { cliente: {:rfc => rfc_cliente_uno, :razon_social => razon_cliente_uno}}
-      patch cliente_url(@cliente_dos), params: { cliente: {:num_interno => num_interno_cliente_uno, :razon_social => razon_cliente_dos, :rfc => rfc_cliente_dos}}
+      patch cliente_url(@cliente_dos), params: { cliente: {:num_interno => num_interno_cliente_uno}}
     end
   end
   

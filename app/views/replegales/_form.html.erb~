@@ -1,0 +1,84 @@
+<%= form_with(model: replegal) do |form| %>
+
+  <%= render "/shared/errores", modelo: @replegal %> 
+
+  <div class="row mb-3">
+    <%= form.label :nombre_completo, "# Nombre Completo*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :nombre_completo, :class => "form-control" %> 
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :rfc, "RFC*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :rfc, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :clave, "Clave:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :clave, :class => "form-control" %> 
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :fiel, "FIEL:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :fiel, :class => "form-control" %> 
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :vencimiento_fiel, "Vencimiento FIEL:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.date_select(:vencimiento_fiel,
+                  {start_year: Date.today.year,
+                  end_year: Date.today.year+5,
+                  order: [:day, :month, :year],
+                  :use_month_names => ['Enero', 'Febrero',
+                  'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre',
+                  'Diciembre']},
+                  {:class => "form-select date-select"}) %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :csd, "CSD:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.text_field :csd, :class => "form-control" %> 
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :vencimiento_csd, "Vencimiento CSD:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.date_select(:vencimiento_csd,
+                  {start_year: Date.today.year,
+                  end_year: Date.today.year+5,
+                  order: [:day, :month, :year],
+                  :use_month_names => ['Enero', 'Febrero',
+                  'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre',
+                  'Diciembre']},
+                  {:class => "form-select date-select"}) %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= label :cliente_id, "Representante Legal de:",
+      {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= collection_select :clientes, :cliente_id, Cliente.where("num_interno >= CAST(600 AS varchar)"), #Cliente.left_outer_joins(:replegales)
+        #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)"),
+        :id, :razon_social,{}, {:multiple => true, :size => 10, :class => "form-select"}%>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= label :cliente_id, "Asociado al Cliente:",
+      {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= collection_select :clienteasociado, :cliente_id, Cliente.where("num_interno < CAST(600 AS varchar)"), #Cliente.left_outer_joins(:replegales)
+        #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)"),
+        :id, :razon_social,{}, {include_blank: true, :class => "form-select"}%>
+    </div>
+  </div>
+  <div class="offset-md-6 col-md-2">
+    <%= form.submit %>
+  </div>
+<%end%>
