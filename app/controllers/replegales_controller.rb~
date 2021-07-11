@@ -114,11 +114,5 @@ class ReplegalesController < ApplicationController
       params["replegal"]["csd"] = cliente_por_asociar.csd 
       params["replegal"]["vencimiento_fiel"]= cliente_por_asociar.fiel_vencimiento
       params["replegal"]["vencimiento_csd"]= cliente_por_asociar.csd_vencimiento
-      #params["replegal"]["vencimiento_fiel(1i)"] = cliente_por_asociar.fiel_vencimiento.year
-      #params["replegal"]["vencimiento_fiel(2i)"] = cliente_por_asociar.fiel_vencimiento.month
-      #params["replegal"]["vencimiento_fiel(3i)"] = cliente_por_asociar.fiel_vencimiento.day
-      #params["replegal"]["vencimiento_csd(1i)"] = cliente_por_asociar.csd_vencimiento.year
-      #params["replegal"]["vencimiento_csd(2i)"] = cliente_por_asociar.csd_vencimiento.month
-      #params["replegal"]["vencimiento_csd(3i)"] = cliente_por_asociar.csd_vencimiento.day
    end
   end
