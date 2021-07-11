@@ -41,7 +41,6 @@ class ReplegalesController < ApplicationController
   # PATCH/PUT /replegales/1 or /replegales/1.json
   def update
     respond_to do |format|
-      debugger
       agregados_correctamente = agregar_clientes
       if not agregados_correctamente
         format.html { render :edit, status: :unprocessable_entity }

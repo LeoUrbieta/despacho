@@ -5,7 +5,7 @@
 </div>
 
 <div class="row mb-3">
-  <div class="offset-3 col-1">
+  <div class="offset-3 col-2">
     <%= link_to 'Nuevo Representante Legal', new_replegal_path, :class => 'btn btn-primary' %>
   </div>
 </div>
