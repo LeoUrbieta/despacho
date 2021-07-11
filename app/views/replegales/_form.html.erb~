@@ -73,8 +73,8 @@
     <%= label :cliente_id, "Asociado al Cliente:",
       {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
     <div class="col-md-4">
-      <%= collection_select :clienteasociado, :cliente_id, Cliente.where("num_interno < CAST(600 AS varchar)"), #Cliente.left_outer_joins(:replegales)
-        #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)"),
+      <%= collection_select :clienteasociado, :cliente_id, Cliente.left_outer_joins(:replegales)
+        .where("replegales.id is null AND num_interno >= CAST(600 AS varchar)"),
         :id, :razon_social,{include_blank: true}, {:class => "form-select"}%>
     </div>
   </div>
