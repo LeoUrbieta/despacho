@@ -6,7 +6,6 @@
   </div>
 </div>
 
-<%= render "/shared/errores", modelo: @replegal %> 
 
 <div class="row">
   <div class="offset-1 col-2 offset-sm-1 col-sm-2">
@@ -22,8 +21,12 @@
 <div class="row">
   <div class="offset-1 col-5 offset-sm-1 col-sm-5">
     <h4>Representante legal de las siguientes empresas:</h4>
-    <% @replegal.clientes.each do |cliente|%>
-      <div><%= cliente.razon_social %></div>
+    <% @replegal.clientes.order(num_interno: :desc).each do |cliente|%>
+      <div><% if cliente.num_interno.to_i < 600 %>
+             <br> Asociado al Cliente: 
+           <% end %>
+        <%= cliente.num_interno%>
+        <%= cliente.razon_social%></div>
     <% end %>
   </div>
 </div>

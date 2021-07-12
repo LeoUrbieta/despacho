@@ -40,6 +40,7 @@ class ReplegalesController < ApplicationController
 
   # PATCH/PUT /replegales/1 or /replegales/1.json
   def update
+    debugger
     respond_to do |format|
       agregados_correctamente = agregar_clientes
       if not agregados_correctamente
@@ -79,7 +80,8 @@ class ReplegalesController < ApplicationController
         mb_chars.upcase.to_s
       params[:replegal][:rfc] = params[:replegal][:rfc].mb_chars.upcase.to_s
       params.require(:replegal).permit(:nombre_completo,:rfc,:clave,:fiel,
-                                       :csd,:vencimiento_fiel,:vencimiento_csd)
+                                       :csd,:vencimiento_fiel,:vencimiento_csd,
+                                       :cliente_ids => [])
     end
 
     def agregar_clientes
@@ -87,9 +89,9 @@ class ReplegalesController < ApplicationController
       #La condicion de size() > 1 es porque el array viene con [""] por defecto.
       #Para el caso de [""] size() == 1
       #Al poner un dato tenemos por ejemplo, ["","223"] donde size == 2
-      if params["clientes"]["cliente_id"].size() > 1 
-        for id_cliente in 1..params["clientes"]["cliente_id"].size()-1
-          clientes_por_agregar.push(params["clientes"]["cliente_id"][id_cliente])
+      if params[:replegal][:cliente_ids].size() > 1 
+        for id_cliente in 1..params[:replegal][:cliente_ids].size()-1
+          clientes_por_agregar.push(params[:replegal][:cliente_ids][id_cliente])
         end
       end
       if not params["clienteasociado"]["cliente_id"].empty?
@@ -111,7 +113,11 @@ class ReplegalesController < ApplicationController
       params["replegal"]["rfc"] = cliente_por_asociar.rfc
       params["replegal"]["fiel"] = cliente_por_asociar.fiel
       params["replegal"]["csd"] = cliente_por_asociar.csd 
-      params["replegal"]["vencimiento_fiel"]= cliente_por_asociar.fiel_vencimiento
-      params["replegal"]["vencimiento_csd"]= cliente_por_asociar.csd_vencimiento
+      params["replegal"]["vencimiento_fiel(1i)"]= cliente_por_asociar.fiel_vencimiento.year.to_s
+      params["replegal"]["vencimiento_fiel(2i)"] = cliente_por_asociar.fiel_vencimiento.month.to_s
+      params["replegal"]["vencimiento_fiel(3i)"] = cliente_por_asociar.fiel_vencimiento.day.to_s
+      params["replegal"]["vencimiento_csd(1i)"]= cliente_por_asociar.csd_vencimiento.year.to_s
+      params["replegal"]["vencimiento_csd(2i)"]= cliente_por_asociar.csd_vencimiento.month.to_s
+      params["replegal"]["vencimiento_csd(3i)"]= cliente_por_asociar.csd_vencimiento.day.to_s
    end
   end

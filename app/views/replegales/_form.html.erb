@@ -1,7 +1,13 @@
 <%= form_with(model: replegal) do |form| %>
 
   <%= render "/shared/errores", modelo: @replegal %> 
-
+  <div class="row mb-3">
+    <%= label :clienteasociado, "Asociado Al Cliente: ", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <div class="col-md-4">
+      <%= collection_select :clienteasociado, :cliente_id, Cliente.where("num_interno < CAST(600 AS varchar)"),
+        :id, :razon_social,{include_blank: true},{:class => "form-select"} %>
+    </div>
+  </div>
   <div class="row mb-3">
     <%= form.label :nombre_completo, "# Nombre Completo*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
     <div class="col-md-4">
@@ -64,18 +70,11 @@
     <%= label :cliente_id, "Representante Legal de:",
       {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
     <div class="col-md-4">
-      <%= collection_select :clientes, :cliente_id, Cliente.left_outer_joins(:replegales)
-        .where("replegales.id is null AND num_interno >= CAST(600 AS varchar)"),
-        :id, :razon_social,{}, {:multiple => true, :size => 10, :class => "form-select"}%>
-    </div>
-  </div>
-  <div class="row mb-3">
-    <%= label :cliente_id, "Asociado al Cliente:",
-      {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
-    <div class="col-md-4">
-      <%= collection_select :clienteasociado, :cliente_id, Cliente.left_outer_joins(:replegales)
-        .where("replegales.id is null AND num_interno < CAST(600 AS varchar)"),
-        :id, :razon_social,{include_blank: true}, {:class => "form-select"}%>
+    <%= collection_check_boxes(:replegal, :cliente_ids, Cliente.where("num_interno >= CAST(600 AS varchar)"), # Cliente.left_outer_joins(:replegales)
+        #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)").order(num_interno: :asc),
+        :id, :razon_social) do |b|%>
+        <%= b.label(:"data-value" => b.value, class: "form-check-label") { b.check_box(class: "form-check-input") + b.text } %>
+    <% end %>
     </div>
   </div>
   <div class="offset-md-6 col-md-2">
