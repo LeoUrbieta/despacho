@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p>-->
 
 <div class="row">
   <h1 class="offset-3 col-4">Representantes Legales</h1>

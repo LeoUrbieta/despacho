@@ -13,7 +13,11 @@
   </div>
   <div class="col-2 col-sm-2">
     <% if not @cliente.num_interno.nil? %>
-      <%= link_to 'Dar de baja', cliente_path(id: @cliente.id, :cliente => {:num_interno => nil}), method: :patch, :class => 'btn btn-warning',
+      <%= link_to 'Dar de baja', cliente_path(id: @cliente.id, 
+                                              :cliente => {:num_interno => nil,
+                                                           :razon_social => @cliente.razon_social,
+                                                           :rfc => @cliente.rfc}),
+         method: :patch, :class => 'btn btn-warning',
         data: { confirm: "Se dará de baja al cliente #{@cliente.razon_social}."}%>
     <% end %>
   </div>
@@ -27,8 +31,15 @@
 
 <div class="row">
   <div class="offset-1 col-11 offset-sm-1 col-sm-11">
-    <h3>Representante Legal: <%= @cliente.replegales[0].nombre_completo + " --- RFC: " + 
-      @cliente.replegales[0].rfc if not @cliente.replegales.empty? %></h3>
+    <h3><%if not @cliente.replegales.empty?%>
+          <% if @cliente.num_interno.to_i < 600 %> 
+            Asociado al Rep Legal: 
+          <%else%>
+            Representante Legal:
+          <%end%> 
+        <% end %>
+        <%= @cliente.replegales[0].nombre_completo + " --- RFC: " + 
+        @cliente.replegales[0].rfc if not @cliente.replegales.empty? %></h3>
   </div>
 </div>
 <br>

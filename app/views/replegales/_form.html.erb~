@@ -2,12 +2,6 @@
 
   <%= render "/shared/errores", modelo: @replegal %> 
   <div class="row mb-3">
-    <%= label :clienteasociado, "Asociado Al Cliente: ", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
-    <div class="col-md-4">
-      <%= collection_select :clienteasociado, :cliente_id, Cliente.where("num_interno < CAST(600 AS varchar)"),:id, :razon_social,{include_blank: true},{:class => "form-select"} %>
-    </div>
-  </div>
-  <div class="row mb-3">
     <%= form.label :nombre_completo, "# Nombre Completo*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
     <div class="col-md-4">
       <%= form.text_field :nombre_completo, :class => "form-control" %> 
@@ -66,16 +60,21 @@
     </div>
   </div>
   <div class="row mb-3">
-    <%= label :cliente_id, "Representante Legal de:",
-      {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
-    <div class="col-md-4">
-    <%= collection_check_boxes(:replegal, :cliente_ids, Cliente.where("num_interno >= CAST(600 AS varchar)"), # Cliente.left_outer_joins(:replegales)
+    <%= label :cliente_id, "Si el representante legal ya está en la lista de clientes
+    puedes dejar todos los campos de arriba en blanco y seleccionarlo de la lista. 
+    Los campos (RFC, FIEL, etc.) 
+    se rellenarán automáticamente una vez des click en el boton de 'Crear Replegal'. 
+    Al mismo tiempo puedes elegir todas las empresas correspondientes 
+    al dar click en las casillas",
+      {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase"}%>
+    <div class="form-check col-md-4">
+    <%= collection_check_boxes(:replegal, :cliente_ids, Cliente.where("num_interno is not null").order(num_interno: :asc),#Cliente.where("num_interno >= CAST(600 AS varchar)"), # Cliente.left_outer_joins(:replegales)
         #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)").order(num_interno: :asc),
-        :id, :razon_social) do |b|%>
-        <%= b.label(:"data-value" => b.value, class: "form-check-label") { b.check_box(class: "form-check-input") + b.text } %>
-    <% end %>
-    </div>
+                               :id, :razon_social,{},{:class => "form-check-input"}) do |b|%>
+                               <%=b.check_box + b.object.num_interno + " - " + b.label(class: "form-check-label")%><br>
+  <% end %>
   </div>
+</div>
   <div class="offset-md-6 col-md-2">
     <%= form.submit %>
   </div>

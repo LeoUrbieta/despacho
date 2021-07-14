@@ -21,12 +21,17 @@
 <div class="row">
   <div class="offset-1 col-5 offset-sm-1 col-sm-5">
     <h4>Representante legal de las siguientes empresas:</h4>
-    <% @replegal.clientes.order(num_interno: :desc).each do |cliente|%>
-      <div><% if cliente.num_interno.to_i < 600 %>
+    <% @replegal.clientes.order(num_interno: :asc).each do |cliente|%>
+      <div><% if not cliente.num_interno.nil? && cliente.num_interno.to_i < 600 %>
              <br> Asociado al Cliente: 
            <% end %>
-        <%= cliente.num_interno%>
-        <%= cliente.razon_social%></div>
+           <% if cliente.num_interno.nil? %>
+             <span style="color: red;">(BAJA)</span>
+           <% else %>
+             <span style="color: blue;"><%= cliente.num_interno%></span>
+           <% end %>
+           - <%= cliente.razon_social%>
+      </div>
     <% end %>
   </div>
 </div>

@@ -8,8 +8,7 @@ class Replegal < ApplicationRecord
       errors.add(:base,cliente.razon_social + 
                  " ya tiene asignado al representante legal " + 
                  cliente.replegales.find(cliente.replegal_ids[0]).
-                 nombre_completo + ". Si elegiste más empresas 
-                  estas ya fueron agregadas a este representante")
+                 nombre_completo)  
       throw(:abort)
     end
   end
