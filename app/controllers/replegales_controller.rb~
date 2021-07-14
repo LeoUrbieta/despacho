@@ -104,7 +104,6 @@ class ReplegalesController < ApplicationController
         for id_cliente in 0..params[:replegal][:cliente_ids].size()-1
           clientes_por_agregar.push(params[:replegal][:cliente_ids][id_cliente])
         end
-        puts clientes_por_agregar
       end
       if not @replegal 
         @replegal = Replegal.new(replegal_params) 
