@@ -1,7 +1,7 @@
 <%= form_with(model: replegal) do |form| %>
   <div class="row mb-3">
     <div class="offset-md-3 col-md-4 col-4">
-      <h4 style="color: red">
+      <h6 style="color: purple">
         <% if request.fullpath == "/replegales/new" %>
           Antes de agregar un nuevo representante legal, por favor revisa
           si ya está dado de alta en la lista de clientes.<br>
@@ -16,7 +16,7 @@
           <br>
           En ambos casos, tendrás que elegir la empresa/empresas que representa.
         <% end %>
-      </h4>
+      </h6>
     </div>
   </div>
   <%= render "/shared/errores", modelo: @replegal %> 
