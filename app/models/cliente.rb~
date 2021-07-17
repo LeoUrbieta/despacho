@@ -6,6 +6,8 @@ class Cliente < ApplicationRecord
   validates :num_interno, presence: true, uniqueness: true, allow_nil: true 
   has_many :casos
   has_and_belongs_to_many :replegales
+  before_save :checar_rfc_no_exista_ya_en_replegales
+  before_update :checar_rfc_no_exista_ya_en_replegales 
 
   def self.to_csv
     attributes = %w{num_interno razon_social clave fiel csd}
@@ -18,4 +20,25 @@ class Cliente < ApplicationRecord
       end
     end
   end
+
+  def self.obten_numero_interno(tipo_de_persona)
+    case tipo_de_persona
+    when 'FISICA'
+      num_posibles = (301..599).to_a
+      num_posibles.each do |num_posible|
+        return num_posible if not Cliente.find_by(num_interno: num_posible)
+      end
+    end
+  end
+
+  private
+
+    def checar_rfc_no_exista_ya_en_replegales
+      if Replegal.find_by(rfc: rfc)
+        errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
+                           Para darlo de alta como cliente, puedes ir al registro del representante legal
+                           y dar click en el botón 'Dar de alta como cliente'")
+        throw(:abort)
+      end
+    end
 end

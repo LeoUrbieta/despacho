@@ -11,6 +11,25 @@
   <div class="offset-1 col-2 offset-sm-1 col-sm-2">
     <%= link_to 'Editar Rep. Legal', edit_replegal_path(@replegal), :class => 'btn btn-primary' %>
   </div>
+  <div class="col-2 col-sm-2">
+    <% if not @replegal.cliente_ids.one? {|id| Cliente.find(id).num_interno.to_i < 600} %>
+      <%= link_to 'Dar de alta como Cliente',clientes_path('',
+                  :params => {:cliente => {:num_interno => Cliente.obten_numero_interno('FISICA'),
+                  :razon_social => @replegal.nombre_completo,
+                  :rfc => @replegal.rfc,
+                  :clave => @replegal.clave,
+                  :fiel => @replegal.fiel,
+                  :csd => @replegal.csd,
+                  :fiel_vencimiento => @replegal.vencimiento_fiel, 
+                  :csd_vencimiento => @replegal.vencimiento_csd},
+                  :replegal => "REPLEGAL"}),
+                  method: :post,
+                  :class => 'btn btn-warning',
+         data: { confirm: "Se dará de alta al Representante Legal #{@replegal.nombre_completo}
+                 en la lista de Clientes"}%>
+    <% end %>
+    
+  </div>
   <% if usuario_actual.admin? %>
     <div class="offset-1 col-2 offset-sm-1 col-sm-2">
       <%= link_to 'Eliminar', @replegal, method: :delete, :class => "btn btn-danger", data: { confirm: '¿Estás seguro?' } %>

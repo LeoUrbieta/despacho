@@ -22,7 +22,7 @@ class ReplegalesControllerTest < ActionDispatch::IntegrationTest
   test "should create replegal" do
     sign_in_as(@usuario,"password")
     assert_difference('Replegal.count') do
-      post replegales_url, params: { replegal: {nombre_completo: "Leo Moreno", rfc: "MOUL8902072X2", cliente_ids: ["",clientes(:one).id] }, clienteasociado: {cliente_id: clientes(:two).id} }
+      post replegales_url, params: { replegal: {nombre_completo: "Leo Moreno", rfc: "MOUL8902072X2", cliente_ids: [""] }}
     end
 
     assert_redirected_to replegal_url(Replegal.last)
@@ -42,7 +42,7 @@ class ReplegalesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update replegal" do
     sign_in_as(@usuario,"password")
-    patch replegal_url(@replegal), params: { replegal: {nombre_completo: "Leo Moreno", rfc: "MOUL8902072X2" }, clientes: {cliente_id: ["",clientes(:one).id]}, clienteasociado: {cliente_id: clientes(:two).id}  }
+    patch replegal_url(@replegal), params: { replegal: {nombre_completo: "Leo Moreno", rfc: "MOUL8902072X2", cliente_ids: ["",clientes(:one).id]}}
     assert_redirected_to replegal_url(@replegal)
   end
 

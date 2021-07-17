@@ -7,9 +7,9 @@
 one: 
   razon_social: MyString1
   rfc: MyString1
-  num_interno: MyString1
+  num_interno: 101 
 two:
   razon_social: MyString2
   rfc: MyString2
-  num_interno: MyString2
+  num_interno: 102 
 

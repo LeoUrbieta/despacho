@@ -28,15 +28,11 @@ class ClientesController < ApplicationController
   # POST /clientes or /clientes.json
   def create
     @cliente = Cliente.new(cliente_params)
+    string_notificacion,estatus_dar_de_alta = actualizar_replegal_asociado
     respond_to do |format|
-      if @cliente.save
-        se_encontro_replegal_previo = actualizar_replegal_asociado
-        if se_encontro_replegal_previo
-          notice = notice_asociacion_nuevo_cliente_a_replegal_existente 
-        else
-          notice = "El cliente se creó exitosamente"  
-        end
-        format.html { redirect_to @cliente, notice: notice }
+      if estatus_dar_de_alta && @cliente.save
+        notice_a_poner=notice_a_mostrar(string_notificacion,"El Cliente fue creado exitosamente") 
+        format.html { redirect_to @cliente, notice: notice_a_poner }
         format.json { render :show, status: :created, location: @cliente }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,10 +47,11 @@ class ClientesController < ApplicationController
     if not params[:cliente][:num_interno].nil? and params[:cliente][:num_interno].empty?
       params[:cliente][:num_interno] = nil
     end
+    string_notificacion,estatus_dar_de_alta=actualizar_replegal_asociado
     respond_to do |format|
-      if @cliente.update(cliente_params)
-        actualizar_replegal_asociado
-        format.html { redirect_to @cliente, notice: "El cliente se actualizó exitosamente" }
+      if estatus_dar_de_alta && @cliente.update(cliente_params)
+        notice_a_poner=notice_a_mostrar(string_notificacion,"El Cliente se actualizó exitosamente")
+        format.html { redirect_to @cliente, notice: notice_a_poner }
         format.json { render :show, status: :ok, location: @cliente }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -86,29 +83,55 @@ class ClientesController < ApplicationController
     def cliente_params
       params[:cliente][:razon_social] = params[:cliente][:razon_social].
         mb_chars.upcase.to_s
-      params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s
+      params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
                                       :fiel,:csd,:fiel_vencimiento,:csd_vencimiento)
     end
 
-    def actualizar_replegal_asociado
-      if params[:cliente][:num_interno].nil?
-        #@cliente.replegales.clear         
+    def notice_a_mostrar(string_notificacion,string_nuevo_u_update)
+      case string_notificacion
+      when "REPLEGAL"
+        crea_asociacion_replegal_cliente
+        return notice_asociacion_nuevo_cliente_a_replegal_existente
+      when "CREADOACTUALIZADO"
+        if params[:cliente][:num_interno].to_i < 600
+          if not @cliente.replegales.empty?
+            asigna_parametros
+            return "El cliente fue actualizado así como su registro de representante legal"
+          end
+        end
+        return string_nuevo_u_update
       end
+    end
+
+    def actualizar_replegal_asociado
       if params[:cliente][:num_interno].to_i < 600
         if not @cliente.replegales.empty?
           asigna_parametros
         else
           if Replegal.find_by(rfc: params[:cliente][:rfc])
-            solo_crea_asociacion
-            return true
+            if params[:replegal] == "REPLEGAL"
+              return "REPLEGAL", true
+            else
+              @cliente.errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
+                                 Para darlo de alta como cliente, puedes ir al registro del representante legal
+                                 y dar click en el botón 'Dar de alta como cliente'")
+              return "",false
+            end
           end
         end
+      else
+        if Replegal.find_by(rfc: params[:cliente][:rfc])
+          @cliente.errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
+                             Para darlo de alta como cliente, puedes ir al registro del representante legal
+                             y dar click en el botón 'Dar de alta como cliente'")
+          return "",false
+        end
       end  
-      return false
+      return "CREADOACTUALIZADO",true
     end
 
-    def solo_crea_asociacion
+    def crea_asociacion_replegal_cliente
       replegal_a_asociar = Replegal.find_by(rfc: params[:cliente][:rfc])
       replegal_a_asociar.clientes << @cliente
     end
@@ -130,19 +153,14 @@ class ClientesController < ApplicationController
                                        vencimiento_csd: fecha_vencimiento_csd)
     end
 
+    def rfc_ya_tiene_rep_legal_notice
+      return "Ese RFC ya está dado de alta como representante legal. Para darlo de alta como cliente
+      ve a su perfil en la sección de Representantes Legales y da click en 'Dar de Alta como Cliente'"
+    end
+
+
     def notice_asociacion_nuevo_cliente_a_replegal_existente
       return "El cliente se creó exitosamente y además se asoció al representante legal " +
-              @cliente.replegales.first.nombre_completo + " ya que tienen el mismo RFC. En
-              este momento los dos tienen datos con los cuales se dieron de alta, sin embargo,
-              en cualquier actualización del cliente o representante legal, los datos se copiarán
-              automáticamente del uno al otro. Si quieres que este nuevo cliente mantenga 
-              sus datos y los del representante legal
-              sean los que cambien, entra nuevamente a 'Editar Cliente' y da en actualizar nuevamente.\n
-      
-              En cambio, si quieres que los datos del Representante Legal sean los que permanecen,
-              entonces ve a la sección de Representantes Legales, elige el representante legal y
-              sin cambiar nada, solo da click en Actualizar. Esto copiará los datos automáticamente a
-              este nuevo cliente\n. De esta manera quedarán asociados y cualquier
-              cambio que realices en el futuro se aplicará automáticamente a ambos." 
+              @cliente.replegales.first.nombre_completo 
     end
 end

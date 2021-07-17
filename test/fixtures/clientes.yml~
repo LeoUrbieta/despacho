@@ -5,8 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  nombre_completo: MyString1
+  razon_social: MyString1
   rfc: MyString1
-  clave: MyString1
-two: {}
-# column: value
+  num_interno: MyString1
+two:
+  razon_social: MyString2
+  rfc: MyString2
+  num_interno: MyString2
+

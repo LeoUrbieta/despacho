@@ -18,4 +18,15 @@ class Cliente < ApplicationRecord
       end
     end
   end
+
+  def self.obten_numero_interno(tipo_de_persona)
+    case tipo_de_persona
+    when 'FISICA'
+      num_posibles = (301..599).to_a
+      num_posibles.each do |num_posible|
+        return num_posible if not Cliente.find_by(num_interno: num_posible)
+      end
+    end
+  end
+
 end

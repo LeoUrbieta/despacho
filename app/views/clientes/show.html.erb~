@@ -13,10 +13,17 @@
   </div>
   <div class="col-2 col-sm-2">
     <% if not @cliente.num_interno.nil? %>
-      <%= link_to 'Dar de baja', cliente_path(id: @cliente.id, 
+      <%= link_to 'Dar de baja como Cliente, cliente_path(id: @cliente.id, 
                                               :cliente => {:num_interno => nil,
                                                            :razon_social => @cliente.razon_social,
-                                                           :rfc => @cliente.rfc}),
+                                                           :rfc => @cliente.rfc,
+                                                           :clave => @cliente.clave,
+                                                           "fiel_vencimiento(3i)" => @cliente.fiel_vencimiento.day,
+                                                           "fiel_vencimiento(2i)" => @cliente.fiel_vencimiento.month,
+                                                           "fiel_vencimiento(1i)" => @cliente.fiel_vencimiento.year,
+                                                           "csd_vencimiento(3i)" => @cliente.csd_vencimiento.day,
+                                                           "csd_vencimiento(2i)" => @cliente.csd_vencimiento.month,
+                                                           "csd_vencimiento(1i)" => @cliente.csd_vencimiento.year}),
          method: :patch, :class => 'btn btn-warning',
         data: { confirm: "Se dará de baja al cliente #{@cliente.razon_social}."}%>
     <% end %>
