@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="offset-8 col-2">
+  <div class="offset-8 col-4">
     <% if logged_in? %>
       <%= "Cuenta: Administrador" if usuario_actual.admin? %>
       <%=link_to "Terminar Sesion", logout_path, method: :delete %>
@@ -9,9 +9,18 @@
   </div>
 </div>
 
+<%if logged_in? && usuario_actual.admin? %>
+  <div class="row">
+    <div class="offset-8 col-2">
+      <h5><%= link_to "Auditoria", auditoria_path%>
+    </div>
+  </div>
+  <hr>
+<% end %>
+
 <%if logged_in? %>
   <div class="row">
-    <div class="offset-1 col-2">
+    <div class="offset-2 col-2">
       <%=link_to "Clientes", clientes_path%>
     </div>
     <div class="col-2">
