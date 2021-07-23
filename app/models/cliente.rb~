@@ -1,4 +1,5 @@
 class Cliente < ApplicationRecord
+  audited
   require 'csv'
  
   validates :razon_social, presence: true
@@ -6,8 +7,6 @@ class Cliente < ApplicationRecord
   validates :num_interno, presence: true, uniqueness: true, allow_nil: true 
   has_many :casos
   has_and_belongs_to_many :replegales
-  before_save :checar_rfc_no_exista_ya_en_replegales
-  before_update :checar_rfc_no_exista_ya_en_replegales 
 
   def self.to_csv
     attributes = %w{num_interno razon_social clave fiel csd}
@@ -30,15 +29,4 @@ class Cliente < ApplicationRecord
       end
     end
   end
-
-  private
-
-    def checar_rfc_no_exista_ya_en_replegales
-      if Replegal.find_by(rfc: rfc)
-        errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
-                           Para darlo de alta como cliente, puedes ir al registro del representante legal
-                           y dar click en el botón 'Dar de alta como cliente'")
-        throw(:abort)
-      end
-    end
 end

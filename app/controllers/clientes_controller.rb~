@@ -32,6 +32,9 @@ class ClientesController < ApplicationController
     respond_to do |format|
       if estatus_dar_de_alta && @cliente.save
         notice_a_poner=notice_a_mostrar(string_notificacion,"El Cliente fue creado exitosamente") 
+        puts @usuario_actual.nombre_usuario
+        puts "El usuario que realizó el cambio fue: "
+        puts @cliente.audits.last.user
         format.html { redirect_to @cliente, notice: notice_a_poner }
         format.json { render :show, status: :created, location: @cliente }
       else
@@ -126,6 +129,7 @@ class ClientesController < ApplicationController
                              Para darlo de alta como cliente, puedes ir al registro del representante legal
                              y dar click en el botón 'Dar de alta como cliente'")
           return "",false
+        end
       end  
       return "CREADOACTUALIZADO",true
     end

@@ -1,4 +1,5 @@
 class Replegal < ApplicationRecord
+  audited
   validates :nombre_completo, :rfc, presence: true, uniqueness: true
   has_and_belongs_to_many :clientes,
     before_add: :checar_id_no_este_ya_asignado

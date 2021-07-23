@@ -1,7 +1,5 @@
 class Replegal < ApplicationRecord
   validates :nombre_completo, :rfc, presence: true, uniqueness: true
-  before_save :checar_rfc_no_esta_ya_en_clientes
-  before_update :checar_rfc_no_esta_ya_en_clientes
   has_and_belongs_to_many :clientes,
     before_add: :checar_id_no_este_ya_asignado
 
@@ -71,14 +69,4 @@ class Replegal < ApplicationRecord
       end
       return cliente_por_asociar.replegales.empty? 
     end
-
-  private
-   def checar_rfc_no_esta_ya_en_clientes
-     if Cliente.find_by(rfc: rfc)
-       errors.add(:base,"Este RFC ya está dado de alta en la lista de Clientes.
-                  Para darlo de alta como Representante Legal, por favor elígelo
-                  de la lista de abajo")
-       throw(:abort) 
-     end
-   end
 end
