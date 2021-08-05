@@ -10,6 +10,7 @@
 </div>
 
 <%if logged_in? && usuario_actual.admin? %>
+  <hr>
   <div class="row">
     <div class="offset-8 col-2">
       <h5><%= link_to "Auditoria", auditoria_path%>
