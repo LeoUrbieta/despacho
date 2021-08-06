@@ -1,5 +1,5 @@
 class Cliente < ApplicationRecord
-  audited
+  audited 
   require 'csv'
  
   validates :razon_social, presence: true

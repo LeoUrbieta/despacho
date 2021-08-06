@@ -2,21 +2,19 @@
 <%= form_with(model: replegal) do |form| %>
   <%= render "/shared/errores", modelo: @replegal %> 
   <% unless request.fullpath == "/replegales/#{@replegal.id}/edit"%>
-    <% if @replegal.clientes.where("CAST(num_interno AS integer) < CAST(600 AS integer)").empty? %>
+    <% if @replegal.clientes.where("LENGTH(rfc) = 13").empty? %>
       <div class="row mb-3">
       <%= label :cliente_id, "Si el Representante Legal ya es un cliente, puede elegirlo de esta lista.
                   De manera automática, los campos de abajo se deshabilitarán y los datos se tomarán de 
                   su registro de Cliente.",
         {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase"}%>
       <div class="col-md-4">
-      <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").order(num_interno: :asc),#Cliente.where("num_interno >= CAST(600 AS varchar)"), # Cliente.left_outer_joins(:replegales)
-          #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)").order(num_interno: :asc),
-                            :id, :razon_social,{include_blank: true},{:class => "form-select", :id => "ListaClientes", multiple: true, size: 10}) %>
+      <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").order(num_interno: :asc),                            :id, :razon_social,{include_blank: true},{:class => "form-select", :id => "ListaClientes", multiple: true, size: 10}) %>
       </div>
       </div>
     <% end %>
   <% end %>
-  <% if not @replegal.clientes.where("CAST(num_interno AS integer) < CAST(600 AS integer)").empty? %>
+  <% if not @replegal.clientes.where("LENGTH(rfc) = 13").empty?%> 
     <span style="display: none">
   <% end %>
       <div class="row mb-3">
@@ -77,13 +75,14 @@
                       {:class => "form-select date-select disably"}) %>
         </div>
       </div>
-  <% if not @replegal.clientes.where("CAST(num_interno AS integer) < CAST(600 AS integer)").empty? %>
+  <% if not @replegal.clientes.where("LENGTH(rfc) = 13").empty? %>
     </span>
     <div class="row mb-3">
       <div class="offset-md-3 col-md-4 col-4">
         <h6 style="color: purple">
-          Este Representante Legal ya se encuentra en la lista de Clientes.
-          Cualquier cambio en los datos del representante, por favor, realízalo en esa lista.<br>
+          Este Representante Legal ya se encuentra en la lista de Clientes. 
+          Cualquier cambio en los datos del representante, por favor, realízalo en esa lista.
+          NOTA: PUEDE ESTAR EN LA LISTA DE BAJAS<br>
           <br>
           Aquí puedes actualizar las empresas que tiene asignadas.
         </h6>

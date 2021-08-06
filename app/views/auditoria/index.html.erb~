@@ -6,19 +6,19 @@
 <table class="table table-hover align-middle">
   <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
     <tr>
-      <th class="col-1"></th>
+      <th class="col-1">Audit ID</th>
       <th class="col-1">Usuario</th>
       <th style="text-align:center" class="col-1">Acción</th>
       <th style="text-align:center" class="col-2">Identificador</th>
-      <th style="text-align:center" class="col-6">Modificaciones</th>
-      <th style="text-align:center" class="col-6">Fecha</th>
+      <th style="text-align:center" class="col-4">Modificaciones</th>
+      <th style="text-align:center" class="col-3">Fecha</th>
     </tr>
   </thead>
   <tbody>
   <% @clientes.each do |cliente| %>
     <% cliente.audits.each do |audit| %>
-      <tr>
-        <td></td>
+      <tr style="background-color: #4ba8c6">
+        <td><%= audit.id %></td>
         <td><%= audit.user.nombre_usuario %></td>
         <td><%= audit.action %></td>
         <td><%= "Cliente: " + cliente.razon_social%></td>
@@ -30,7 +30,7 @@
   <% @replegales.each do |replegal| %>
     <% replegal.audits.each do |audit| %>
       <tr style="background-color: #7ec95e">
-        <td></td>
+        <td><%= audit.id %></td>
         <td><%= audit.user.nombre_usuario %></td>
         <td><%= audit.action %></td>
         <td><%= "RepLegal: " + replegal.nombre_completo%></td>
@@ -42,7 +42,7 @@
   <% @casos.each do |caso| %>
     <% caso.audits.each do |audit| %>
       <tr style="background-color: #db8d27">
-        <td></td>
+        <td><%= audit.id %></td>
         <td><%= audit.user.nombre_usuario %></td>
         <td><%= audit.action %></td>
         <td><%= "Caso: " + caso.cliente.razon_social%></td>

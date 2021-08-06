@@ -94,40 +94,46 @@ class ClientesController < ApplicationController
         crea_asociacion_replegal_cliente
         return notice_asociacion_nuevo_cliente_a_replegal_existente
       when "CREADOACTUALIZADO"
-        if params[:cliente][:num_interno].to_i < 600
-          if not @cliente.replegales.empty?
-            asigna_parametros
-            return "El cliente fue actualizado así como su registro de representante legal"
+        unless params[:cliente][:num_interno].nil?
+          if params[:cliente][:num_interno].to_i < 600
+            if not @cliente.replegales.empty?
+              asigna_parametros
+              return "El cliente fue actualizado así como su registro de representante legal"
+            end
           end
         end
+        #En este caso no hay representante legal asociado
+          #o se está dando de baja a un cliente.
         return string_nuevo_u_update
       end
     end
 
     def actualizar_replegal_asociado
-      if params[:cliente][:num_interno].to_i < 600
-        if not @cliente.replegales.empty?
-          asigna_parametros
-        else
-          if Replegal.find_by(rfc: params[:cliente][:rfc])
-            if params[:replegal] == "REPLEGAL"
-              return "REPLEGAL", true
-            else
-              @cliente.errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
-                                 Para darlo de alta como cliente, puedes ir al registro del representante legal
-                                 y dar click en el botón 'Dar de alta como cliente'")
-              return "",false
+      unless params[:cliente][:num_interno].nil?
+        if params[:cliente][:num_interno].to_i < 600
+          if not @cliente.replegales.empty?
+            asigna_parametros
+          else
+            if Replegal.find_by(rfc: params[:cliente][:rfc])
+              if params[:replegal] == "REPLEGAL"
+                return "REPLEGAL", true
+              else
+                @cliente.errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
+                                   Para darlo de alta como cliente, puedes ir al registro del representante legal
+                                   y dar click en el botón 'Dar de alta como cliente'")
+                return "",false
+              end
             end
           end
-        end
-      else
-        if Replegal.find_by(rfc: params[:cliente][:rfc])
-          @cliente.errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
-                             Para darlo de alta como cliente, puedes ir al registro del representante legal
-                             y dar click en el botón 'Dar de alta como cliente'")
-          return "",false
-        end
-      end  
+        else
+          if Replegal.find_by(rfc: params[:cliente][:rfc])
+            @cliente.errors.add(:rfc, "Este RFC ya está dado de alta en un representante legal.\n
+                               Para darlo de alta como cliente, puedes ir al registro del representante legal
+                               y dar click en el botón 'Dar de alta como cliente'")
+            return "",false
+          end
+        end  
+      end
       return "CREADOACTUALIZADO",true
     end
 

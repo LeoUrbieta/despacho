@@ -13,7 +13,7 @@
   </div>
   <div class="col-2 col-sm-2">
     <% if not @cliente.num_interno.nil? %>
-      <%= link_to 'Dar de baja como Cliente, cliente_path(id: @cliente.id, 
+      <%= link_to 'Dar de baja como Cliente', cliente_path(id: @cliente.id, 
                                               :cliente => {:num_interno => nil,
                                                            :razon_social => @cliente.razon_social,
                                                            :rfc => @cliente.rfc,
