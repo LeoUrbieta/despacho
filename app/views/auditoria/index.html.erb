@@ -12,13 +12,15 @@
   <thead class="table-primary">
     <tr>
       <th class="col-1"># Interno</th>
-      <th class="col-9">Razon Social</th>
+      <th class="col-2">Fecha de Creación</th>
+      <th class="col-8">Razon Social</th>
     </tr>
   </thead>
   <tbody>
   <% @clientes_sin_replegal.each do |cliente| %>
     <tr>
       <td><%= cliente.num_interno %></td>
+      <td><%= cliente.created_at.strftime("%Y/%m/%d") %></td>
       <td><%= cliente.razon_social %></td>
     </tr>
   <% end %>

@@ -5,6 +5,7 @@ class AuditoriaController < ApplicationController
     @replegales = Replegal.joins(:audits).distinct
     @casos = Caso.joins(:audits).distinct
     @clientes_sin_replegal =Cliente.left_outer_joins(:replegales)
-      .where("replegales.id IS NULL AND CAST(num_interno AS integer) >= CAST(600 AS integer)").order(num_interno: :asc)
+      .where("replegales.id IS NULL AND CAST(num_interno AS integer) >= CAST(600 AS integer)")
+      .order(num_interno: :asc)
   end
 end
