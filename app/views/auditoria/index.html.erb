@@ -3,6 +3,27 @@
     <h1>Auditoria</h1>
   </div>
 </div>
+<div class="row">
+  <div class="offset-2 col-10">
+    <h4>Empresas que no tienen representante legal asignado</h4>
+  </div>
+</div>
+<table class="table align-middle">
+  <thead class="table-primary">
+    <tr>
+      <th class="col-1"># Interno</th>
+      <th class="col-9">Razon Social</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @clientes_sin_replegal.each do |cliente| %>
+    <tr>
+      <td><%= cliente.num_interno %></td>
+      <td><%= cliente.razon_social %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 <table class="table table-hover align-middle">
   <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
     <tr>
