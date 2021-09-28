@@ -27,6 +27,8 @@ gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dab
 gem 'bootsnap', '>= 1.4.4', require: false
 # Incluir gema para auditoría en base de datos
 gem 'audited'
+# Incluir gema para evitar spam en la forma de peticiones
+gem 'invisible_captcha'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
