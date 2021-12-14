@@ -39,9 +39,9 @@ end
 
 group :development do
   require 'rbconfig'
-      if RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
-        gem 'rb-kqueue', '>= 0.2'
-      end
+#      if RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
+#        gem 'rb-kqueue', '>= 0.2'
+#      end
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
