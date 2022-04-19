@@ -38,3 +38,6 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignorar el directorio donde instalé las gemas y los binarios
+/gems
