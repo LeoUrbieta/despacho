@@ -41,3 +41,4 @@ yarn-debug.log*
 
 # Ignorar el directorio donde instalé las gemas y los binarios
 /gems
+/bin
