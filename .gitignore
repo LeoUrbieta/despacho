@@ -39,5 +39,6 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Ignorar el directorio donde instalé las gemas y los binarios
+# Ignorar el directorio donde instalé las gemas
 /gems
+*.swp
