@@ -1,4 +1,5 @@
-<%= form_with(model: replegal) do |form| %>
+<div data-controller="deshabilita-campos-rep-legales">
+  <%= form_with(model: replegal, html: {"data-deshabilita-campos-rep-legales-target" => "form"}) do |form| %>
   <%= render "/shared/errores", modelo: @replegal %> 
   <% unless request.fullpath == "/replegales/#{@replegal.id}/edit"%>
     <% if @replegal.clientes.where("LENGTH(rfc) = 13").empty? %>
@@ -8,7 +9,7 @@
                   su registro de Cliente.",
         {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase"}%>
       <div class="col-md-4">
-      <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").order(num_interno: :asc),                            :id, :razon_social,{include_blank: true},{:class => "form-select", :id => "ListaClientes", multiple: true, size: 10}) %>
+        <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").order(num_interno: :asc),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", multiple: true, size: 10}) %>
       </div>
       </div>
     <% end %>
@@ -19,25 +20,25 @@
       <div class="row mb-3">
         <%= form.label :nombre_completo, "# Nombre Completo*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
         <div class="col-md-4">
-          <%= form.text_field :nombre_completo, {:class => "form-control disably "} %> 
+          <%= form.text_field :nombre_completo, {:class => "form-control", "data-deshabilita-campos-rep-legales-target"=> "campo"} %> 
         </div>
       </div>
       <div class="row mb-3">
         <%= form.label :rfc, "RFC*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
         <div class="col-md-4">
-          <%= form.text_field :rfc, :class => "form-control  disably" %>
+          <%= form.text_field :rfc, {:class => "form-control", "data-deshabilita-campos-rep-legales-target"=> "campo"}%>
         </div>
       </div>
       <div class="row mb-3">
         <%= form.label :clave, "Clave:", {:class => "form-label offset-md-1 col-md-2 col-form-label ",:style => "text-align: right"}%>
         <div class="col-md-4">
-          <%= form.text_field :clave, :class => "form-control disably" %> 
+          <%= form.text_field :clave, {:class => "form-control" , "data-deshabilita-campos-rep-legales-target" => "campo"} %> 
         </div>
       </div>
       <div class="row mb-3">
         <%= form.label :fiel, "FIEL:", {:class => "form-label offset-md-1 col-md-2 col-form-label ",:style => "text-align: right"}%>
         <div class="col-md-4">
-          <%= form.text_field :fiel, :class => "form-control disably" %> 
+          <%= form.text_field :fiel, {:class => "form-control",  "data-deshabilita-campos-rep-legales-target" => "campo"} %> 
         </div>
       </div>
       <div class="row mb-3">
@@ -51,13 +52,13 @@
                       'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
                       'Agosto', 'Septiembre', 'Octubre', 'Noviembre',
                       'Diciembre']},
-                      {:class => "form-select date-select disably"}) %>
+                      {:class => "form-select date-select",  "data-deshabilita-campos-rep-legales-target" => "campo"}) %>
         </div>
       </div>
       <div class="row mb-3">
         <%= form.label :csd, "CSD:", {:class => "form-label offset-md-1 col-md-2 col-form-label ",:style => "text-align: right"}%>
         <div class="col-md-4">
-          <%= form.text_field :csd, :class => "form-control disably" %> 
+          <%= form.text_field :csd, {:class => "form-control",  "data-deshabilita-campos-rep-legales-target" => "campo"}%> 
         </div>
       </div>
       <div class="row mb-3">
@@ -71,7 +72,7 @@
                       'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
                       'Agosto', 'Septiembre', 'Octubre', 'Noviembre',
                       'Diciembre']},
-                      {:class => "form-select date-select disably"}) %>
+                      {:class => "form-select date-select", "data-deshabilita-campos-rep-legales-target" => "campo"}) %>
         </div>
       </div>
   <% if not @replegal.clientes.where("LENGTH(rfc) = 13").empty? %>
@@ -99,7 +100,8 @@
   <% end %>
     </div>
   </div>
-  <div id="submitRepLegales" class="offset-md-6 col-md-2">
-    <%= form.submit %>
+  <div class="offset-md-6 col-md-2" >
+    <%= form.submit nil, {"data-action" => "deshabilita-campos-rep-legales#clickBotonSubmit"}%>
   </div>
 <%end%>
+</div>
