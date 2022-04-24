@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="offset-2 col-10 offset-sm-3 col-sm-9">
-        Fecha de Solicitud: <%=peticion.created_at.to_s(:day_month_year)%>
+        Fecha de Solicitud: <%=peticion.created_at.to_fs(:day_month_year)%>
       </div>
     </div>
     <div class="row">
@@ -35,7 +35,7 @@
     </div>
     <div class="row">
       <div class="offset-2 col-10 offset-sm-3 col-sm-9">
-        A realizar el: <%=peticion.fecha_para_realizar_tramite.to_time.to_s(:day_month_year)%>
+        A realizar el: <%=peticion.fecha_para_realizar_tramite.to_time.to_fs(:day_month_year)%>
       </div>
     </div>
     <br>
@@ -92,7 +92,7 @@
         Fecha de Nacimiento:
       </div>
       <div class="col-4 col-sm-4">
-         <%= if peticion.fecha_nacimiento != nil then peticion.fecha_nacimiento.to_time.to_s(:day_month_year) end %>
+         <%= if peticion.fecha_nacimiento != nil then peticion.fecha_nacimiento.to_time.to_fs(:day_month_year) end %>
       </div>
     </div>
     <div class="row">

@@ -30,12 +30,12 @@
         <%= caso.texto_caso%>
       </div>
       <div class="col-1 col-sm-1">
-        <%= caso.created_at.to_s(:day_month_year)%>
+        <%= caso.created_at.to_fs(:day_month_year)%>
       </div>
       <% if request.original_fullpath.include? "clientes" %>
         <div class="col-1 col-sm-1">
           <% unless caso.fecha_conclusion.nil? %>
-            <%= caso.fecha_conclusion.to_s(:day_month_year)%>
+            <%= caso.fecha_conclusion.to_fs(:day_month_year)%>
           <% end %>
         </div>
       <%end%>

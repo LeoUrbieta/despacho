@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2021_07_23_155018) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_07_23_155018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,7 +28,7 @@ ActiveRecord::Schema[6.1].define(version: 2021_07_23_155018) do
     t.string "comment"
     t.string "remote_address"
     t.string "request_uuid"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["associated_type", "associated_id"], name: "associated_index"
     t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
     t.index ["created_at"], name: "index_audits_on_created_at"
@@ -40,8 +39,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_07_23_155018) do
   create_table "casos", force: :cascade do |t|
     t.bigint "cliente_id"
     t.text "texto_caso"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.date "fecha_conclusion"
     t.index ["cliente_id"], name: "index_casos_on_cliente_id"
   end
@@ -51,13 +50,13 @@ ActiveRecord::Schema[6.1].define(version: 2021_07_23_155018) do
     t.string "rfc"
     t.string "num_interno"
     t.string "regimen_fiscal"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "clave"
     t.string "fiel"
     t.string "csd"
-    t.date "fiel_vencimiento", default: "2022-06-21"
-    t.date "csd_vencimiento", default: "2022-06-21"
+    t.date "fiel_vencimiento", default: "2023-04-23"
+    t.date "csd_vencimiento", default: "2023-04-23"
   end
 
   create_table "clientes_replegales", id: false, force: :cascade do |t|
@@ -71,8 +70,8 @@ ActiveRecord::Schema[6.1].define(version: 2021_07_23_155018) do
     t.string "nombre_trabajador"
     t.string "apellido_materno"
     t.string "apellido_paterno"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "empresa_solicitante"
     t.string "persona_solicitante"
     t.string "movimiento"
@@ -97,14 +96,14 @@ ActiveRecord::Schema[6.1].define(version: 2021_07_23_155018) do
     t.date "vencimiento_fiel"
     t.date "vencimiento_clave"
     t.date "vencimiento_csd"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "nombre_usuario"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "password_digest"
     t.boolean "admin", default: false
   end
