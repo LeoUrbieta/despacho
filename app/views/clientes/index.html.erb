@@ -1,6 +1,4 @@
-<%= javascript_pack_tag 'funcional' %>
-
-<div class="row">
+<div class="row" >
   <h1 class="offset-3 col-3">Clientes</h1>
 </div>
 
@@ -34,22 +32,22 @@
         <td></td>
         <td><%= cliente.num_interno %></td>
         <td><%= link_to cliente.razon_social, cliente %></td>
-        <td style="text-align:center">
-          <button onclick="copyToClipboard(event)" class="btn btn-success col-10"><%= cliente.rfc%></button>
+        <td data-controller="clipboard" style="text-align:center">
+          <button data-action="clipboard#copy" data-clipboard-target="source" class="btn btn-success col-10"><%= cliente.rfc%></button>
         </td>
-        <td style="text-align:center">
+        <td data-controller="clipboard" style="text-align:center">
           <% if not cliente.clave == nil || cliente.clave == "" %>
-            <button onclick="copyToClipboard(event)" class="btn btn-success col-10"><%= cliente.clave%></button>
+            <button data-action="clipboard#copy" data-clipboard-target="source" class="btn btn-success col-10"><%= cliente.clave%></button>
           <% end%>
         </td>
-        <td style="text-align:center">
+        <td data-controller="clipboard" style="text-align:center">
           <% if not cliente.fiel == nil || cliente.fiel == "" %>
-            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.fiel_vencimiento - Time.zone.today) < 0 %>btn-dark<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 180%>btn-warning<%else%>btn-success<%end%> col-10"><%= cliente.fiel%></button>
+            <button data-action="clipboard#copy" data-clipboard-target="source" class="btn <%if (cliente.fiel_vencimiento - Time.zone.today) < 0 %>btn-dark<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.fiel_vencimiento - Time.zone.today) < 180%>btn-warning<%else%>btn-success<%end%> col-10"><%= cliente.fiel%></button>
           <% end %>
         </td>
-        <td style="text-align:center">
+        <td data-controller="clipboard" style="text-align:center">
           <% if not cliente.csd == nil || cliente.csd == "" %>
-            <button onclick="copyToClipboard(event)" class="btn <%if (cliente.csd_vencimiento - Time.zone.today) < 0 %>btn-dark<%elsif (cliente.csd_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.csd_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> btn-success col-10"><%= cliente.csd %></button>
+            <button data-action="clipboard#copy" data-clipboard-target="source" class="btn <%if (cliente.csd_vencimiento - Time.zone.today) < 0 %>btn-dark<%elsif (cliente.csd_vencimiento - Time.zone.today) < 90 %>btn-danger<%elsif (cliente.csd_vencimiento - Time.zone.today) < 180 %>btn-warning<%else%>btn-success<%end%> btn-success col-10"><%= cliente.csd %></button>
           <% end %>
         </td>
       </tr>

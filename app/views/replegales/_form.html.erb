@@ -1,4 +1,3 @@
-<%= javascript_pack_tag 'funcional' %>
 <%= form_with(model: replegal) do |form| %>
   <%= render "/shared/errores", modelo: @replegal %> 
   <% unless request.fullpath == "/replegales/#{@replegal.id}/edit"%>
