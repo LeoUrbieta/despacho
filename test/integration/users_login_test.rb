@@ -19,7 +19,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   end
 
-  test "Credenciales son correctas e inicia sesion" do
+  test "Credenciales son correctas e inicia sesion y termina sesion" do
     get login_path
     assert_template 'sessions/new'
     post login_path, params: { session: { nombre_usuario: @usuario.nombre_usuario, password: @usuario.password}}
@@ -29,5 +29,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
     assert_select "a[href=?]", login_path, count: 0
     assert_select "button[type='submit']", count: 1
+    delete logout_path
+    assert_redirected_to root_path
+    assert_equal "Has salido de tu sesión", flash[:success]
   end
 end
