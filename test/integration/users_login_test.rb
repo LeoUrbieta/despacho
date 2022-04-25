@@ -28,6 +28,6 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'peticiones/index'
     assert_not flash.empty?
     assert_select "a[href=?]", login_path, count: 0
-    assert_select "a[href=?]", logout_path
+    assert_select "button[type='submit']", count: 1
   end
 end
