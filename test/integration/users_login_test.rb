@@ -7,16 +7,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "Entrada invalida es rechazada" do
-    get login_path
-    assert_template 'sessions/new'
-    post login_path, params: { session: { nombre_usuario: " ", password: " "} }
-    assert_template 'sessions/new'
-    assert_not flash.empty?
-    assert_select "a[href=?]", login_path
-    assert_select "a[href=?]", logout_path, count: 0
     get root_path
-    assert flash.empty?
-
+    assert_template 'peticiones/new'
+    assert_select "input[id=session_nombre_usuario]"
+    post login_path, params: { session: { nombre_usuario: " ", password: " "} }
+    assert_template 'peticiones/new'
+    assert_not flash.empty?
+    assert_select "a[href=?]", logout_path, count: 0
   end
 
   test "Credenciales son correctas e inicia sesion y termina sesion" do

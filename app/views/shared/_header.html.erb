@@ -1,22 +1,26 @@
 <div class="row">
   <div class="offset-8 col-4">
-    <% if logged_in? %>
-      <%= "Cuenta: Administrador" if usuario_actual.admin? %>
+    <% if logged_in? || usuario_externo_logged_in? %>
       <%=button_to("Terminar Sesion", logout_path, method: :delete) %>
-    <% else %>
-      <%=link_to "Control Interno", login_path %>
     <% end %>
   </div>
 </div>
 
-<%if logged_in? && usuario_actual.admin? %>
-  <hr>
-  <div class="row">
-    <div class="offset-8 col-2">
-      <h5><%= link_to "Auditoria", auditoria_path%>
+<%unless usuario_externo_logged_in? %>
+  <%if logged_in? && usuario_actual.admin? %>
+    <hr>
+    <div class="row">
+      <div class="offset-5 col-2">
+        <%= "Menú de Administrador" if usuario_actual.admin? %>
+      </div>
     </div>
-  </div>
-  <hr>
+    <div class="row">
+      <div class="offset-8 col-2">
+        <h5><%= link_to "Auditoria", auditoria_path%>
+      </div>
+    </div>
+    <hr>
+  <% end %>
 <% end %>
 
 <%if logged_in? %>

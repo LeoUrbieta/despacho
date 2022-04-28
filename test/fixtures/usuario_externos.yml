@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nombre_usuario_externo: MyString
+  nombre_usuario: MyString
   password_digest: MyString
 
 two:
-  nombre_usuario_externo: MyString
+  nombre_usuario: MyString
   password_digest: MyString

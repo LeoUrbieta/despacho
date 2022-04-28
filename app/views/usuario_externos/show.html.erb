@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @usuario_externo %>
+
+<div>
+  <%= link_to "Edit this usuario externo", edit_usuario_externo_path(@usuario_externo) %> |
+  <%= link_to "Back to usuario externos", usuario_externos_path %>
+
+  <%= button_to "Destroy this usuario externo", @usuario_externo, method: :delete %>
+</div>

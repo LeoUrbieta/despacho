@@ -1,9 +1,17 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :usuario_actual, :logged_in?
+  helper_method :usuario_actual, :logged_in?, :usuario_externo_actual, :usuario_externo_logged_in?, :require_usuario_externo
 
   def usuario_actual
     @usuario_actual ||= User.find(session[:usuario_id]) if session[:usuario_id]
+  end
+
+  def usuario_externo_actual
+    @usuario_externo_actual ||= UsuarioExterno.find(session[:usuario_externo_id]) if session[:usuario_externo_id]
+  end
+
+  def usuario_externo_logged_in?
+    !!usuario_externo_actual
   end
 
   def logged_in?
@@ -13,6 +21,13 @@ class ApplicationController < ActionController::Base
   def require_user
     if !logged_in?
       flash[:danger] = "Debes haber iniciado sesión antes de esa acción"
+      redirect_to root_path
+    end
+  end
+
+  def require_usuario_externo
+    if !usuario_externo_logged_in?
+      flash[:danger] = "Debes haber iniciado sesión como Cliente antes de esa acción"
       redirect_to root_path
     end
   end

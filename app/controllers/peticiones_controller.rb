@@ -1,7 +1,7 @@
 class PeticionesController < ApplicationController
 
   invisible_captcha only: [:create]
-  before_action :require_user, except: [:new, :create]
+  before_action :require_user, except: [:new,:create]
   before_action :require_admin, only: [:edit, :update, :destroy]
 
   PETICIONES_POR_PAGINA = 50 
