@@ -127,6 +127,32 @@
         <%= peticion.domicilio %>
       </div>
     </div>
+    <% if (usuario_actual.nombre_usuario == "MONICA" || usuario_actual.admin?) %>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Adjuntar Respuesta IDSE:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%= form_with(model: peticion, scope: :peticion) do |form| %>
+            <%= form.file_field :respuesta_idse %>
+            <%= form.submit %> 
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+        Documento IDSE adjunto: 
+      </div>
+      <div class="col-4 col-sm-4">
+        <% if peticion.respuesta_idse.attached? %>
+          Si  <%= link_to "Ver Archivo", url_for(peticion.respuesta_idse) %>
+        <% else %>
+          No
+        <% end %>
+      </div>
+    </div>
+    <br>
     <% if usuario_actual.admin? %>
       <div class="row">
         <div class="offset-2 col-3 offset-sm-3 col-sm-2">

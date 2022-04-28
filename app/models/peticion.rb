@@ -4,4 +4,6 @@ class Peticion < ApplicationRecord
 
   default_scope -> { order(id: :desc)}
 
+  has_one_attached :respuesta_idse
+
 end

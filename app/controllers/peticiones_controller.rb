@@ -47,6 +47,7 @@ class PeticionesController < ApplicationController
 
   def update
     @peticion = Peticion.find(params[:id])
+    puts peticion_params
 
     if @peticion.update(peticion_params)
       flash[:success] = "Se editó la petición con éxito"
@@ -68,7 +69,7 @@ class PeticionesController < ApplicationController
     def peticion_params
       params.require(:peticion).permit(:nombre_trabajador, :apellido_paterno, :apellido_materno, :empresa_solicitante,
       :persona_solicitante, :movimiento, :fecha_nacimiento, :domicilio, :numero_imss, :salario_integrado, :curp, :salario_sin_integrar,
-      :rfc, :fecha_para_realizar_tramite, :observaciones)
+      :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse)
     end
 
     def require_admin
