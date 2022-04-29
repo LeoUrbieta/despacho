@@ -4,7 +4,7 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
   setup do
     @usuario_externo = usuario_externos(:one)
     @usuario_interno = User.create!(nombre_usuario: "Leo", password: "password")
-    @admin = User.create!(nombre_usuario: "Leoadmin", password: "admin", admin: true)
+    @admin = User.create!(nombre_usuario: "LeoAdmin", password: "admin", admin: true)
   end
 
   test "should get index" do
@@ -19,11 +19,22 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create usuario_externo" do
-    assert_difference("UsuarioExterno.count") do
-      post usuario_externos_url, params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password_digest: @usuario_externo.password_digest } }
-    end
-
+    #Al usuario que no ha sigo login in, debe regresarlo al root path
+    assert_difference_create
+    assert_redirected_to root_path
+    assert_not flash.empty?
+    #A un usuario normal debe de regresarlo al root_path
+    sign_in_as(@usuario_interno,"password")
+    assert_difference_create
+    assert_redirected_to root_path
+    assert_not flash.empty?
+    #A un usuario normal debe de regresarlo al root_path
+    #Al usuario que es admin y login debe redirigirlo al show del usuario externo recien creado
+    sign_in_as(@admin,"admin")
+    assert_difference_create
     assert_redirected_to usuario_externo_url(UsuarioExterno.last)
+    assert_not flash.empty?
+    #A un usuario normal debe de regresarlo al root_path
   end
 
   test "should show usuario_externo" do
@@ -40,7 +51,7 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
 
   test "should update usuario_externo" do
     sign_in_as(@admin,"admin")
-    patch usuario_externo_url(@usuario_externo), params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password_digest: @usuario_externo.password_digest } }
+    patch usuario_externo_url(@usuario_externo), params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password: @usuario_externo.password_digest } }
     assert_redirected_to usuario_externo_url(@usuario_externo)
   end
 
@@ -51,5 +62,13 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to usuario_externos_url
+  end
+
+  private
+
+  def assert_difference_create 
+    assert_difference("UsuarioExterno.count") do
+      post usuario_externos_url, params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password: @usuario_externo.password_digest } }
+    end
   end
 end

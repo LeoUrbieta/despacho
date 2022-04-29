@@ -1,7 +1,7 @@
 <%= form_with(model: usuario_externo) do |form| %>
   <% if usuario_externo.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(usuario_externo.errors.count, "error") %> prohibited this usuario_externo from being saved:</h2>
+      <h2><%= pluralize(usuario_externo.errors.count, "error") %> impidieron completar tu solicitud.</h2>
 
       <ul>
         <% usuario_externo.errors.each do |error| %>
@@ -10,27 +10,22 @@
       </ul>
     </div>
   <% end %>
-  <br>
-  <h3>
-  Favor de introducir el correo electrónico al cuál le llegarán los documentos relacionados con las peticiones. Este será su Nombre de Usuario.
-  </h3>
 
-  <br>
+  <h2>Por favor introduce el correo electrónico al cual se enviarán los documentos relacionados con el IDSE</h2>
 
-  <h3>
-  La contraseña debe tener un mínimo de 8 caracteres
-  </h3>
-
-  <br>
+  <h2>La contraseña debe de tener una longitud mínima de 8 caracteres</h2>
 
   <div>
-    <%= form.label :nombre_usuario, "Correo Electrónico", style: "display: block" %>
+    <%= form.label :nombre_usuario, "Correo electrónico", style: "display: block" %>
     <%= form.email_field :nombre_usuario %>
   </div>
-
   <div>
-    <%= form.label :password_digest, "Contraseña", style: "display: block" %>
-    <%= form.password_field :password_digest %>
+    <%= form.label :password, "Contraseña", style: "display: block" %>
+    <%= form.password_field :password %>
+  </div>
+  <div>
+    <%= form.label :password_confirmation, "Confirmar Contraseña", style: "display: block" %>
+    <%= form.password_field :password_confirmation %>
   </div>
 
   <div>

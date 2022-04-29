@@ -15,7 +15,6 @@ class UsuarioExternosTest < ApplicationSystemTestCase
     click_on "New usuario externo"
 
     fill_in "Nombre usuario", with: @usuario_externo.nombre_usuario
-    fill_in "Password digest", with: @usuario_externo.password_digest
     click_on "Create Usuario externo"
 
     assert_text "Usuario externo was successfully created"
@@ -27,7 +26,6 @@ class UsuarioExternosTest < ApplicationSystemTestCase
     click_on "Edit this usuario externo", match: :first
 
     fill_in "Nombre usuario", with: @usuario_externo.nombre_usuario
-    fill_in "Password digest", with: @usuario_externo.password_digest
     click_on "Update Usuario externo"
 
     assert_text "Usuario externo was successfully updated"

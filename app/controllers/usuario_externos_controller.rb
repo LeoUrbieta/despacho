@@ -27,8 +27,12 @@ class UsuarioExternosController < ApplicationController
 
     respond_to do |format|
       if @usuario_externo.save
-        format.html { redirect_to usuario_externo_url(@usuario_externo), notice: "Usuario externo was successfully created." }
-        format.json { render :show, status: :created, location: @usuario_externo }
+        if logged_in? && usuario_actual.admin?
+          format.html { redirect_to usuario_externo_url(@usuario_externo), notice: "Usuario externo fue creado exitosamente" }
+          format.json { render :show, status: :created, location: @usuario_externo }
+        else
+          format.html { redirect_to root_path, notice: "Enviamos un correo de verificación al correo que nos diste. Por favor, da click en el enlace de ese correo para verificarlo. ¡Gracias!"}
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @usuario_externo.errors, status: :unprocessable_entity }
@@ -40,7 +44,7 @@ class UsuarioExternosController < ApplicationController
   def update
     respond_to do |format|
       if @usuario_externo.update(usuario_externo_params)
-        format.html { redirect_to usuario_externo_url(@usuario_externo), notice: "Usuario externo was successfully updated." }
+        format.html { redirect_to usuario_externo_url(@usuario_externo), notice: "Usuario externo fue actualizado correctamente." }
         format.json { render :show, status: :ok, location: @usuario_externo }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +58,7 @@ class UsuarioExternosController < ApplicationController
     @usuario_externo.destroy
 
     respond_to do |format|
-      format.html { redirect_to usuario_externos_url, notice: "Usuario externo was successfully destroyed." }
+      format.html { redirect_to usuario_externos_url, notice: "Usuario externo fue eliminado correctamente." }
       format.json { head :no_content }
     end
   end
@@ -67,6 +71,6 @@ class UsuarioExternosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def usuario_externo_params
-      params.require(:usuario_externo).permit(:nombre_usuario, :password_digest)
+      params.require(:usuario_externo).permit(:nombre_usuario, :password, :password_confirmation)
     end
 end
