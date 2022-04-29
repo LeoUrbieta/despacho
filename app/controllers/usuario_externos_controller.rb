@@ -1,5 +1,7 @@
 class UsuarioExternosController < ApplicationController
   before_action :set_usuario_externo, only: %i[ show edit update destroy ]
+  before_action :require_user, except: %i[new create]
+  before_action :require_admin, except: %i[new create]
 
   # GET /usuario_externos or /usuario_externos.json
   def index

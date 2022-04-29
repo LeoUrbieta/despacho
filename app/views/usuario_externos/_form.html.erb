@@ -10,15 +10,27 @@
       </ul>
     </div>
   <% end %>
+  <br>
+  <h3>
+  Favor de introducir el correo electrónico al cuál le llegarán los documentos relacionados con las peticiones. Este será su Nombre de Usuario.
+  </h3>
+
+  <br>
+
+  <h3>
+  La contraseña debe tener un mínimo de 8 caracteres
+  </h3>
+
+  <br>
 
   <div>
-    <%= form.label :nombre_usuario, style: "display: block" %>
-    <%= form.text_field :nombre_usuario %>
+    <%= form.label :nombre_usuario, "Correo Electrónico", style: "display: block" %>
+    <%= form.email_field :nombre_usuario %>
   </div>
 
   <div>
-    <%= form.label :password_digest, style: "display: block" %>
-    <%= form.text_field :password_digest %>
+    <%= form.label :password_digest, "Contraseña", style: "display: block" %>
+    <%= form.password_field :password_digest %>
   </div>
 
   <div>

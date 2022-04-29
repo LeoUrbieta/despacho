@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :usuario_actual, :logged_in?, :usuario_externo_actual, :usuario_externo_logged_in?, :require_usuario_externo
+  helper_method :usuario_actual, :logged_in?, :usuario_externo_actual, :usuario_externo_logged_in?, :require_usuario_externo, :require_admin
 
   def usuario_actual
     @usuario_actual ||= User.find(session[:usuario_id]) if session[:usuario_id]

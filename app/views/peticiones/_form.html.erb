@@ -1,6 +1,12 @@
 <%= render '/shared/errores', modelo: @peticion %>
 
 <% if not logged_in? || usuario_externo_logged_in? %>
+  <div class="row">
+    <div class="col-4 offset-4" %>
+      <%= link_to "Si eres cliente del despacho, da click aqui para crear una cuenta", new_usuario_externo_path %>
+    </div>
+  </div>
+  <br>
   <%= render 'shared/login_form' %>
 <% end %>
 

@@ -2,8 +2,8 @@
 
 one:
   nombre_usuario: MyString
-  password_digest: MyString
+  password_digest: password_largo
 
 two:
   nombre_usuario: MyString
-  password_digest: MyString
+  password_digest: password_largo2
