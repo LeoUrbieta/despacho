@@ -252,6 +252,7 @@ DEPENDENCIES
   invisible_captcha
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  mail (~> 2.7)
   mimemagic
   pg
   puma (~> 5.0)

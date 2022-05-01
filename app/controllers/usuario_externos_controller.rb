@@ -27,6 +27,7 @@ class UsuarioExternosController < ApplicationController
 
     respond_to do |format|
       if @usuario_externo.save
+        PeticionMailer.with(usuario_externo: @usuario_externo).welcome_email.deliver_now
         if logged_in? && usuario_actual.admin?
           format.html { redirect_to usuario_externo_url(@usuario_externo), notice: "Usuario externo fue creado exitosamente" }
           format.json { render :show, status: :created, location: @usuario_externo }
