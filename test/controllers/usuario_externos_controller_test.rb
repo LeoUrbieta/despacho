@@ -20,18 +20,17 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create usuario_externo" do
     #Al usuario que no ha sigo login in, debe regresarlo al root path
-    assert_difference_create
+    assert_difference_create("info1@example.com")
     assert_redirected_to root_path
     assert_not flash.empty?
     #A un usuario normal debe de regresarlo al root_path
     sign_in_as(@usuario_interno,"password")
-    assert_difference_create
+    assert_difference_create("info2@example.com")
     assert_redirected_to root_path
     assert_not flash.empty?
-    #A un usuario normal debe de regresarlo al root_path
     #Al usuario que es admin y login debe redirigirlo al show del usuario externo recien creado
     sign_in_as(@admin,"admin")
-    assert_difference_create
+    assert_difference_create("info3@example.com")
     assert_redirected_to usuario_externo_url(UsuarioExterno.last)
     assert_not flash.empty?
     #A un usuario normal debe de regresarlo al root_path
@@ -51,7 +50,7 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
 
   test "should update usuario_externo" do
     sign_in_as(@admin,"admin")
-    patch usuario_externo_url(@usuario_externo), params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password: @usuario_externo.password_digest } }
+    patch usuario_externo_url(@usuario_externo), params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password: @usuario_externo.password_digest, password_confirmation: @usuario_externo.password_digest } }
     assert_redirected_to usuario_externo_url(@usuario_externo)
   end
 
@@ -66,9 +65,9 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  def assert_difference_create 
+  def assert_difference_create(nombre) 
     assert_difference("UsuarioExterno.count") do
-      post usuario_externos_url, params: { usuario_externo: { nombre_usuario: @usuario_externo.nombre_usuario, password: @usuario_externo.password_digest } }
+      post usuario_externos_url, params: { usuario_externo: { nombre_usuario: nombre, password: "passwordyeah", password_confirmation: "passwordyeah"} }
     end
   end
 end
