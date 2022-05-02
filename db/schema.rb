@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_01_224212) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_02_172847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,6 +113,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_01_224212) do
     t.date "fecha_para_realizar_tramite"
     t.text "observaciones"
     t.integer "folio"
+    t.bigint "usuario_externo_id", null: false
+    t.index ["usuario_externo_id"], name: "index_peticiones_on_usuario_externo_id"
   end
 
   create_table "replegales", force: :cascade do |t|
@@ -148,4 +150,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_01_224212) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "casos", "clientes"
+  add_foreign_key "peticiones", "usuario_externos"
 end
