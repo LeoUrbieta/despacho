@@ -159,7 +159,7 @@
           <%= link_to "Editar Peticion", edit_peticion_path(peticion.id), :class =>"btn btn-primary" %>
         </div>
         <div class="col-3 col-sm-2">
-          <%= link_to "Borrar Peticion", peticion_path(peticion.id), method: :delete, data: { confirm: '¿Estás seguro de querer borrar esta petición'},
+          <%= button_to "Borrar Peticion", peticion_path(peticion.id), method: :delete, data: { confirm: '¿Estás seguro de querer borrar esta petición'},
           :class =>"btn btn-danger" %>
         </div>
       </div>

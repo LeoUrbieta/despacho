@@ -17,8 +17,6 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "Credenciales son correctas e inicia sesion y termina sesion" do
-    get login_path
-    assert_template 'sessions/new'
     post login_path, params: { session: { nombre_usuario: @usuario.nombre_usuario, password: @usuario.password}}
     assert_redirected_to peticiones_path
     follow_redirect!

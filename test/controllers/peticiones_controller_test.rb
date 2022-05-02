@@ -8,7 +8,8 @@ class PeticionesControllerTest < ActionDispatch::IntegrationTest
     @Monica = User.create!(nombre_usuario: "MONICA", password: "monica")
     @peticion = Peticion.create!(nombre_trabajador: "Gerardo", apellido_paterno: "Gonzalez",
                                  apellido_materno: "Martinez", fecha_para_realizar_tramite: Date.parse("01-01-2001"), fecha_nacimiento: Date.parse("04-04-1984"),
-                                 movimiento: "Baja", empresa_solicitante: "NEOENKIMDU S.A. DE C.V", persona_solicitante: "Gregorio Ojeda", folio: 5)
+                                 movimiento: "Baja", empresa_solicitante: "NEOENKIMDU S.A. DE C.V", persona_solicitante: "Gregorio Ojeda", folio: 5, usuario_externo_id: UsuarioExterno.first.id)
+    @usuario_externo = UsuarioExterno.create!(nombre_usuario: "leo@example.com", password: "password", email_confirmado: true)
   end
 
   test "should get index" do
@@ -18,6 +19,7 @@ class PeticionesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create peticion" do
+    sign_in_as(@usuario_externo,"password")
     post peticiones_path, params: {peticion: {:nombre_trabajador => "Julian",
                                               :apellido_materno => "Agro",
                                               :apellido_paterno => "Enriquez",

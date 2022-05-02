@@ -2,7 +2,8 @@ class UsuarioExternosController < ApplicationController
   before_action :set_usuario_externo, only: %i[ show edit update destroy ]
   before_action :require_user, except: %i[new create confirm_email]
   before_action :require_admin, except: %i[new create confirm_email]
-
+  invisible_captcha only: [:create]
+  
   # GET /usuario_externos or /usuario_externos.json
   def index
     @usuario_externos = UsuarioExterno.all

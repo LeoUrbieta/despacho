@@ -1,3 +1,144 @@
 <h1 style="text-align: center">Peticiones IMSS Asesores MF</h1>
 <br>
+
 <%= render "peticiones/form", peticion: @peticion %>
+
+<% if usuario_externo_logged_in? %>
+<br>
+<h2 style="text-align: center"> HISTORIAL DE PETICIONES </h2>
+<hr>
+  <div>
+    <% @peticiones.each do |peticion| %>
+      <div class="row">
+        <div class="offset-2 col-2 offset-sm-3 col-sm-2">
+          <h3><%= peticion.movimiento%></h3>
+        </div>
+        <div class="col-2 col-sm-2">
+          <h3># <%= peticion.folio %></h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+          Fecha de Solicitud: <%=peticion.created_at.to_fs(:day_month_year)%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+          Empresa que solicita: <%=peticion.empresa_solicitante%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+          Solicita: <%=peticion.persona_solicitante%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-2 col-10 offset-sm-3 col-sm-9">
+          A realizar el: <%=peticion.fecha_para_realizar_tramite.to_time.to_fs(:day_month_year)%>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          NSS:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%= peticion.numero_imss %>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2" >
+          Nombre:
+        </div>
+          <div class="col-4 col-sm-4">
+            <%=peticion.nombre_trabajador%>
+          </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Apellido Paterno:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%=peticion.apellido_paterno%>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Apellido Materno:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%=peticion.apellido_materno%>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Salario Integrado:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%=peticion.salario_integrado%>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Salario Sin Integrar:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%=peticion.salario_sin_integrar%>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Fecha de Nacimiento:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%= if peticion.fecha_nacimiento != nil then peticion.fecha_nacimiento.to_time.to_fs(:day_month_year) end %>
+          </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          RFC:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%= peticion.rfc %>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          CURP:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%= peticion.curp %>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Observaciones:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%=peticion.observaciones%>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Dirección:
+        </div>
+        <div class="col-4 col-sm-4">
+          <%= peticion.domicilio %>
+        </div>
+      </div>
+      <div class="row">
+        <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
+          Documento IDSE adjunto: 
+        </div>
+        <div class="col-4 col-sm-4">
+          <% if peticion.respuesta_idse.attached? %>
+            Si  <%= link_to "Ver Archivo", url_for(peticion.respuesta_idse) %>
+        <% else %>
+          No
+        <% end %>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+  </div>
+<% end %>

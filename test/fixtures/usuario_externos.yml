@@ -3,7 +3,9 @@
 one:
   nombre_usuario: MyStringUno
   password_digest: passworduno
+  email_confirmado: true
 
 two:
   nombre_usuario: MyStringDos
   password_digest: passworddos
+  email_confirmado: false

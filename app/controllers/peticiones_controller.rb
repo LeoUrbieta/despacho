@@ -1,6 +1,5 @@
 class PeticionesController < ApplicationController
 
-  invisible_captcha only: [:create]
   before_action :require_user, except: [:new,:create]
   before_action :require_admin, only: [:edit, :update, :destroy]
 
@@ -22,10 +21,18 @@ class PeticionesController < ApplicationController
 
   def new
     @peticion = Peticion.new
+    if usuario_externo_logged_in?
+      @peticiones = usuario_externo_actual.peticiones
+    end
   end
 
   def create
     @peticion = Peticion.new(peticion_params)
+
+    if usuario_externo_logged_in?
+      @peticiones = usuario_externo_actual.peticiones
+    end
+    
     if Peticion.first.nil?
       folio_peticion_anterior = 0
     else
@@ -47,7 +54,6 @@ class PeticionesController < ApplicationController
 
   def update
     @peticion = Peticion.find(params[:id])
-    puts peticion_params
 
     if @peticion.update(peticion_params)
       flash[:success] = "Se editó la petición con éxito"
@@ -67,9 +73,10 @@ class PeticionesController < ApplicationController
 
   private
     def peticion_params
+      params[:peticion][:usuario_externo_id] = usuario_externo_actual.id
       params.require(:peticion).permit(:nombre_trabajador, :apellido_paterno, :apellido_materno, :empresa_solicitante,
       :persona_solicitante, :movimiento, :fecha_nacimiento, :domicilio, :numero_imss, :salario_integrado, :curp, :salario_sin_integrar,
-      :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse)
+      :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse, :usuario_externo_id)
     end
 
     def require_admin

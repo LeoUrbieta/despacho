@@ -9,6 +9,7 @@ one:
   empresa_solicitante: "BARAJAS SA DE CV"
   persona_solicitante: "Benjamin Metta"
   folio: 1
+  usuario_externo: one
 
 two:
   nombre_trabajador: MyString
@@ -19,3 +20,4 @@ two:
   empresa_solicitante: "CONBERAJA SA DE CV"
   persona_solicitante: "Amelia Jacome"
   folio: 2
+  usuario_externo: one

@@ -12,7 +12,6 @@
 
 <% if logged_in? || usuario_externo_logged_in? %>
   <%= form_with model: peticion do |form| %>
-    <%= invisible_captcha %>
     <div class="row mb-3">
       <%= form.label :movimiento, {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}  %>
       <div class="col-md-2">

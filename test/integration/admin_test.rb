@@ -6,7 +6,7 @@ class AdminTest < ActionDispatch::IntegrationTest
     @usuario_admin = User.create!(nombre_usuario: "Leo", password: "password", admin: true)
     @peticion = Peticion.create!(nombre_trabajador: "Alfonso", apellido_materno: "Moreno", apellido_paterno: "Tapia",
                                 rfc: "MOTA3511098Z4", empresa_solicitante: "ASESORES MF", persona_solicitante: "Juana",
-                                movimiento: "Baja")
+                                movimiento: "Baja", usuario_externo_id: UsuarioExterno.first.id)
   end
 
   test "Si eres administrador, borra una petición" do
