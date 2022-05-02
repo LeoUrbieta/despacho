@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :usuario_externos
+  resources :usuario_externos do
+    member do
+      get :confirm_email
+    end
+  end
 
   resources :replegales
   resources :casos
@@ -11,7 +15,6 @@ Rails.application.routes.draw do
   root "peticiones#new"
   resources :peticiones
 
-  get '/login', to:'sessions#new'
   post '/login', to:'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 

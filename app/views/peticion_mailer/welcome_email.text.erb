@@ -1,9 +1,9 @@
-Welcome to example.com, <%= @user.nombre_usuario%>
+Te registraste con este correo en la pagina de Asesores MF: <%= @user.nombre_usuario%>. Este será tu Usuario de ahora en adelante.
+
 ===============================================
 
-You have successfully signed up to example.com,
-your username is: <%= @user.nombre_usuario%>.
+Para verificar tu correo, da click en el siguiente link: <%= confirm_email_usuario_externo_url(@user.confirm_token) %>.
 
-To login to the site, just follow this link: <%= @url %>.
+Si no puedes dar click en él, puedes copiarlo y pegarlo en la barra de tu navegador
 
-Thanks for joining and have a great day!
+¡Gracias!

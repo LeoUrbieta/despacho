@@ -1,7 +1,7 @@
 class UsuarioExternosController < ApplicationController
   before_action :set_usuario_externo, only: %i[ show edit update destroy ]
-  before_action :require_user, except: %i[new create]
-  before_action :require_admin, except: %i[new create]
+  before_action :require_user, except: %i[new create confirm_email]
+  before_action :require_admin, except: %i[new create confirm_email]
 
   # GET /usuario_externos or /usuario_externos.json
   def index
@@ -61,6 +61,19 @@ class UsuarioExternosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to usuario_externos_url, notice: "Usuario externo fue eliminado correctamente." }
       format.json { head :no_content }
+    end
+  end
+
+  def confirm_email
+    usuario_externo = UsuarioExterno.find_by_confirm_token(params[:id])
+    puts usuario_externo
+    if usuario_externo
+      usuario_externo.activar_email
+      flash[:success] = "Gracias por confirmar tu correo. Ya puedes entrar a tu cuenta"
+      redirect_to root_path
+    else
+      flash[:error] = "Hubo un error al validar el correo."
+      redirect_to root_path
     end
   end
 

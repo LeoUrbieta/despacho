@@ -4,15 +4,14 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @user.nombre_usuario %></h1>
+    <h1>Gracias por registrarte con el siguiente correo, <%= @user.nombre_usuario %>. Este será tu Usuario de ahora en adelante.</h1>
     <p>
-    You have successfully signed up to example.com,
-    your username is: <%= @user.nombre_usuario%>.<br>
+    Para verificar tu correo, da click en el siguiente link: <%= confirm_email_usuario_externo_url(@user.confirm_token) %>
     </p>
     <p>
-    To login to the site, just follow this link: <%= @url %>.
+    Si no puedes dar click en él, puedes copiarlo y pegarlo en la barra de tu navegador
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>¡Gracias!</p>
   </body>
 </html>
 

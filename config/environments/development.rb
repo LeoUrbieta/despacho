@@ -49,10 +49,12 @@ Rails.application.configure do
     enable_starttls_auto: true,
     open_timeout:         5,
     read_timeout:         5 }
+  
+  config.action_mailer.default_url_options = {host: 'localhost:3000'}
 
   #Aqui termina la configuracion necesaria para gmail
 
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
