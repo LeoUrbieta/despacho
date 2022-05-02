@@ -1,11 +1,6 @@
 <div class="row">
   <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Peticiones</h1>
 </div>
-<div class="row mb-3">
-  <div class="offset-2 col-2 offset-sm-3 col-sm-9">
-    <%= link_to 'Nueva Peticion', new_peticion_path, :class => 'btn btn-primary' %>
-  </div>
-</div>
 <%= render "link_pagination", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
 <hr>
 <div>
