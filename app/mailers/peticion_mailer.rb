@@ -1,5 +1,5 @@
 class PeticionMailer < ApplicationMailer
-  default from: 'mfiscalistas@gmail.com'
+  default from: Rails.application.credentials.dig(:gmail,:user)
 
   def welcome_email
     @user = params[:usuario_externo]

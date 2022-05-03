@@ -68,14 +68,14 @@ Rails.application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'gmail.com',
-    user_name:            'mfiscalistas@gmail.com',
-    password:             'qflmkkbbjjbirbke',
+    user_name:            Rails.application.credentials.dig(:gmail,:user),
+    password:             Rails.application.credentials.dig(:gmail,:pass),
     authentication:       'plain',
     enable_starttls_auto: true,
     open_timeout:         5,
     read_timeout:         5 }
   
-  config.action_mailer.default_url_options = {host: 'asesoresmf.herokuapp.com'}
+  config.action_mailer.default_url_options = {host: Rails.application.credentials.dig(:production,:host)}
 
   # Termina Agregado del 3 de Mayo de 2022
   config.action_mailer.perform_caching = false
