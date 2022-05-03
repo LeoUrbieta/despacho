@@ -28,4 +28,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_equal "Has salido de tu sesión", flash[:success]
   end
+
+  test "Peticiones solo disponibles si Usuario Externo ha iniciado sesión" do
+    get root_path
+  end
 end

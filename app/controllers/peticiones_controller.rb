@@ -2,6 +2,7 @@ class PeticionesController < ApplicationController
 
   before_action :require_user, except: [:new,:create]
   before_action :require_admin, only: [:edit, :update, :destroy]
+  before_action :agregar_usuario_externo, only: [:create]
 
   PETICIONES_POR_PAGINA = 50 
   PAGINA_MINIMA = 0
@@ -56,8 +57,14 @@ class PeticionesController < ApplicationController
     @peticion = Peticion.find(params[:id])
 
     if @peticion.update(peticion_params)
-      flash[:success] = "Se editó la petición con éxito"
-      redirect_to peticiones_path
+      if @peticion.respuesta_idse.attached?
+        PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now 
+        flash[:success] = "Se envió un correo al cliente con esa petición"
+        redirect_to peticiones_path
+      else
+        flash[:success] = "Se editó la petición con éxito"
+        redirect_to peticiones_path
+      end
     else
       render edit
     end
@@ -73,10 +80,13 @@ class PeticionesController < ApplicationController
 
   private
     def peticion_params
-      params[:peticion][:usuario_externo_id] = usuario_externo_actual.id
       params.require(:peticion).permit(:nombre_trabajador, :apellido_paterno, :apellido_materno, :empresa_solicitante,
       :persona_solicitante, :movimiento, :fecha_nacimiento, :domicilio, :numero_imss, :salario_integrado, :curp, :salario_sin_integrar,
       :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse, :usuario_externo_id)
+    end
+
+    def agregar_usuario_externo
+      params[:peticion][:usuario_externo_id] = usuario_externo_actual.id
     end
 
     def require_admin
