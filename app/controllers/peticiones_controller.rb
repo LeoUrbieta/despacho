@@ -4,17 +4,10 @@ class PeticionesController < ApplicationController
   before_action :require_admin, only: [:edit, :update, :destroy]
   before_action :agregar_usuario_externo, only: [:create]
 
-  PETICIONES_POR_PAGINA_INDEX = 10 
-  PETICIONES_POR_PAGINA_NEW = 10
   PAGINA_MINIMA = 0
 
   def index
-    num_peticiones = Peticion.count
-    @pag_maximas = num_peticiones / PETICIONES_POR_PAGINA_INDEX
-    @pag_minimas = PAGINA_MINIMA
-    @page = params.fetch(:page,0).to_i
-    @page = pagination(@page,@pag_maximas,PAGINA_MINIMA)
-    @peticiones = Peticion.offset(@page * PETICIONES_POR_PAGINA_INDEX).limit(PETICIONES_POR_PAGINA_INDEX)
+    crearPaginas(Peticion.count, 50, Peticion)
   end
 
   def show
@@ -24,12 +17,7 @@ class PeticionesController < ApplicationController
   def new
     @peticion = Peticion.new
     if usuario_externo_logged_in?
-      num_peticiones = usuario_externo_actual.peticiones.count
-      @pag_maximas = num_peticiones / PETICIONES_POR_PAGINA_NEW
-      @pag_minimas = PAGINA_MINIMA
-      @page = params.fetch(:page,0).to_i
-      @page = pagination(@page,@pag_maximas,PAGINA_MINIMA)
-      @peticiones = usuario_externo_actual.peticiones.offset(@page * PETICIONES_POR_PAGINA_NEW).limit(PETICIONES_POR_PAGINA_NEW)
+      crearPaginas(usuario_externo_actual.peticiones.count, 10, usuario_externo_actual.peticiones)
     end
   end
 
@@ -111,5 +99,13 @@ class PeticionesController < ApplicationController
         pagina = pag_minima 
       end
       return pagina
+    end
+
+    def crearPaginas(numero_de_peticiones, peticiones_por_pagina, peticiones)
+      @pag_maximas = numero_de_peticiones / peticiones_por_pagina
+      @pag_minimas = PAGINA_MINIMA
+      @page = params.fetch(:page,0).to_i
+      @page = pagination(@page,@pag_maximas,PAGINA_MINIMA)
+      @peticiones = peticiones.offset(@page * peticiones_por_pagina).limit(peticiones_por_pagina)
     end
 end
