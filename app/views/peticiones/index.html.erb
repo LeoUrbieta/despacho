@@ -1,7 +1,7 @@
 <div class="row">
   <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Peticiones</h1>
 </div>
-<%= render "link_pagination", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
+<%= render "link_pagination_index", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
 <hr>
 <div>
   <% @peticiones.each do |peticion| %>
@@ -162,4 +162,4 @@
     <hr>
   <% end %>
 </div>
-<%= render "link_pagination", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
+<%= render "link_pagination_index", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>

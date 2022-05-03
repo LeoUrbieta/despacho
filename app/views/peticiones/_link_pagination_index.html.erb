@@ -1,6 +1,6 @@
 <div style="text-align: center">
   <% if pagina >  pag_minimas%>
-  |  <%= link_to "Peticiones Más Recientes", peticiones_path(page: pagina - 1) %> |
+    |  <%= link_to "Peticiones Más Recientes", peticiones_path(page: pagina - 1) %> |
   <% end %>
   <% if pagina <  pag_maximas%>
   |  <%= link_to "Peticiones Más Antiguas", peticiones_path(page: pagina + 1) %> |

@@ -7,6 +7,7 @@
 <br>
 <h2 style="text-align: center"> HISTORIAL DE PETICIONES </h2>
 <hr>
+<%= render "link_pagination_new", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
   <div>
     <% @peticiones.each do |peticion| %>
       <div class="row">
@@ -141,4 +142,5 @@
       <hr>
     <% end %>
   </div>
+<%= render "link_pagination_new", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
 <% end %>
