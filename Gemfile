@@ -72,3 +72,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Gema para enviar correos electrónicos
 gem "mail", "~> 2.7"
+
+#Gema para usar Active Storage con Amazon S3
+gem "aws-sdk-s3", "~> 1.113"
