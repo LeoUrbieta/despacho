@@ -19,6 +19,7 @@ class UsuarioExternosController < ApplicationController
 
   # GET /usuario_externos/1/edit
   def edit
+    @usuario_externo = UsuarioExterno.find(params[:id])
   end
 
   # POST /usuario_externos or /usuario_externos.json
@@ -66,7 +67,6 @@ class UsuarioExternosController < ApplicationController
 
   def confirm_email
     usuario_externo = UsuarioExterno.find_by_confirm_token(params[:id])
-    puts usuario_externo
     if usuario_externo
       usuario_externo.activar_email
       flash[:success] = "Gracias por confirmar tu correo. Ya puedes entrar a tu cuenta"

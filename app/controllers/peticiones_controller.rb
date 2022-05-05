@@ -26,6 +26,7 @@ class PeticionesController < ApplicationController
 
     if usuario_externo_logged_in?
       @peticiones = usuario_externo_actual.peticiones
+      crearPaginas(usuario_externo_actual.peticiones.count, 10, usuario_externo_actual.peticiones)
     end
     
     if Peticion.first.nil?

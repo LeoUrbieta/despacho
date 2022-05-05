@@ -13,24 +13,39 @@
 
   <%= invisible_captcha %>
 
-  <h2>Por favor introduce el correo electrónico al cual se enviarán los documentos relacionados con el IDSE</h2>
-
-  <h2>La contraseña debe de tener una longitud mínima de 8 caracteres</h2>
-
-  <div>
-    <%= form.label :nombre_usuario, "Correo electrónico", style: "display: block" %>
-    <%= form.email_field :nombre_usuario %>
-  </div>
-  <div>
-    <%= form.label :password, "Contraseña", style: "display: block" %>
-    <%= form.password_field :password %>
-  </div>
-  <div>
-    <%= form.label :password_confirmation, "Confirmar Contraseña", style: "display: block" %>
-    <%= form.password_field :password_confirmation %>
+  <div class="row">
+    <div class="offset-md-2 col-md-4">
+      <p>Correo electrónico al cual se enviarán los documentos relacionados con el IDSE. Será también el nombre de Usuario</p>
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="row mb-3">
+    <%= form.label :nombre_usuario, "Correo electrónico", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <div class="col-md-2">
+      <%= form.email_field :nombre_usuario, :class => "form-control" %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-4 offset-md-2">
+      <p>La contraseña debe tener mínimo 8 caracteres (no usar la letra ñ)</p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :password, "Contraseña", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <div class="col-md-2">
+      <%= form.password_field :password, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :password_confirmation, "Confirmar Contraseña", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <div class="col-md-2" >
+      <%= form.password_field :password_confirmation, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="offset-md-4 col-md-1" style="text-align: right">
+      <%= form.submit :class => "btn btn-primary"%>
+    </div>
   </div>
 <% end %>

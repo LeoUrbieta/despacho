@@ -6,5 +6,5 @@
   <%= link_to "Edit this usuario externo", edit_usuario_externo_path(@usuario_externo) %> |
   <%= link_to "Back to usuario externos", usuario_externos_path %>
 
-  <%= button_to "Destroy this usuario externo", @usuario_externo, method: :delete %>
+  <%= button_to "Destroy this usuario externo", @usuario_externo, method: :delete, :data => {confirm: "Esto eliminará al usuario definitivamente"} %>
 </div>

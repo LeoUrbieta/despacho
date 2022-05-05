@@ -1,11 +1,15 @@
-<% if modelo.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(modelo.errors.count, "error", locale: :"es-MX") %></h2>
-    <ul>
-      <% modelo.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
-    </ul>
+<div class="row">
+  <div class="offset-md-2">
+    <% if modelo.errors.any? %>
+      <div id="error_explanation", style = "color: red">
+        <h2><%= pluralize(modelo.errors.count, "error", locale: :"es-MX") %></h2>
+        <ul>
+          <% modelo.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 

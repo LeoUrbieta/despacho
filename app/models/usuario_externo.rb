@@ -6,8 +6,7 @@ class UsuarioExterno < ApplicationRecord
   has_many :peticiones
 
   validates :nombre_usuario, presence: true, uniqueness: true 
-  validates :password, length: { minimum: 8}
-
+  validates :password, length: { minimum: 8}, on: :create
 
   def activar_email
     self.email_confirmado = true
