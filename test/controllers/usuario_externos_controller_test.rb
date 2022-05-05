@@ -3,6 +3,7 @@ require "test_helper"
 class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
   setup do
     @usuario_externo = usuario_externos(:one)
+    @usuario_externo_sin_peticiones = usuario_externos(:two)
     @usuario_interno = User.create!(nombre_usuario: "Leo", password: "password")
     @admin = User.create!(nombre_usuario: "LeoAdmin", password: "admin", admin: true)
   end
@@ -54,13 +55,23 @@ class UsuarioExternosControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to usuario_externo_url(@usuario_externo)
   end
 
-  test "should destroy usuario_externo" do
+  test "should destroy usuario_externo si no tiene peticiones" do
     sign_in_as(@admin,"admin")
     assert_difference("UsuarioExterno.count", -1) do
-      delete usuario_externo_url(@usuario_externo)
+      delete usuario_externo_url(@usuario_externo_sin_peticiones)
     end
-
+    assert_not flash.empty?
+    assert_equal "Usuario externo fue eliminado correctamente.", flash[:notice]
     assert_redirected_to usuario_externos_url
+  end
+
+  test "Usuario que tiene peticiones no puede ser destruido" do
+  sign_in_as(@admin,"admin")
+  assert_no_difference("UsuarioExterno.count") do
+    delete usuario_externo_url(@usuario_externo)
+  end
+  assert_select "h2", "1 error impidieron completar tu solicitud."
+  assert_template :show
   end
 
   private

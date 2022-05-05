@@ -3,7 +3,7 @@ class UsuarioExterno < ApplicationRecord
 
   has_secure_password
 
-  has_many :peticiones
+  has_many :peticiones, dependent: :restrict_with_error
 
   validates :nombre_usuario, presence: true, uniqueness: true 
   validates :password, length: { minimum: 8}, on: :create

@@ -57,11 +57,13 @@ class UsuarioExternosController < ApplicationController
 
   # DELETE /usuario_externos/1 or /usuario_externos/1.json
   def destroy
-    @usuario_externo.destroy
-
-    respond_to do |format|
-      format.html { redirect_to usuario_externos_url, notice: "Usuario externo fue eliminado correctamente." }
-      format.json { head :no_content }
+    if @usuario_externo.destroy
+      respond_to do |format|
+        format.html { redirect_to usuario_externos_url, notice: "Usuario externo fue eliminado correctamente." }
+        format.json { head :no_content }
+      end
+    else
+      render 'show'
     end
   end
 

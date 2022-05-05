@@ -1,10 +1,20 @@
-<p style="color: green"><%= notice %></p>
+<% if @usuario_externo.errors.any? %>
+  <div style="color: red">
+    <h2><%= pluralize(@usuario_externo.errors.count, "error") %> impidieron completar tu solicitud.</h2>
+
+    <ul>
+      <% @usuario_externo.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= render @usuario_externo %>
 
 <div>
-  <%= link_to "Edit this usuario externo", edit_usuario_externo_path(@usuario_externo) %> |
-  <%= link_to "Back to usuario externos", usuario_externos_path %>
+  <%= link_to "Editar este Usuario Externo", edit_usuario_externo_path(@usuario_externo) %> |
+  <%= link_to "Regresar a Usuario Externos", usuario_externos_path %>
 
-  <%= button_to "Destroy this usuario externo", @usuario_externo, method: :delete, :data => {confirm: "Esto eliminará al usuario definitivamente"} %>
+  <%= button_to "Destruir este Usuario Externo", @usuario_externo, method: :delete, data: {turbo: false} %>
 </div>

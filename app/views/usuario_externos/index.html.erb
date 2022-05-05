@@ -1,14 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Usuario externos</h1>
 
 <div id="usuario_externos">
   <% @usuario_externos.each do |usuario_externo| %>
     <%= render usuario_externo %>
     <p>
-      <%= link_to "Show this usuario externo", usuario_externo %>
+      <%= link_to "Mostrar Usuario Externo", usuario_externo %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New usuario externo", new_usuario_externo_path %>
+<%= link_to "Nuevo Usuario Externo", new_usuario_externo_path %>
