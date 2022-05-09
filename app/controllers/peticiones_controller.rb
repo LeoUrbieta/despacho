@@ -84,13 +84,6 @@ class PeticionesController < ApplicationController
       params[:peticion][:usuario_externo_id] = usuario_externo_actual.id
     end
 
-    def require_admin
-      if !usuario_actual.admin?
-        flash[:danger] = "No puedes modificar los registros"
-        redirect_to peticiones_path
-      end
-    end
-
     def pagination(pagina,pag_maxima,pag_minima)
       if pagina <= pag_maxima and pagina >= pag_minima
           pagina = params.fetch(:page,0).to_i
