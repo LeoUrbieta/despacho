@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
 
-  invisible_captcha only: [:create], on_spam: :redirect_to_root_path
+  invisible_captcha only: [:create], on_spam: :go_to_root_path
 
   def new
   end
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
 
   private 
 
-  def redirect_to_root_path
+  def go_to_root_path
     redirect_to 'peticiones/new'
   end
 end
