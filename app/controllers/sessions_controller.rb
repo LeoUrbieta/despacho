@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  invisible_captcha only: [:create], on_spam: :redirect_to_root_path
+
   def new
   end
 
@@ -40,5 +42,11 @@ class SessionsController < ApplicationController
     end
     flash[:success] = "Has salido de tu sesión"
     redirect_to root_path
+  end
+
+  private 
+
+  def redirect_to_root_path
+    redirect_to 'peticiones/new'
   end
 end
