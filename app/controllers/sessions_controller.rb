@@ -1,10 +1,5 @@
 class SessionsController < ApplicationController
 
-  invisible_captcha only: [:create], on_spam: :go_to_root_path
-
-  def new
-  end
-
   def create
     usuario = User.find_by(nombre_usuario: params[:session][:nombre_usuario])
     if not usuario
@@ -44,9 +39,4 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-  private 
-
-  def go_to_root_path
-    redirect_to 'peticiones/new'
-  end
 end

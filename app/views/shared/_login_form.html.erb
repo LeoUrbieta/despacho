@@ -1,5 +1,4 @@
 <%= form_for(:session, :html => {class: "form-horizontal", role: "form"}, url: login_path, data: {turbo: false})  do |form| %>
-  <%= invisible_captcha %>
   <div class="row mb-3">
     <%= form.label :nombre_usuario, "Usuario", :class => "form-label offset-3 col-1 col-form-label"  %>
     <div class="col-4">
