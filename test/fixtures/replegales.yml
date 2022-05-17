@@ -5,8 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  nombre_completo: MyString1
-  rfc: MyString1
-  clave: MyString1
+  nombre_completo: "ADRIAN JIMENEZ" 
+  rfc: "JIAM123456TYU"
+  clave: "clave"
 two: {}
 # column: value
