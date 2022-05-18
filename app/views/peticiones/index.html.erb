@@ -127,7 +127,7 @@
         <%= peticion.domicilio %>
       </div>
     </div>
-    <% if (usuario_actual.nombre_usuario == "MONICA" || usuario_actual.admin?) %>
+    <% if (usuario_actual.nombre_usuario ==  Rails.application.credentials.dig(:usuario_adjuntar_idse,:usuario) || usuario_actual.admin?) %>
       <div class="row">
         <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
           Adjuntar Respuesta IDSE:

@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   
   def require_admin
     if not @usuario_actual.admin?
-      unless usuario_actual.nombre_usuario == "MONICA" && request.request_method == "PATCH" 
+      unless usuario_actual.nombre_usuario == Rails.application.credentials.dig(:usuario_adjuntar_idse,:usuario) && request.request_method == "PATCH" 
         flash[:danger] = "La página no está disponible"
         redirect_to root_path
       end
