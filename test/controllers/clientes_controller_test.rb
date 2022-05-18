@@ -53,12 +53,11 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to cliente_url(@cliente_uno)
   end
 
-  test "should destroy cliente" do
+  test "should destroy cliente si no tiene casos" do
     sign_in_as(@usuario,"password")
     assert_difference('Cliente.count', -1) do
       delete cliente_url(@cliente_uno)
     end
-
     assert_redirected_to clientes_url
   end
 

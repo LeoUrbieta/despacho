@@ -5,7 +5,7 @@ class Cliente < ApplicationRecord
   validates :razon_social, presence: true
   validates :rfc, presence: true, uniqueness: true
   validates :num_interno, presence: true, uniqueness: true, allow_nil: true 
-  has_many :casos
+  has_many :casos, dependent: :restrict_with_error
   has_and_belongs_to_many :replegales
 
   def self.to_csv
