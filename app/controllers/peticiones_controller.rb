@@ -61,7 +61,7 @@ class PeticionesController < ApplicationController
         redirect_to peticiones_path
       end
     else
-      render edit
+      render 'peticiones/index'
     end
   end
 

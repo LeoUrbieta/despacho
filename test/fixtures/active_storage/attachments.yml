@@ -1,0 +1,4 @@
+pdf_attachment:
+  name: respuesta_idse
+  record: two (Peticion)
+  blob: pdf_blob

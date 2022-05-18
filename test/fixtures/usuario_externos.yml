@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nombre_usuario: MyStringUno
+  nombre_usuario: "example@example.com" 
   password_digest: passworduno
   email_confirmado: true
 
 two:
-  nombre_usuario: MyStringDos
+  nombre_usuario: "example2@example.com" 
   password_digest: passworddos
   email_confirmado: false

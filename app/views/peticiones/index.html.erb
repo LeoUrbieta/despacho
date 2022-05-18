@@ -133,7 +133,7 @@
           Adjuntar Respuesta IDSE:
         </div>
         <div class="col-4 col-sm-4">
-          <%= form_with(model: peticion, scope: :peticion) do |form| %>
+          <%= form_with(model: peticion, scope: :peticion, data: {turbo: false}) do |form| %>
             <%= form.file_field :respuesta_idse %>
             <%= form.submit %> 
           <% end %>

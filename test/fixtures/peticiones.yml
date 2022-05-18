@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nombre_trabajador: MyString
-  apellido_materno: MyString
-  apellido_paterno: MyString
+  nombre_trabajador: Alejandro
+  apellido_materno: Martinez
+  apellido_paterno: Alcantara
   fecha_nacimiento: "2001-01-01"
   fecha_para_realizar_tramite: "2001-01-01"
   empresa_solicitante: "BARAJAS SA DE CV"
@@ -12,9 +12,9 @@ one:
   usuario_externo: one
 
 two:
-  nombre_trabajador: MyString
-  apellido_materno: MyString
-  apellido_paterno: MyString
+  nombre_trabajador: Ricardo
+  apellido_materno: Echeverria
+  apellido_paterno: Almazan
   fecha_nacimiento: "2001-01-01"
   fecha_para_realizar_tramite: "2001-01-01"
   empresa_solicitante: "CONBERAJA SA DE CV"
