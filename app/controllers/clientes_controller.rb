@@ -1,5 +1,6 @@
 class ClientesController < ApplicationController
   before_action :require_user
+  before_action :require_admin, only: [:destroy]
   before_action :set_cliente, only: %i[ show edit update destroy ]
 
   # GET /clientes or /clientes.json

@@ -2,7 +2,8 @@ require "test_helper"
 
 class ClientesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @usuario = User.create!(nombre_usuario: "Leo", password: "password")
+    @usuario = User.create!(nombre_usuario: "Leo", password: "password", admin: false)
+    @usuario_admin = User.create!(nombre_usuario: "Admin", password: "admin", admin: true)
     @cliente_uno = clientes(:one)
     @cliente_dos = clientes(:two)
   end
@@ -54,7 +55,8 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy cliente si no tiene casos" do
-    sign_in_as(@usuario,"password")
+    #Solo Admin puede borrar clientes
+    sign_in_as(@usuario_admin,"admin")
     assert_difference('Cliente.count', -1) do
       delete cliente_url(@cliente_uno)
     end
