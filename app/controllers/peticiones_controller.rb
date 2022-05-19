@@ -51,8 +51,6 @@ class PeticionesController < ApplicationController
   def update
     @peticion = Peticion.find(params[:id])
 
-    debugger
-
     if params[:peticion].nil?
       flash[:success] = "Tienes que adjuntar un archivo antes"
       redirect_to peticiones_path and return
