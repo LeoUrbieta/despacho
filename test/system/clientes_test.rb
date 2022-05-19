@@ -3,12 +3,7 @@ require "application_system_test_case"
 class ClientesTest < ApplicationSystemTestCase
   setup do
     @cliente = clientes(:one)
-    User.create!(nombre_usuario: 'user', password: 'user12345', admin: false)
-    visit root_path
-    fill_in with: 'user', id: 'session_nombre_usuario'
-    fill_in with: 'user12345', :id => 'session_password'
-    click_on "Entrar"
-    assert_text "Has entrado con éxito"
+    crear_y_entrar_como_usuario_system_test('user','user12345',false)
   end
 
   test "visiting the index" do
@@ -33,6 +28,8 @@ class ClientesTest < ApplicationSystemTestCase
     click_link_or_button "Dar de baja como Cliente"
     assert_text "BAJA"
     assert_text "El Cliente se actualizó exitosamente"
+    visit bajas_clientes_url
+    assert_text @cliente.razon_social.upcase
   end
 
   test "updating a Cliente" do

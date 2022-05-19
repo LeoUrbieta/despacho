@@ -27,7 +27,7 @@ class CasosController < ApplicationController
 
     respond_to do |format|
       if @caso.save
-        format.html { redirect_to casos_url, notice: "El caso fue creado exitósamente" }
+        format.html { redirect_to casos_url, notice: "El caso fue creado exitosamente" }
         format.json { render :show, status: :created, location: @caso }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class CasosController < ApplicationController
   def destroy
     @caso.destroy
     respond_to do |format|
-      format.html { redirect_to casos_url, notice: "El caso fue eliminado exitósamente" }
+      format.html { redirect_to casos_url, notice: "El caso fue eliminado exitosamente" }
       format.json { head :no_content }
     end
   end

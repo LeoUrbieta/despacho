@@ -44,14 +44,14 @@
       </div>
       <div class="col-2 col-sm-2">
         <% if request.original_fullpath.include? "clientes"%>
-          <%= link_to 'Enviar a Lista de Casos', caso_path(id: caso.id, :caso => {:fecha_conclusion => ''}), method: :patch, :class => 'btn btn-secondary'%>
+          <%= button_to 'Enviar a Lista de Casos', caso_path(id: caso.id, :caso => {:fecha_conclusion => ''}), method: :patch, :class => 'btn btn-secondary', data: {turbo:false}%>
         <%else%>
-          <%= link_to 'Hecho', caso_path(id: caso.id, :caso => {:fecha_conclusion => Date.today}), method: :patch, :class => 'btn btn-success'%>
+          <%= button_to 'Hecho', caso_path(id: caso.id, :caso => {:fecha_conclusion => Date.today}), method: :patch, :class => 'btn btn-success', data: {turbo: false}%>
         <%end%>
       </div>
       <% if usuario_actual.admin? %>
         <div class="col-1 col-sm-1">
-          <%= link_to 'Eliminar', caso, method: :delete, :class => "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+          <%= button_to 'Eliminar', caso, method: :delete, :class => "btn btn-danger" %>
         </div>
       <% end %>
     </div>

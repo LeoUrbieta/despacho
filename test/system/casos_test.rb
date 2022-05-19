@@ -3,6 +3,7 @@ require "application_system_test_case"
 class CasosTest < ApplicationSystemTestCase
   setup do
     @caso = casos(:one)
+    crear_y_entrar_como_usuario_system_test('user','user12345',false)
   end
 
   test "visiting the index" do
@@ -12,30 +13,34 @@ class CasosTest < ApplicationSystemTestCase
 
   test "creating a Caso" do
     visit casos_url
-    click_on "New Caso"
-
-    click_on "Create Caso"
-
-    assert_text "Caso was successfully created"
-    click_on "Back"
+    click_on "Nuevo Caso"
+    fill_in with: "Texto de Prueba", id: "caso_texto_caso"
+    click_on "Crear Caso"
+    assert_text "El caso fue creado exitosamente"
   end
 
   test "updating a Caso" do
     visit casos_url
-    click_on "Edit", match: :first
-
-    click_on "Update Caso"
-
-    assert_text "Caso was successfully updated"
-    click_on "Back"
+    click_on "Editar", match: :first
+    fill_in with: "Texto de Prueba de Actualizacion", id: "caso_texto_caso"
+    click_on "Actualizar Caso"
+    assert_text "El caso fue actualizado exitosamente"
   end
 
-  test "destroying a Caso" do
+  test "solo admin puede borrar casos" do
+    assert_no_button "Eliminar"
     visit casos_url
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
+    click_button "Terminar Sesion"
+    crear_y_entrar_como_usuario_system_test('user_admin','user12345',true)
+    visit casos_url
+    assert_button "Eliminar"
+    click_on "Eliminar", match: :first
+    assert_text "El caso fue eliminado exitosamente"
+  end
 
-    assert_text "Caso was successfully destroyed"
+  test "enviar caso a archivo del cliente"do 
+    visit casos_url
+    click_button "Hecho", match: :first
+    assert_text "El caso fue actualizado exitosamente"
   end
 end
