@@ -11,6 +11,15 @@
       <%= form.password_field :password, :class => "form-control col-2" %>
     </div>
   </div>
+  <% if @show_checkbox_recaptcha %>
+    <div class="row mb-3">
+      <div class="col-3 offset-5"> 
+    <%= recaptcha_tags site_key: Rails.application.credentials.dig(:recaptchav2,:site)%>
+      </div>
+    </div>
+  <% else %>
+    <%= recaptcha_v3(action: 'login', site_key: Rails.application.credentials.dig(:recaptcha,:site)) %>
+  <% end %>
   <div class="row mb-3">
     <%= form.submit("Entrar", :class =>"btn btn-primary offset-7 col-1") %>
   </div>

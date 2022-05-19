@@ -217,3 +217,7 @@ es-MX:
       long: "%A, %d de %B de %Y a las %I:%M %p"
       short: "%d de %b a las %H:%M hrs"
     pm: pm
+  recaptcha:
+    errors:
+      verification_failed: 'CAPTCHA inválido. Por favor, intentalo nuevamente'
+      recaptcha_unreachable: 'Hubo un error con el servidor de reCaptcha. Por favor, intentalo nuevamente'
