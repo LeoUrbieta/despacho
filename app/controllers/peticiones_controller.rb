@@ -51,17 +51,24 @@ class PeticionesController < ApplicationController
   def update
     @peticion = Peticion.find(params[:id])
 
+    debugger
+
+    if params[:peticion].nil?
+      flash[:success] = "Tienes que adjuntar un archivo antes"
+      redirect_to peticiones_path and return
+    end
+
     if @peticion.update(peticion_params)
-      if @peticion.respuesta_idse.attached?
+      if peticion_params[:respuesta_idse]
         PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now 
-        flash[:success] = "Se envió un correo al cliente con esa petición"
+        flash[:success] = "Peticion enviada a #{@peticion.usuario_externo.nombre_usuario}"
         redirect_to peticiones_path
       else
         flash[:success] = "Se editó la petición con éxito"
         redirect_to peticiones_path
       end
     else
-      render 'peticiones/index'
+      render :edit
     end
   end
 
@@ -75,9 +82,7 @@ class PeticionesController < ApplicationController
 
   private
     def peticion_params
-      params.require(:peticion).permit(:nombre_trabajador, :apellido_paterno, :apellido_materno, :empresa_solicitante,
-      :persona_solicitante, :movimiento, :fecha_nacimiento, :domicilio, :numero_imss, :salario_integrado, :curp, :salario_sin_integrar,
-      :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse, :usuario_externo_id)
+      params.require(:peticion).permit(:nombre_trabajador, :apellido_paterno, :apellido_materno, :empresa_solicitante, :persona_solicitante, :movimiento, :fecha_nacimiento, :domicilio, :numero_imss, :salario_integrado, :curp, :salario_sin_integrar, :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse, :usuario_externo_id)
     end
 
     def agregar_usuario_externo

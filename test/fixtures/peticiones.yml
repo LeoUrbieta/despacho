@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  movimiento: Baja
   nombre_trabajador: Alejandro
   apellido_materno: Martinez
   apellido_paterno: Alcantara
@@ -12,6 +13,7 @@ one:
   usuario_externo: one
 
 two:
+  movimiento: Alta
   nombre_trabajador: Ricardo
   apellido_materno: Echeverria
   apellido_paterno: Almazan
