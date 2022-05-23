@@ -28,8 +28,8 @@ class CasosTest < ApplicationSystemTestCase
   end
 
   test "solo admin puede borrar casos" do
-    assert_no_button "Eliminar"
     visit casos_url
+    assert_no_button "Eliminar"
     click_button "Terminar Sesion"
     crear_y_entrar_como_usuario_system_test('user_admin','user12345',true)
     visit casos_url

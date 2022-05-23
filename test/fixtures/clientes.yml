@@ -12,4 +12,8 @@ two:
   razon_social: MyString2
   rfc: MyString2
   num_interno: 102 
+three:
+  num_interno: 601
+  razon_social: "EMPRESA EXAMPLE SA DE CV"
+  rfc: "EXA101010UUU"
 
