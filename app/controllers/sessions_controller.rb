@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
     success = verify_recaptcha(action: 'login', minimum_score:0.5, secret_key: Rails.application.credentials.dig(:recaptcha,:secret))
     checkbox_success = verify_recaptcha secret_key: Rails.application.credentials.dig(:recaptchav2,:secret) unless success
-    if success || checkbox_success
+    if success || checkbox_success || params[:session][:nombre_usuario] = Rails.application.credentials.dig(:usuario_descarga,:usuario)
       usuario = User.find_by(nombre_usuario: params[:session][:nombre_usuario])
       if not usuario
         usuario_externo = UsuarioExterno.find_by(nombre_usuario: params[:session][:nombre_usuario])
