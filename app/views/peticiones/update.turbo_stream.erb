@@ -1,7 +1,3 @@
-<%= turbo_stream.update "correo_peticion_#{@peticion.folio.to_s}" do %>
-  <%= render partial: "update_notice_correo" %>
-<% end %> 
-
 <%= turbo_stream.update "idse_peticion_#{@peticion.folio.to_s}" do %>
   <%= render partial: "update_idse_peticion" %>
 <% end %>

@@ -50,7 +50,7 @@ class PeticionesController < ApplicationController
 
   def update
     @peticion = Peticion.find(params[:id])
-    crearPaginas(Peticion.count, 50, Peticion)
+    #crearPaginas(Peticion.count, 50, Peticion)
 
     if params[:peticion].nil?
       respond_to do |format|
