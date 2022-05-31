@@ -1,0 +1,8 @@
+<div class="alert alert-primary">
+  Peticion enviada a <%=@peticion.usuario_externo.nombre_usuario%>
+</div>
+<% if @peticion.respuesta_idse.attached? %>
+  Si  <%= link_to "Ver Archivo", url_for(@peticion.respuesta_idse) %>
+<% else %>
+  No
+<% end %>

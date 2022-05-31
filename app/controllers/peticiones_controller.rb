@@ -11,7 +11,7 @@ class PeticionesController < ApplicationController
   end
 
   def show
-
+    redirect_to peticiones_path
   end
 
   def new
@@ -42,7 +42,7 @@ class PeticionesController < ApplicationController
     else
       render :new
     end
-  end
+  end 
 
   def edit
     @peticion = Peticion.find(params[:id])
@@ -50,23 +50,28 @@ class PeticionesController < ApplicationController
 
   def update
     @peticion = Peticion.find(params[:id])
+    crearPaginas(Peticion.count, 50, Peticion)
 
     if params[:peticion].nil?
-      flash[:success] = "Tienes que adjuntar un archivo antes"
-      redirect_to peticiones_path and return
-    end
-
-    if @peticion.update(peticion_params)
-      if peticion_params[:respuesta_idse]
-        PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now 
-        flash[:success] = "Peticion enviada a #{@peticion.usuario_externo.nombre_usuario}"
-        redirect_to peticiones_path
-      else
-        flash[:success] = "Se editó la petición con éxito"
-        redirect_to peticiones_path
+      respond_to do |format|
+        format.html {redirect_to peticiones_path, notice: "Tienes que adjuntar un archivo antes"}
+        format.turbo_stream
       end
     else
-      render :edit
+      if @peticion.update(peticion_params)
+        if peticion_params[:respuesta_idse]
+          PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now 
+          respond_to do |format|
+            format.html {redirect_to peticiones_path, notice: "Peticion enviada a #{@peticion.usuario_externo.nombre_usuario}"}
+            format.turbo_stream
+          end
+        else
+          flash[:success] = "Se editó la petición con éxito"
+          redirect_to peticiones_path
+        end
+      else
+        render :edit
+      end
     end
   end
 
