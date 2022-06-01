@@ -1,3 +1,7 @@
 <%= turbo_stream.update "idse_peticion_#{@peticion.folio.to_s}" do %>
   <%= render partial: "update_idse_peticion" %>
 <% end %>
+
+<%= turbo_stream.update "adjuntar_peticion_#{@peticion.folio.to_s}" do %>
+  <%= render partial: "update_adjuntar_peticion" %>
+<% end %>

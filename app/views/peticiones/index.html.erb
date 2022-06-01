@@ -132,7 +132,7 @@
         <div style = "text-align: right" class="offset-2 col-3 offset-sm-3 col-sm-2">
           Adjuntar Respuesta IDSE:
         </div>
-        <div class="col-4 col-sm-4">
+        <div class="col-4 col-sm-4" id="adjuntar_peticion_<%=peticion.folio.to_s%>">
           <%= form_with(model: peticion, scope: :peticion) do |form| %>
             <%= form.file_field :respuesta_idse %>
             <%= form.submit %> 
