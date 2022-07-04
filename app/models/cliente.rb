@@ -7,6 +7,7 @@ class Cliente < ApplicationRecord
   validates :num_interno, presence: true, uniqueness: true, allow_nil: true 
   has_many :casos, dependent: :restrict_with_error
   has_and_belongs_to_many :replegales
+  belongs_to :user, optional: true
 
   def self.to_csv
     attributes = %w{num_interno razon_social clave fiel csd}
