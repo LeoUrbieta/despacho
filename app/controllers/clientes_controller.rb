@@ -89,7 +89,8 @@ class ClientesController < ApplicationController
         mb_chars.upcase.to_s
       params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
-                                      :fiel,:csd,:fiel_vencimiento,:csd_vencimiento)
+                                      :fiel,:csd,:fiel_vencimiento,:csd_vencimiento,
+                                      :user_id)
     end
 
     def notice_a_mostrar(string_notificacion,string_nuevo_u_update)
