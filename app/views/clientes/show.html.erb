@@ -19,6 +19,12 @@
 </div>
 
 <div class="row">
+  <div class="offset-1 offset-md-1">
+    <h2> Asignado: <%= @cliente.user.nombre_usuario if @cliente.user != nil %> </h2>
+  </div>
+</div>
+
+<div class="row">
   <div class="offset-1 col-2 offset-sm-1 col-sm-2">
     <%= link_to 'Editar Cliente', edit_cliente_path(@cliente), :class => 'btn btn-primary' %>
   </div>
