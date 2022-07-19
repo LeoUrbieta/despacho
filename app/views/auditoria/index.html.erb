@@ -42,7 +42,7 @@
     <% cliente.audits.each do |audit| %>
       <tr style="background-color: #4ba8c6">
         <td><%= audit.id %></td>
-        <td><%= audit.user.nombre_usuario %></td>
+        <%if not audit.user.nil? %><td><%= audit.user.nombre_usuario %></td><%else%><td>-</td><% end %>
         <td><%= audit.action %></td>
         <td><%= "Cliente: " + cliente.razon_social%></td>
         <td><%= audit.audited_changes %></td>
