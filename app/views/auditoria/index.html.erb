@@ -42,6 +42,8 @@
     <% cliente.audits.each do |audit| %>
       <tr style="background-color: #4ba8c6">
         <td><%= audit.id %></td>
+        <!-- La siguiente condicion solo aplica si no habia sesion iniciada por un usuario
+          i.e. se realizo desde la linea de comandos remota -->
         <%if not audit.user.nil? %><td><%= audit.user.nombre_usuario %></td><%else%><td>-</td><% end %>
         <td><%= audit.action %></td>
         <td><%= "Cliente: " + cliente.razon_social%></td>
