@@ -47,6 +47,7 @@ class ClientesController < ApplicationController
 
     if not params[:cliente][:num_interno].nil? and params[:cliente][:num_interno].empty?
       params[:cliente][:num_interno] = nil
+      params[:cliente][:user_id] = nil
     end
     string_notificacion,estatus_dar_de_alta=actualizar_replegal_asociado
     respond_to do |format|

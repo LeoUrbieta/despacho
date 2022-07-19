@@ -31,7 +31,7 @@
   <div class="col-2 col-sm-2">
     <% if not @cliente.num_interno.nil? %>
       <%= button_to 'Dar de baja como Cliente', cliente_path(id: @cliente.id, 
-                                              :cliente => {:num_interno => nil,
+                                              :cliente => {:num_interno => "",
                                                            :razon_social => @cliente.razon_social,
                                                            :rfc => @cliente.rfc,
                                                            :clave => @cliente.clave,
@@ -41,8 +41,7 @@
                                                            "csd_vencimiento(3i)" => @cliente.csd_vencimiento.day,
                                                            "csd_vencimiento(2i)" => @cliente.csd_vencimiento.month,
                                                            "csd_vencimiento(1i)" => @cliente.csd_vencimiento.year}),
-         method: :patch, :class => 'btn btn-warning',
-        data: { confirm: "Se dará de baja al cliente #{@cliente.razon_social}."}%>
+         method: :patch, :class => 'btn btn-warning'%>
     <% end %>
   </div>
   <% if usuario_actual.admin? %>

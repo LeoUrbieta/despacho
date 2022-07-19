@@ -8,6 +8,7 @@ one:
   razon_social: MyString1
   rfc: MyString1
   num_interno: 101 
+  user: one
 two:
   razon_social: MyString2
   rfc: MyString2

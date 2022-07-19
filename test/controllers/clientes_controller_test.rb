@@ -6,6 +6,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @usuario_admin = User.create!(nombre_usuario: "Admin", password: "admin", admin: true)
     @cliente_uno = clientes(:one)
     @cliente_dos = clientes(:two)
+    @user_one = users(:one)
   end
 
   test "should get index" do
@@ -81,6 +82,24 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Cliente.count' do
       patch cliente_url(@cliente_dos), params: { cliente: {:rfc => rfc_cliente_uno, :razon_social => razon_cliente_uno}}
       patch cliente_url(@cliente_dos), params: { cliente: {:num_interno => num_interno_cliente_uno, :razon_social => razon_cliente_dos, :rfc => rfc_cliente_dos}}
+    end
+  end
+
+  test "Dar de baja cliente debe eliminar usuario asignado" do
+    sign_in_as(@usuario,"password")
+    assert_difference '@user_one.clientes.count', -1 do
+      patch cliente_url(@cliente_uno), params: { cliente: {:num_interno => "",
+                                                           :razon_social => @cliente_uno.razon_social,
+                                                           :rfc => @cliente_uno.rfc,
+                                                           :clave => @cliente_uno.clave,
+                                                           "fiel_vencimiento(3i)" => @cliente_uno.fiel_vencimiento.day,
+                                                           "fiel_vencimiento(2i)" => @cliente_uno.fiel_vencimiento.month,
+                                                           "fiel_vencimiento(1i)" => @cliente_uno.fiel_vencimiento.year,
+                                                           "csd_vencimiento(3i)" => @cliente_uno.csd_vencimiento.day,
+                                                           "csd_vencimiento(2i)" => @cliente_uno.csd_vencimiento.month,
+                                                           "csd_vencimiento(1i)" => @cliente_uno.csd_vencimiento.year}}
+      @cliente_uno.reload
+      assert_nil @cliente_uno.user_id
     end
   end
   

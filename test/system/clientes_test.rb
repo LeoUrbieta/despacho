@@ -68,4 +68,13 @@ class ClientesTest < ApplicationSystemTestCase
     assert_text "El Cliente fue creado exitosamente"
   end
 
+  test "dar de baja Cliente debe eliminar usuario Asignado" do
+    visit clientes_url
+    click_link @cliente.razon_social
+    assert_text @cliente.user.nombre_usuario
+    click_on "Dar de baja como Cliente"
+    assert_text "El Cliente se actualizó exitosamente"
+    assert_no_text @cliente.user.nombre_usuario
+  end
+
 end
