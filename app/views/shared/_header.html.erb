@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mb-3">
   <div class="offset-8 col-4">
     <% if logged_in? || usuario_externo_logged_in? %>
       <%=button_to("Terminar Sesion", logout_path, method: :delete) %>
@@ -29,8 +29,11 @@
 
 <%if logged_in? %>
   <div class="row">
-    <div class="offset-2 col-2">
+    <div class="offset-1 col-2">
       <%=link_to "Clientes", clientes_path%>
+    </div>
+    <div class="col-2">
+      <%=link_to "Contabilidad", contabilidad_clientes_path%>
     </div>
     <div class="col-2">
       <%=link_to "Rep. Legales", replegales_path%>

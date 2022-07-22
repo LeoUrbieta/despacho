@@ -1,0 +1,29 @@
+<%= form_with(model: [obligacion.cliente,obligacion]) do |form| %>
+  <% if obligacion.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(obligacion.errors.count, "error") %> prohibited this obligacion from being saved:</h2>
+
+      <ul>
+        <% obligacion.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :fecha, style: "display: block" %>
+    <%= form.date_select :fecha, {discard_day: true} %>
+  </div>
+
+  <div >
+    <%= form.label :presentadas, "Obligaciones Presentadas", style: "display: block" %>
+    <%= form.collection_check_boxes :presentadas, Obligacion.lista_obligaciones, :keys, :values, {}, {:class => "form-check-input"} do |f| %>
+      <%= f.check_box + " " + f.text.first%><br>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

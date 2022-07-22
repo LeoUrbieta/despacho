@@ -44,18 +44,18 @@ es-MX:
       short: "%d de %b"
     month_names:
     - 
-    - enero
-    - febrero
-    - marzo
-    - abril
-    - mayo
-    - junio
-    - julio
-    - agosto
-    - septiembre
-    - octubre
-    - noviembre
-    - diciembre
+    - Enero
+    - Febrero
+    - Marzo
+    - Abril
+    - Mayo
+    - Junio
+    - Julio
+    - Agosto
+    - Septiembre
+    - Octubre
+    - Noviembre
+    - Diciembre
     order:
     - :day
     - :month
@@ -221,3 +221,15 @@ es-MX:
     errors:
       verification_failed: 'CAPTCHA inválido. Por favor, intentalo nuevamente'
       recaptcha_unreachable: 'Hubo un error con el servidor de reCaptcha. Por favor, intentalo nuevamente'
+  January: "Enero"
+  February: "Febrero"
+  March: "Marzo"
+  April: "Abril"
+  May: "Mayo"
+  June: "Junio"
+  July: "Julio"
+  August: "Agosto"
+  September: "Septiembre"
+  October: "Octubre"
+  November: "Noviembre"
+  December: "Diciembre"

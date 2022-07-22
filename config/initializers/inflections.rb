@@ -20,6 +20,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'peticion', 'peticiones'
   inflect.irregular 'replegal', 'replegales'
   inflect.irregular 'representante_legal', 'representantes_legales'
+  inflect.irregular 'obligacion', 'obligaciones'
 end
 
 ActiveSupport::Inflector.inflections(:"es-MX") do |inflect|

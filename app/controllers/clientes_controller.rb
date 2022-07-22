@@ -78,6 +78,19 @@ class ClientesController < ApplicationController
     @clientes = Cliente.where("num_interno IS NULL") 
   end
 
+  def contabilidad
+    @clientes = @usuario_actual.clientes.all
+  end
+
+  def post_contabilidad
+    usuario = User.find(params[:id])
+    @clientes = usuario.clientes.all
+    respond_to do |format|
+      format.html {redirect_to contabilidad_clientes_path, notice: "Turbo streams no puede renovar la tabla"}
+      format.turbo_stream
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cliente
@@ -91,7 +104,8 @@ class ClientesController < ApplicationController
       params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
                                       :fiel,:csd,:fiel_vencimiento,:csd_vencimiento,
-                                      :user_id)
+                                      :user_id,
+                                      obligaciones_attributes: [:annum, :mes, presentadas: []])
     end
 
     def notice_a_mostrar(string_notificacion,string_nuevo_u_update)
