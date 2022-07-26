@@ -1,20 +1,16 @@
 class ObligacionesController < ApplicationController
-  before_action :set_obligacion, only: %i[ show edit update destroy ]
-  before_action :set_cliente, only: %i[index new create]
+  before_action :require_user
+  before_action :set_obligacion, only: %i[ edit update destroy ]
+  before_action :set_cliente, only: %i[index new create edit]
 
   # GET :cliente_id/obligaciones 
   def index
     @obligaciones = @cliente.obligaciones.all
   end
 
-  # GET :cliente_id/obligaciones/1 
-  def show
-  end
-
   # GET :cliente_id/obligaciones/new
   def new
     @obligacion = Obligacion.new
-    @obligacion.cliente = @cliente
   end
 
   # GET :cliente_id/obligaciones/1/edit
@@ -28,7 +24,7 @@ class ObligacionesController < ApplicationController
 
     respond_to do |format|
       if @obligacion.save
-        format.html { redirect_to cliente_obligaciones_url, notice: "Obligacion was successfully created." }
+        format.html { redirect_to cliente_obligaciones_url, notice: "La Obligacion se creó exitosamente" }
         format.json { render :show, status: :created, location: @obligacion }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +37,7 @@ class ObligacionesController < ApplicationController
   def update
     respond_to do |format|
       if @obligacion.update(obligacion_params)
-        format.html { redirect_to cliente_obligaciones_url, notice: "Obligacion was successfully updated." }
+        format.html { redirect_to cliente_obligaciones_url, notice: "La obligación se actualizó exitosamente" }
         format.json { render :show, status: :ok, location: @obligacion }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +51,7 @@ class ObligacionesController < ApplicationController
     @obligacion.destroy
 
     respond_to do |format|
-      format.html { redirect_to cliente_obligaciones_url, notice: "Obligacion was successfully destroyed." }
+      format.html { redirect_to cliente_obligaciones_url, notice: "Se eliminó la obligación correctamente" }
       format.json { head :no_content }
     end
   end

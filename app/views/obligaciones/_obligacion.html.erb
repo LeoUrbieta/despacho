@@ -18,7 +18,7 @@
               <%= ob if not ob.empty? %>
             <% end %>
           </td>
-          <td><%= link_to "Editar", edit_cliente_obligacion_path(obligacion.cliente,obligacion) %></td>
+          <td><%= link_to "Editar", edit_cliente_obligacion_path(obligacion.cliente,obligacion), {:class => 'btn btn-primary'} %></td>
         </tr>
       <% end %>
     </tbody>

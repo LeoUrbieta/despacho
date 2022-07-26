@@ -6,9 +6,9 @@
 #
 one: 
   nombre_usuario: "usuario1"
-  password_digest: "password1"
+  password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
   admin: false
 two: 
-  nombre_usuario: "usuario2"
-  password_digest: "password2"
+  nombre_usuario: "usuario_sin_clientes_asignados"
+  password_digest: <%= BCrypt::Password.create('testpassword2', cost: 5) %>
   admin: false

@@ -5,16 +5,21 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  razon_social: MyString1
-  rfc: MyString1
+  razon_social: "JUAN VARGAS"
+  rfc: "VAJU781115XUJ"
   num_interno: 101 
   user: one
 two:
-  razon_social: MyString2
-  rfc: MyString2
+  razon_social: "MIRIAM CAMARGO"
+  rfc: "CAMI660231IO3"
   num_interno: 102 
+  user: one
 three:
   num_interno: 601
   razon_social: "EMPRESA EXAMPLE SA DE CV"
   rfc: "EXA101010UUU"
+four:
+  num_interno: 103
+  razon_social: "JAIME SABINES"
+  rfc: "SAJA900105YUF"
 

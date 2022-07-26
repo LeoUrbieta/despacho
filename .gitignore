@@ -42,3 +42,6 @@ yarn-debug.log*
 # Ignorar el directorio donde instalé las gemas
 /gems
 *.swp
+
+# Ignorar archivo de sesion en vim
+Session.vim

@@ -1,9 +1,15 @@
-<h1>Nueva obligacion</h1>
+<div class="row mb-3">
+  <div class="offset-md-1 col-md-3">
+    <h1>Nueva obligacion</h1>
+  </div>
+</div>
 
 <%= render "form", obligacion: @obligacion, cliente: @cliente %>
 
 <br>
 
-<div>
-  <%= link_to "Back to obligaciones", cliente_obligaciones_path %>
+<div class="row mb-3">
+  <div class="offset-md-1 col-md-3">
+    <%= link_to "Regresar a todas las obligaciones", cliente_obligaciones_path %>
+  </div>
 </div>

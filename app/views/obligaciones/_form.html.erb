@@ -1,4 +1,4 @@
-<%= form_with(model: [obligacion.cliente,obligacion]) do |form| %>
+<%= form_with model: [cliente,obligacion] do |form| %>
   <% if obligacion.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(obligacion.errors.count, "error") %> prohibited this obligacion from being saved:</h2>
@@ -11,19 +11,24 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="row mb-3">
+    <div class="offset-md-1 col-md-3"> 
     <%= form.label :fecha, style: "display: block" %>
     <%= form.date_select :fecha, {discard_day: true} %>
+    </div>
   </div>
 
-  <div >
-    <%= form.label :presentadas, "Obligaciones Presentadas", style: "display: block" %>
-    <%= form.collection_check_boxes :presentadas, Obligacion.lista_obligaciones, :keys, :values, {}, {:class => "form-check-input"} do |f| %>
-      <%= f.check_box + " " + f.text.first%><br>
-    <% end %>
+  <div class="row mb-3">
+    <div class="offset-md-1 col-md-3"> 
+      <%= form.label :presentadas, "Obligaciones Presentadas", style: "display: block" %>
+      <%= form.collection_check_boxes :presentadas, Obligacion.lista_obligaciones, :keys, :values, {}, {:class => "form-check-input"} do |f| %>
+        <%= f.check_box + " " + f.text.first%><br>
+      <% end %>
+    </div>
   </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="row mb-3">
+    <div class="offset-md-1 col-md-3">
+      <%= form.submit %>
+    </div>
   </div>
 <% end %>

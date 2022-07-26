@@ -3,46 +3,49 @@ require "test_helper"
 class ObligacionesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @obligacion = obligaciones(:one)
+    @cliente = @obligacion.cliente
+    @usuario = User.create!(nombre_usuario: "Lein", password: "password", admin: false)
   end
 
   test "should get index" do
-    get obligaciones_url
+    sign_in_as(@usuario,"password")
+    get cliente_obligaciones_path(@cliente)
     assert_response :success
   end
 
   test "should get new" do
-    get new_obligacion_url
+    sign_in_as(@usuario,"password")
+    get new_cliente_obligacion_url(@obligacion)
     assert_response :success
   end
 
   test "should create obligacion" do
+    sign_in_as(@usuario,"password")
     assert_difference("Obligacion.count") do
-      post obligaciones_url, params: { obligacion: { annum: @obligacion.annum, mes: @obligacion.mes, obligaciones: @obligacion.presentadas} }
+      post cliente_obligaciones_path(@obligacion), params: { :cliente_id => @cliente.id, obligacion: { :fecha => "2022-17-02", :presentadas => ["B1","B2"]} }
     end
 
-    assert_redirected_to obligacion_url(Obligacion.last)
-  end
-
-  test "should show obligacion" do
-    get obligacion_url(@obligacion)
-    assert_response :success
+    assert_redirected_to cliente_obligaciones_path
   end
 
   test "should get edit" do
-    get edit_obligacion_url(@obligacion)
+    sign_in_as(@usuario,"password")
+    get edit_cliente_obligacion_url(@cliente,@obligacion)
     assert_response :success
   end
 
   test "should update obligacion" do
-    patch obligacion_url(@obligacion), params: { obligacion: { annum: @obligacion.annum, mes: @obligacion.mes, obligaciones: @obligacion.presentadas } }
-    assert_redirected_to obligacion_url(@obligacion)
+    sign_in_as(@usuario,"password")
+    patch cliente_obligacion_url(@cliente,@obligacion), params: { obligacion: { :fecha => @obligacion.fecha} }
+    assert_redirected_to cliente_obligaciones_path
   end
 
   test "should destroy obligacion" do
+    sign_in_as(@usuario,"password")
     assert_difference("Obligacion.count", -1) do
-      delete obligacion_url(@obligacion)
+      delete cliente_obligacion_url(@cliente,@obligacion)
     end
 
-    assert_redirected_to obligaciones_url
+    assert_redirected_to cliente_obligaciones_url
   end
 end

@@ -52,7 +52,7 @@ class ClientesTest < ApplicationSystemTestCase
     visit clientes_url
     click_link @cliente.razon_social
     click_on "Editar Cliente"
-    select 'usuario2', from: 'cliente_user_id'
+    select 'usuario_sin_clientes_asignados', from: 'cliente_user_id'
     click_on "Actualizar Cliente"
     assert_text "El Cliente se actualizó exitosamente"
   end

@@ -3,43 +3,52 @@ require "application_system_test_case"
 class ObligacionesTest < ApplicationSystemTestCase
   setup do
     @obligacion = obligaciones(:one)
+    @usuario_asignado = @obligacion.cliente.user
+    crear_y_entrar_como_usuario_system_test(@usuario_asignado.nombre_usuario,'testpassword',false)
   end
 
   test "visiting the index" do
-    visit obligaciones_url
-    assert_selector "h1", text: "Obligaciones"
+    visit cliente_obligaciones_url(@obligacion.cliente)
+    assert_selector "h3", text: "Obligaciones Presentadas de " + @obligacion.cliente.razon_social
   end
 
   test "should create obligacion" do
-    visit obligaciones_url
-    click_on "New obligacion"
+    click_on "Contabilidad"
+    assert_text @obligacion.cliente.razon_social
+    click_link @obligacion.cliente.razon_social
+    click_on "Nueva obligacion"
 
-    fill_in "Annum", with: @obligacion.annum
-    fill_in "Mes", with: @obligacion.mes
-    fill_in "Obligaciones", with: @obligacion.presentadas
-    click_on "Create Obligacion"
+    select 'Enero', from: 'obligacion_fecha_2i' 
+    select '2022', from: 'obligacion_fecha_1i' 
+    first('input[type="checkbox"]').check
+    click_on "Crear Obligacion"
 
-    assert_text "Obligacion was successfully created"
-    click_on "Back"
+    assert_text @obligacion.cliente.razon_social
+    assert_text "La Obligacion se creó exitosamente"
   end
 
   test "should update Obligacion" do
-    visit obligacion_url(@obligacion)
-    click_on "Edit this obligacion", match: :first
+    click_on "Contabilidad"
+    assert_text @obligacion.cliente.razon_social
+    click_link @obligacion.cliente.razon_social
+    click_on "Editar", match: :first
 
-    fill_in "Annum", with: @obligacion.annum
-    fill_in "Mes", with: @obligacion.mes
-    fill_in "Obligaciones", with: @obligacion.presentadas
-    click_on "Update Obligacion"
+    select 'Diciembre', from: 'obligacion_fecha_2i' 
+    select '2022', from: 'obligacion_fecha_1i' 
+    click_on "Actualizar Obligacion"
 
-    assert_text "Obligacion was successfully updated"
-    click_on "Back"
+    assert_text "La obligación se actualizó exitosamente"
+    assert_text @obligacion.cliente.razon_social
   end
 
   test "should destroy Obligacion" do
-    visit obligacion_url(@obligacion)
-    click_on "Destroy this obligacion", match: :first
+    click_on "Contabilidad"
+    assert_text @obligacion.cliente.razon_social
+    click_link @obligacion.cliente.razon_social
+    click_on "Editar", match: :first
+    click_on "Eliminar" 
 
-    assert_text "Obligacion was successfully destroyed"
+    assert_text "Se eliminó la obligación correctamente"
   end
+
 end

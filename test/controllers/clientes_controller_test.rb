@@ -7,6 +7,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @cliente_uno = clientes(:one)
     @cliente_dos = clientes(:two)
     @user_one = users(:one)
+    @cliente_sin_casos_ni_obligaciones = clientes(:four)
   end
 
   test "should get index" do
@@ -55,14 +56,15 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to cliente_url(@cliente_uno)
   end
 
-  test "should destroy cliente si no tiene casos" do
+  test "should destroy cliente si no tiene casos ni obligaciones" do
     #Solo Admin puede borrar clientes
     sign_in_as(@usuario_admin,"admin")
     assert_difference('Cliente.count', -1) do
-      delete cliente_url(@cliente_uno)
+      delete cliente_url(@cliente_sin_casos_ni_obligaciones)
     end
     assert_redirected_to clientes_url
   end
+
 
   test "should send cliente to lista de baja" do
     sign_in_as(@usuario,"password")
@@ -70,6 +72,20 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @cliente_uno.reload
     assert_redirected_to cliente_path(@cliente_uno)
     assert_nil @cliente_uno.num_interno
+  end
+
+  test "should not destroy cliente si tiene casos" do
+    sign_in_as(@usuario_admin,"admin")
+    assert_no_difference('Cliente.count') do
+      delete cliente_url(@cliente_dos)
+    end
+  end
+
+  test "should not destroy cliente si tiene obligaciones registradas" do
+    sign_in_as(@usuario_admin,"admin")
+    assert_no_difference('Cliente.count') do
+      delete cliente_url(@cliente_uno)
+    end
   end
 
   test "El rfc y num_interno deben ser únicos" do
