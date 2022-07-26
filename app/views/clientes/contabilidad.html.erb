@@ -4,36 +4,43 @@
   </div>
 <div>
 <div class="row mb-3">
-  <div class="offset-3 offset-sm-2 col-4 col-sm-4">
+  <div class="offset-3 offset-sm-2 col-2 col-sm-2">
     <%= form_with do |form| %>
       <%= form.select :id, User.joins(:clientes).uniq.collect { |p| [ p.nombre_usuario, p.id ] }, {selected: @usuario_actual.id}%>
       <%= form.submit "Cambiar"%> 
     <% end %>
   </div>
 </div>
-<table class="table table-hover align-middle" >
-  <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
-    <tr>
-      <th class="col-1"></th>
-      <th class="col-1">Número Interno</th>
-      <th class="col-3">Razón Social</th>
-      <th style="text-align:center" class="col-1">Asignado: </th>
-      <th style="text-align:center" class="col-1">RFC</th>
-    </tr>
-  </thead>
-  <tbody id="lista_clientes_asignados">
-    <% @clientes.each do |cliente| %>
-      <tr> 
-        <td></td>
-        <td><%= cliente.num_interno %></td>
-        <td><%= link_to cliente.razon_social, cliente_obligaciones_path(cliente) %></td>
-        <td style="text-align: center">
-          <% if cliente.user_id == nil%> - <%else%> <%=cliente.user.nombre_usuario%><%end%>
-        </td>
-        <td data-controller="clipboard" style="text-align:center">
-          <button data-action="clipboard#copy" data-clipboard-target="source" class="btn btn-success col-10"><%= cliente.rfc%></button>
-        </td>
+<div id="lista_clientes_asignados">
+  <div class="row mb-3">
+    <div class="offset-2 col-4">
+      <%= button_to "Descargar Lista de Clientes Asignados", url_options = {format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @clientes.first.user.id}} %>
+    </div>
+  </div>
+  <table class="table table-hover align-middle" >
+    <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
+      <tr>
+        <th class="col-1"></th>
+        <th class="col-1">Número Interno</th>
+        <th class="col-3">Razón Social</th>
+        <th style="text-align:center" class="col-1">Asignado: </th>
+        <th style="text-align:center" class="col-1">RFC</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @clientes.each do |cliente| %>
+        <tr> 
+          <td></td>
+          <td><%= cliente.num_interno %></td>
+          <td><%= link_to cliente.razon_social, cliente_obligaciones_path(cliente) %></td>
+          <td style="text-align: center">
+            <% if cliente.user_id == nil%> - <%else%> <%=cliente.user.nombre_usuario%><%end%>
+          </td>
+          <td data-controller="clipboard" style="text-align:center">
+            <button data-action="clipboard#copy" data-clipboard-target="source" class="btn btn-success col-10"><%= cliente.rfc%></button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

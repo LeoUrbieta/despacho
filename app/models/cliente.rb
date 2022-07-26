@@ -11,7 +11,7 @@ class Cliente < ApplicationRecord
   belongs_to :user, optional: true
 
   def self.to_csv
-    attributes = %w{num_interno razon_social clave fiel csd}
+    attributes = %w{num_interno razon_social}
 
     CSV.generate(headers: true, col_sep: ",") do |csv|
       csv << attributes
