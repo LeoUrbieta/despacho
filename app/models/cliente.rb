@@ -9,7 +9,6 @@ class Cliente < ApplicationRecord
   has_many :obligaciones, dependent: :restrict_with_error
   has_and_belongs_to_many :replegales
   belongs_to :user, optional: true
-  accepts_nested_attributes_for :obligaciones
 
   def self.to_csv
     attributes = %w{num_interno razon_social clave fiel csd}

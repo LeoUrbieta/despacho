@@ -105,7 +105,7 @@ class ClientesController < ApplicationController
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
                                       :fiel,:csd,:fiel_vencimiento,:csd_vencimiento,
                                       :user_id,
-                                      obligaciones_attributes: [:annum, :mes, presentadas: []])
+                                      )
     end
 
     def notice_a_mostrar(string_notificacion,string_nuevo_u_update)
