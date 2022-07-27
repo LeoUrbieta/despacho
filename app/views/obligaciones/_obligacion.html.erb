@@ -14,8 +14,9 @@
           <td></td>
           <td><%= obligacion.fecha.year.to_s + " " + I18n.t(obligacion.fecha.strftime('%B'))=%></td>
           <td>
-            <% obligacion.presentadas.each do |ob| %>
-              <%= ob + "," if not ob.empty? %>
+            <% obligacion.presentadas.each_with_index do |ob,idx| %>
+              <%= ob if not ob.empty? %>
+              <%= ", " if idx != obligacion.presentadas.size()-1 && !ob.empty? %>
             <% end %>
           </td>
           <td><%= link_to "Editar", edit_cliente_obligacion_path(obligacion.cliente,obligacion), {:class => 'btn btn-primary'} %></td>

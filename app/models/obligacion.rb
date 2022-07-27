@@ -16,4 +16,13 @@ class Obligacion < ApplicationRecord
     ]
   end
 
+  def self.declaracion_presentada?(valor,obligacion)
+    # El valor &.include? evita que se ejecuta si la variable es nil.
+    # Muy util.
+    if obligacion.presentadas&.include? valor 
+      return true
+    else
+      return false
+    end
+  end
 end

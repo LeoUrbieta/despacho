@@ -39,10 +39,12 @@
           </td>
           <td>
             <% if not cliente.obligaciones.empty? %>
+              <!-- Se elige cliente.obligaciones.first porque es la declaracion con la fecha mas reciente -->
               <%= cliente.obligaciones.first.fecha.year.to_s + 
-                " " + I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + " => " %>
-              <% cliente.obligaciones.first.presentadas.each do |ob| %>
-                <%= ob + "," if not ob.empty? %>
+                " " + I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + " - " %>
+              <% cliente.obligaciones.first.presentadas.each_with_index do |ob,idx| %>
+                <%= ob if not ob.empty? %>
+                <%= ", " if idx != cliente.obligaciones.first.presentadas.size()-1 && !ob.empty? %>
               <% end %>
             <% else %>
               <%= "Sin obligaciones presentadas" %>

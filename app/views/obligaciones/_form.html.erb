@@ -21,8 +21,8 @@
   <div class="row mb-3">
     <div class="offset-md-1 col-md-3"> 
       <%= form.label :presentadas, "Obligaciones Presentadas", style: "display: block" %>
-      <%= form.collection_check_boxes :presentadas, Obligacion.lista_obligaciones, :keys, :values, {}, {:class => "form-check-input"} do |f| %>
-        <%= f.check_box + " " + f.text.first%><br>
+      <%= form.collection_check_boxes :presentadas, Obligacion.lista_obligaciones, :keys, :values, { }, {:class => "form-check-input"} do |f| %>
+        <%= f.check_box(checked: Obligacion.declaracion_presentada?(f.value.first,obligacion)) + " " + f.text.first%><br>
       <% end %>
     </div>
   </div>
