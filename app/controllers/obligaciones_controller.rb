@@ -24,7 +24,7 @@ class ObligacionesController < ApplicationController
 
     respond_to do |format|
       if @obligacion.save
-        format.html { redirect_to cliente_obligaciones_url, notice: "La Obligacion se creó exitosamente" }
+        format.html { redirect_to contabilidad_clientes_path, notice: "La Obligacion se creó exitosamente" }
         format.json { render :show, status: :created, location: @obligacion }
       else
         format.html { render :new, status: :unprocessable_entity }

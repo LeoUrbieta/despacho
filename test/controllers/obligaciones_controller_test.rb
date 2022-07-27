@@ -25,7 +25,7 @@ class ObligacionesControllerTest < ActionDispatch::IntegrationTest
       post cliente_obligaciones_path(@obligacion), params: { :cliente_id => @cliente.id, obligacion: { :fecha => "2022-17-02", :presentadas => ["B1","B2"]} }
     end
 
-    assert_redirected_to cliente_obligaciones_path
+    assert_redirected_to contabilidad_clientes_path
   end
 
   test "should get edit" do

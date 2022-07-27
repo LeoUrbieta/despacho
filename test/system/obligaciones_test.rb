@@ -15,8 +15,7 @@ class ObligacionesTest < ApplicationSystemTestCase
   test "should create obligacion" do
     click_on "Contabilidad"
     assert_text @obligacion.cliente.razon_social
-    click_link @obligacion.cliente.razon_social
-    click_on "Nueva obligacion"
+    click_on "Añadir obligacion", match: :first
 
     select 'Enero', from: 'obligacion_fecha_2i' 
     select '2022', from: 'obligacion_fecha_1i' 

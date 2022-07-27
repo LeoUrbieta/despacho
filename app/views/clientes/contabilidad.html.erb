@@ -17,41 +17,40 @@
       <%= button_to "Descargar Lista de Clientes Asignados", url_options = {format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @clientes.first.user.id}} %>
     </div>
   </div>
-  <div class="row mb-3">
-    <table class="table table-hover align-middle" >
-      <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
-        <tr>
-          <th class="col-1"></th>
-          <th class="col-1">Número Interno</th>
-          <th class="col-2">Razón Social</th>
-          <th class="col-1">Asignado</th>
-          <th class="col-2">Última obligación presentada</th>
-          <th class="col-1"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @clientes.each do |cliente| %>
-          <tr> 
-            <td></td>
-            <td><%= cliente.num_interno %></td>
-            <td><%= link_to cliente.razon_social, cliente_obligaciones_path(cliente) %></td>
-            <td >
-              <% if cliente.user_id == nil%> - <%else%> <%=cliente.user.nombre_usuario%><%end%>
-            </td>
-            <td>
-              <% if not cliente.obligaciones.empty? %>
-                <%= cliente.obligaciones.last.fecha.year.to_s + 
-                  " " + I18n.t(cliente.obligaciones.last.fecha.strftime('%B')) + " => " %>
-                <% cliente.obligaciones.last.presentadas.each do |ob| %>
-                  <%= ob + "," if not ob.empty? %>
-                <% end %>
-              <% else %>
-                <%= "Sin obligaciones presentadas" %>
+  <table class="table table-hover align-middle" >
+    <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
+      <tr>
+        <th class="col-1"></th>
+        <th class="col-1">Número Interno</th>
+        <th class="col-2">Razón Social</th>
+        <th class="col-1">Asignado</th>
+        <th class="col-2">Última obligación presentada</th>
+        <th class="col-1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @clientes.each do |cliente| %>
+        <tr> 
+          <td></td>
+          <td><%= cliente.num_interno %></td>
+          <td><%= link_to cliente.razon_social, cliente_obligaciones_path(cliente) %></td>
+          <td >
+            <% if cliente.user_id == nil%> - <%else%> <%=cliente.user.nombre_usuario%><%end%>
+          </td>
+          <td>
+            <% if not cliente.obligaciones.empty? %>
+              <%= cliente.obligaciones.first.fecha.year.to_s + 
+                " " + I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + " => " %>
+              <% cliente.obligaciones.first.presentadas.each do |ob| %>
+                <%= ob + "," if not ob.empty? %>
               <% end %>
-            </td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+            <% else %>
+              <%= "Sin obligaciones presentadas" %>
+            <% end %>
+          </td>
+          <td><%= link_to "Añadir obligacion", new_cliente_obligacion_path(cliente), {:class => 'btn btn-success'} %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

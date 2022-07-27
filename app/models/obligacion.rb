@@ -2,6 +2,8 @@ class Obligacion < ApplicationRecord
 
   belongs_to :cliente
 
+  default_scope -> { order(fecha: :desc)}
+
   def self.lista_obligaciones 
     [
      {'IVA' => "IVA mes"},
