@@ -80,14 +80,20 @@ class ClientesController < ApplicationController
 
   def contabilidad
     @clientes = @usuario_actual.clientes.all
+    @usuario = @usuario_actual
   end
 
   def post_contabilidad
-    usuario = User.find(params[:id])
-    @clientes = usuario.clientes.all
+    if not params[:id].empty?
+      @usuario = User.find(params[:id])
+    else
+      @usuario = @usuario_actual
+    end
+    @usuario_id = @usuario.id
+    @clientes = @usuario.clientes.all
     respond_to do |format|
       format.html {redirect_to contabilidad_clientes_path, notice: "Turbo streams no puede renovar la tabla"}
-      format.csv {send_data @clientes.to_csv, filename: "clientes-#{Date.today}.csv"}
+      format.csv {send_data @clientes.to_csv, filename: "Clientes-#{@usuario.nombre_usuario}-#{Date.today}.csv"}
       format.turbo_stream
     end
   end

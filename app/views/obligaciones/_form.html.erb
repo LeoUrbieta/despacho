@@ -1,13 +1,17 @@
 <%= form_with model: [cliente,obligacion] do |form| %>
   <% if obligacion.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(obligacion.errors.count, "error") %> prohibited this obligacion from being saved:</h2>
+    <div class="row mb-3">
+      <div class="offset-md-1 col-md-5">
+        <div style="color: red">
+          <h2><%= pluralize(obligacion.errors.count, "error") %></h2>
 
-      <ul>
-        <% obligacion.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% obligacion.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
 

@@ -22,7 +22,7 @@ class ObligacionesControllerTest < ActionDispatch::IntegrationTest
   test "should create obligacion" do
     sign_in_as(@usuario,"password")
     assert_difference("Obligacion.count") do
-      post cliente_obligaciones_path(@obligacion), params: { :cliente_id => @cliente.id, obligacion: { :fecha => "2022-17-02", :presentadas => ["B1","B2"]} }
+      post cliente_obligaciones_path(@obligacion), params: { :cliente_id => @cliente.id, obligacion: { :fecha => "2022-09-09", :presentadas => ["B1","B2"]} }
     end
 
     assert_redirected_to contabilidad_clientes_path
@@ -36,7 +36,7 @@ class ObligacionesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update obligacion" do
     sign_in_as(@usuario,"password")
-    patch cliente_obligacion_url(@cliente,@obligacion), params: { obligacion: { :fecha => @obligacion.fecha} }
+    patch cliente_obligacion_url(@cliente,@obligacion), params: { obligacion: { :fecha => "2021-10-12"} }
     assert_redirected_to cliente_obligaciones_path
   end
 

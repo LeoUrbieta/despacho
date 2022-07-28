@@ -2,6 +2,8 @@ class Obligacion < ApplicationRecord
 
   belongs_to :cliente
 
+  validates :fecha, presence: true, uniqueness: true
+
   default_scope -> { order(fecha: :desc)}
 
   def self.lista_obligaciones 
