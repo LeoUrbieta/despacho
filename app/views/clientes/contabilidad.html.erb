@@ -6,60 +6,11 @@
 <div class="row mb-3">
   <div class="offset-3 offset-sm-2 col-2 col-sm-2">
     <%= form_with do |form| %>
-      <%= form.select :id, User.joins(:clientes).uniq.collect { |p| [ p.nombre_usuario, p.id ] }, {selected: @usuario_actual.id, include_blank: true }%>
+      <%= form.select :id, User.where(contabilidad: true).collect {|p| [p.nombre_usuario, p.id]}, {selected: usuario_actual.id, include_blank: true }%>
       <%= form.submit "Cambiar"%> 
     <% end %>
   </div>
 </div>
 <div id="lista_clientes_asignados">
-  <div class="row mb-3">
-    <div class="offset-2 col-4">
-      <%= button_to "Descargar Lista de Clientes de #{@usuario.nombre_usuario}", url_options = {format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @usuario_id}} %>
-    </div>
-  </div>
-  <table class="table table-hover align-middle" >
-    <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
-      <tr>
-        <th class="col-1"></th>
-        <th class="col-1">Número Interno</th>
-        <th class="col-2">Razón Social</th>
-        <th class="col-2">Última obligación presentada</th>
-        <th class="col-1">Asignado</th>
-        <th class="col-1"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @clientes.each do |cliente| %>
-        <tr> 
-          <td></td>
-          <td><%= cliente.num_interno %></td>
-          <td><%= link_to cliente.razon_social, cliente_obligaciones_path(cliente) %></td>
-          <td>
-            <% if not cliente.obligaciones.empty? %>
-              <!-- Se elige cliente.obligaciones.first porque es la declaracion con la fecha mas reciente -->
-              <%= cliente.obligaciones.first.fecha.year.to_s + 
-                " " + I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + " - " %>
-              <% cliente.obligaciones.first.presentadas.each_with_index do |ob,idx| %>
-                <%= ob if not ob.empty? %>
-                <%= ", " if idx != cliente.obligaciones.first.presentadas.size()-1 && !ob.empty? %>
-              <% end %>
-            <% else %>
-              <%= "Sin obligaciones presentadas" %>
-            <% end %>
-          </td>
-          <td>
-            <%if @usuario_actual.nombre_usuario == "LIZETH" %>
-              <%= form_with do |form| %>
-                <%= form.select :id, User.joins(:clientes).uniq.collect { |p| [ p.nombre_usuario, p.id ] }, {selected: @usuario_actual.id}%>
-                <%= form.submit "Cambiar"%> 
-              <% end %>
-            <% else %>
-              <%= cliente.user&.nombre_usuario %>
-            <% end %>
-          </td>
-          <td><%= link_to "Añadir obligacion", new_cliente_obligacion_path(cliente), {:class => 'btn btn-success'} %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render partial: "update_lista_clientes_asignados"%>
 </div>

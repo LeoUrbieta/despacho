@@ -63,7 +63,7 @@ class ClientesTest < ApplicationSystemTestCase
     fill_in with: "632", id: 'cliente_num_interno'
     fill_in with: "EMPRESA ASIGNADA SA DE CV", id: 'cliente_razon_social'
     fill_in with: "EMP999999TU2", id: 'cliente_rfc'
-    select 'usuario1', from: 'cliente_user_id'
+    select 'usuario_contabilidad', from: 'cliente_user_id'
     click_on "Crear Cliente"
     assert_text "El Cliente fue creado exitosamente"
   end
@@ -76,5 +76,11 @@ class ClientesTest < ApplicationSystemTestCase
     assert_text "El Cliente se actualizó exitosamente"
     assert_no_text @cliente.user.nombre_usuario
   end
-
+  
+  test "usuario con contabilidad debe aparecer en select" do
+    click_on "Clientes"
+    click_link @cliente.razon_social
+    click_on "Editar Cliente"
+    assert_select 'cliente_user_id', options: ["","usuario_sin_clientes_asignados","usuario_contabilidad"]
+  end
 end

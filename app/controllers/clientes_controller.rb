@@ -49,15 +49,25 @@ class ClientesController < ApplicationController
       params[:cliente][:num_interno] = nil
       params[:cliente][:user_id] = nil
     end
+    #Sirve solo cuando la post request se genera de la accion de contabilidad
+    if not cliente_params[:current_id].nil?
+      @usuario = User.find(cliente_params[:current_id])
+      @clientes = @usuario.clientes.all 
+      @usuario_id = @usuario.id
+      params.dig(:cliente).extract!(:current_id)
+    end
     string_notificacion,estatus_dar_de_alta=actualizar_replegal_asociado
     respond_to do |format|
       if estatus_dar_de_alta && @cliente.update(cliente_params)
         notice_a_poner=notice_a_mostrar(string_notificacion,"El Cliente se actualizó exitosamente")
+        # Html responde a la peticion que venga de clientes/:cliente_id
+        # La forma tiene la opcion data-turbo = false 
         format.html { redirect_to @cliente, notice: notice_a_poner }
-        format.json { render :show, status: :ok, location: @cliente }
+        # Turbo Stream responde a la peticion que viene de
+        # clientes/contabilidad 
+        format.turbo_stream 
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @cliente.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,15 +89,15 @@ class ClientesController < ApplicationController
   end
 
   def contabilidad
-    @clientes = @usuario_actual.clientes.all
-    @usuario = @usuario_actual
+    @clientes = usuario_actual.clientes.all
+    @usuario = usuario_actual
   end
 
   def post_contabilidad
     if not params[:id].empty?
       @usuario = User.find(params[:id])
     else
-      @usuario = @usuario_actual
+      @usuario = usuario_actual
     end
     @usuario_id = @usuario.id
     @clientes = @usuario.clientes.all
@@ -106,12 +116,16 @@ class ClientesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cliente_params
-      params[:cliente][:razon_social] = params[:cliente][:razon_social].
-        mb_chars.upcase.to_s
-      params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
+      if not params[:cliente][:razon_social].nil?
+        params[:cliente][:razon_social] = params[:cliente][:razon_social].
+          mb_chars.upcase.to_s
+      end
+      if not params[:cliente][:rfc].nil?
+        params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
+      end
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
                                       :fiel,:csd,:fiel_vencimiento,:csd_vencimiento,
-                                      :user_id,
+                                      :user_id,:current_id
                                       )
     end
 

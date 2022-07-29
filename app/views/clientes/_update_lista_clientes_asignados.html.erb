@@ -1,6 +1,6 @@
 <div class="row mb-3">
   <div class="offset-2 col-4">
-    <%= button_to "Descargar Lista de Clientes de #{@usuario.nombre_usuario}", url_options = {format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @usuario_id}} %>
+    <%= button_to "Descargar Lista de Clientes de #{@usuario.nombre_usuario}", options = {action: :contabilidad, format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @usuario_id}} %>
   </div>
 </div>
 <table class="table table-hover align-middle" >
@@ -34,9 +34,10 @@
           <% end %>
         </td>
         <td>
-          <%if @usuario_actual.nombre_usuario == "LIZETH" %>
-            <%= form_with do |form| %>
-              <%= form.select :id, User.joins(:clientes).uniq.collect { |p| [ p.nombre_usuario, p.id ] }, {selected: @usuario_actual.id}%>
+          <%if Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario) == usuario_actual.nombre_usuario || usuario_actual.admin == true%>
+            <%= form_with model: cliente do |form| %>
+              <%= form.select :user_id, User.where(contabilidad: true).collect { |p| [ p.nombre_usuario, p.id ] }, {selected: cliente.user.id}%>
+              <%= form.select :current_id, [@usuario.id],{} , html_options =  {style: "display:none"} %>
               <%= form.submit "Cambiar"%> 
             <% end %>
           <% else %>

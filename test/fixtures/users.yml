@@ -8,7 +8,14 @@ one:
   nombre_usuario: "usuario1"
   password_digest: <%= BCrypt::Password.create('testpassword', cost: 5) %>
   admin: false
+  contabilidad: false
 two: 
   nombre_usuario: "usuario_sin_clientes_asignados"
   password_digest: <%= BCrypt::Password.create('testpassword2', cost: 5) %>
   admin: false
+  contabilidad: true
+three:
+  nombre_usuario: "usuario_contabilidad"
+  password_digest: <%= BCrypt::Password.create('testpassword3', cost: 5) %>
+  admin: false
+  contabilidad: true

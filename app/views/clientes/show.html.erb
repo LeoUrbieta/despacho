@@ -41,7 +41,7 @@
                                                            "csd_vencimiento(3i)" => @cliente.csd_vencimiento.day,
                                                            "csd_vencimiento(2i)" => @cliente.csd_vencimiento.month,
                                                            "csd_vencimiento(1i)" => @cliente.csd_vencimiento.year}),
-         method: :patch, :class => 'btn btn-warning'%>
+      method: :patch, :class => 'btn btn-warning', data: { turbo: false } %>
     <% end %>
   </div>
   <% if usuario_actual.admin? %>
