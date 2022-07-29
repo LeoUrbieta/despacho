@@ -31,7 +31,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              :clave => "ABD"  } }
     end
 
-    assert_redirected_to cliente_url(Cliente.last)
+    assert_redirected_to cliente_url(Cliente.first)
   end
 
   test "should show cliente" do
