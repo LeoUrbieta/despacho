@@ -3,5 +3,5 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: { minimum: 5}
 
-  has_many :clientes
+  has_many :clientes, dependent: :restrict_with_error
 end
