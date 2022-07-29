@@ -66,12 +66,14 @@
                   {:class => "form-select date-select"}) %>
     </div>
   </div>
-  <div class="row mb-3">
-    <%= form.label :user_id, "Usuario Asignado", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
-    <div class="col-md-4">
-      <%= form.collection_select(:user_id, User.where(contabilidad: true), :id, :nombre_usuario, { include_blank: true}) %>
+  <%if Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario) == usuario_actual.nombre_usuario || usuario_actual.admin == true%>
+      <div class="row mb-3">
+      <%= form.label :user_id, "Usuario Asignado", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+      <div class="col-md-4">
+        <%= form.collection_select(:user_id, User.where(contabilidad: true), :id, :nombre_usuario, { include_blank: true}) %>
+      </div>
     </div>
-  </div>
+  <% end %>
   
   <div class="offset-md-6 col-md-2">
     <%= form.submit%>

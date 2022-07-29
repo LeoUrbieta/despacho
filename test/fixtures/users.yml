@@ -19,3 +19,10 @@ three:
   password_digest: <%= BCrypt::Password.create('testpassword3', cost: 5) %>
   admin: false
   contabilidad: true
+four:
+  nombre_usuario: "usuario_contabilidad_2"
+  password_digest: <%= BCrypt::Password.create('testpassword4', cost: 5) %>
+  admin: false
+  contabilidad: true
+
+

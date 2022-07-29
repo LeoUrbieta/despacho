@@ -8,18 +8,20 @@ one:
   razon_social: "JUAN VARGAS"
   rfc: "VAJU781115XUJ"
   num_interno: 101 
-  user: one
+  user: four
 two:
   razon_social: "MIRIAM CAMARGO"
   rfc: "CAMI660231IO3"
   num_interno: 102 
-  user: one
+  user: three
 three:
   num_interno: 601
   razon_social: "EMPRESA EXAMPLE SA DE CV"
   rfc: "EXA101010UUU"
+  user: three
 four:
   num_interno: 103
   razon_social: "JAIME SABINES"
   rfc: "SAJA900105YUF"
+  user: three
 

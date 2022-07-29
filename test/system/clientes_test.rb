@@ -3,7 +3,7 @@ require "application_system_test_case"
 class ClientesTest < ApplicationSystemTestCase
   setup do
     @cliente = clientes(:one)
-    crear_y_entrar_como_usuario_system_test('user','user12345',false)
+    crear_y_entrar_como_usuario_system_test('user','user12345',false,false)
   end
 
   test "visiting the index" do
@@ -48,17 +48,10 @@ class ClientesTest < ApplicationSystemTestCase
     assert_no_button "Eliminar"
   end
 
-  test "asignar cliente existente a usuario" do
-    visit clientes_url
-    click_link @cliente.razon_social
-    click_on "Editar Cliente"
-    select 'usuario_sin_clientes_asignados', from: 'cliente_user_id'
-    click_on "Actualizar Cliente"
-    assert_text "El Cliente se actualizó exitosamente"
-  end
-
-  test "asignar cliente nuevo a usuario" do
-    visit clientes_url
+  test "solo jefe de contabilidad puede asignar cliente nuevo a usuario" do
+    click_on "Terminar Sesion"
+    crear_y_entrar_como_usuario_system_test(Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario),'testpassword',false,true)
+    click_link "Clientes"
     click_on "Nuevo Cliente"
     fill_in with: "632", id: 'cliente_num_interno'
     fill_in with: "EMPRESA ASIGNADA SA DE CV", id: 'cliente_razon_social'
@@ -77,10 +70,56 @@ class ClientesTest < ApplicationSystemTestCase
     assert_no_text @cliente.user.nombre_usuario
   end
   
-  test "usuario con contabilidad debe aparecer en select" do
+  test "en action contabilidad cambiar el usuario debe cambiar la lista" do
+    click_on "Contabilidad"
+    select 'usuario_contabilidad', from: 'id'
+    click_on "Cambiar"
+    assert_button "Descargar Lista de Clientes de usuario_contabilidad"
+    assert_text User.find_by(nombre_usuario: 'usuario_contabilidad').clientes.first.razon_social
+  end
+
+  test "jefe de contabilidad y admin debe de tener acceso a reasignar en contabilidad" do
+    click_on "Terminar Sesion"
+    crear_y_entrar_como_usuario_system_test(Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario),'testpassword',false,true)
+    click_on "Contabilidad" 
+    select 'usuario_contabilidad', from: 'id'
+    click_on "Cambiar"
+    assert_select 'cliente_user_id', with_options: ["","usuario_contabilidad"]
+    click_on "Terminar Sesion"
+    crear_y_entrar_como_usuario_system_test('administrador','testpassword',true,false)
+    click_on "Contabilidad" 
+    select 'usuario_contabilidad', from: 'id'
+    click_on "Cambiar"
+    assert_select 'cliente_user_id', with_options: ["","usuario_contabilidad"]
+  end
+
+  test "usuario normal no puede reasignar usuarios en contabilidad" do
+    click_on "Contabilidad" 
+    select 'usuario_contabilidad', from: 'id'
+    click_on "Cambiar"
+    assert_no_select 'cliente_user_id', with_options: ["","usuario_contabilidad"]
+  end
+
+  test "jefe de contabilidad y admin pueden asignar clientes" do
+    click_on "Terminar Sesion"
+    crear_y_entrar_como_usuario_system_test(Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario),'testpassword',false,true)
     click_on "Clientes"
     click_link @cliente.razon_social
     click_on "Editar Cliente"
-    assert_select 'cliente_user_id', options: ["","usuario_sin_clientes_asignados","usuario_contabilidad"]
+    assert_select 'cliente_user_id', {with_options: ["","usuario_contabilidad"], selected: @cliente.user.nombre_usuario}
+    select 'usuario_contabilidad', from: 'cliente_user_id'
+    click_button "Actualizar Cliente"
+    assert_text "usuario_contabilidad"
+    assert_text "El Cliente se actualizó exitosamente"
   end
+
+  test "usuario normal no tiene select para asignar clientes a usuarios" do
+    click_on "Clientes"
+    click_link @cliente.razon_social
+    click_on "Editar Cliente"
+    assert_no_select 'cliente_user_id', {with_options: ["","usuario_contabilidad"], selected: @cliente.user.nombre_usuario}
+  end
+
 end
+
+

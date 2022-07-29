@@ -4,7 +4,7 @@ class ObligacionesTest < ApplicationSystemTestCase
   setup do
     @obligacion = obligaciones(:one)
     @usuario_asignado = @obligacion.cliente.user
-    crear_y_entrar_como_usuario_system_test(@usuario_asignado.nombre_usuario,'testpassword',false)
+    crear_y_entrar_como_usuario_system_test(@usuario_asignado.nombre_usuario,'testpassword4',false,false)
   end
 
   test "visiting the index" do

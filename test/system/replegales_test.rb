@@ -3,7 +3,7 @@ require "application_system_test_case"
 class ReplegalesTest < ApplicationSystemTestCase
   setup do
     @replegal = replegales(:one)
-    crear_y_entrar_como_usuario_system_test('user_rep_legal','user12345',false)
+    crear_y_entrar_como_usuario_system_test('user_rep_legal','user12345',false,false)
   end
 
   test "visiting the index" do
@@ -42,7 +42,7 @@ class ReplegalesTest < ApplicationSystemTestCase
     visit replegales_url
     assert_no_button "Eliminar"
     click_button "Terminar Sesion"
-    crear_y_entrar_como_usuario_system_test('user_admin','user12345',true)
+    crear_y_entrar_como_usuario_system_test('user_admin','user12345',true,false)
     visit replegales_url
     find('.table').find('a',text: replegales(:one).nombre_completo).click
     assert_text replegales(:one).nombre_completo

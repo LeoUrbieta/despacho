@@ -3,7 +3,7 @@ require "application_system_test_case"
 class CasosTest < ApplicationSystemTestCase
   setup do
     @caso = casos(:one)
-    crear_y_entrar_como_usuario_system_test('user','user12345',false)
+    crear_y_entrar_como_usuario_system_test('user','user12345',false,false)
   end
 
   test "visiting the index" do
@@ -31,7 +31,7 @@ class CasosTest < ApplicationSystemTestCase
     visit casos_url
     assert_no_button "Eliminar"
     click_button "Terminar Sesion"
-    crear_y_entrar_como_usuario_system_test('user_admin','user12345',true)
+    crear_y_entrar_como_usuario_system_test('user_admin','user12345',true,false)
     visit casos_url
     assert_button "Eliminar"
     click_on "Eliminar", match: :first

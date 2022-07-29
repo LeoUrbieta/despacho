@@ -6,7 +6,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @usuario_admin = User.create!(nombre_usuario: "Admin", password: "admin", admin: true)
     @cliente_uno = clientes(:one)
     @cliente_dos = clientes(:two)
-    @user_one = users(:one)
+    @user_four = users(:four)
     @cliente_sin_casos_ni_obligaciones = clientes(:four)
   end
 
@@ -31,7 +31,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              :clave => "ABD"  } }
     end
 
-    assert_redirected_to cliente_url(Cliente.first)
+    assert_redirected_to cliente_url(Cliente.find_by(num_interno: 432))
   end
 
   test "should show cliente" do
@@ -103,7 +103,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "Dar de baja cliente debe eliminar usuario asignado" do
     sign_in_as(@usuario,"password")
-    assert_difference '@user_one.clientes.count', -1 do
+    assert_difference '@user_four.clientes.count', -1 do
       patch cliente_url(@cliente_uno), params: { cliente: {:num_interno => "",
                                                            :razon_social => @cliente_uno.razon_social,
                                                            :rfc => @cliente_uno.rfc,
