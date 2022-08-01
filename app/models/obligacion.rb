@@ -2,19 +2,49 @@ class Obligacion < ApplicationRecord
 
   belongs_to :cliente
 
-  validates :fecha, presence: true, uniqueness: true
+  validates :fecha, presence: true
+  validates_uniqueness_of :fecha, scope: :cliente_id
 
   default_scope -> { order(fecha: :desc)}
 
-  def self.lista_obligaciones 
+  def self.isr(num_interno)
+    if num_interno < 600
+      [
+        {'Act. Empresarial y Profesional' => 'Act. Empresarial y Profesional'},
+        {'Arrendamiento'=>'Arrendamiento'},
+        {'RESICO'=>'RESICO'}
+      ]
+    else
+      [
+        {'Regimen General de Ley' => 'Regimen General de Ley'},
+        {'RESICO'=>'RESICO'}
+      ]
+    end
+  end
+
+
+  def self.retenciones(num_interno)
+    if num_interno < 600
+      [
+        {'ISR Salarios'=>'ISR Salarios'},
+        {'ISR Asimilados a Salarios' => 'ISR Asimilados a Salarios'}
+      ]
+    else
+      [
+        {'ISR Salarios'=>'ISR Salarios'},
+        {'ISR Asimilados a Salarios' => 'ISR Asimilados a Salarios'},
+        {'Arrendamiento' => 'Arrendamiento'},
+        {'Honorarios' => 'Honorarios'},
+        {'IVA'=> 'IVA'}
+      ]
+    end
+  end
+
+  def self.iva
     [
-     {'IVA' => "IVA mes"},
-     {'ISR' => 'ISR mes'},
-     {'DIOT' => 'DIOT mes'},
-     {'ISR Retenciones Sueldos y Salarios' => 'ISR Retenciones Sueldos y Salarios'},
-     {'ISR Arrendamiento' => 'ISR Arrendamiento'},
-     {'IVA Retenciones' => 'IVA Retenciones'},
-     {'ISR Retenciones Asimilados a Salarios' => 'ISR Retenciones Asimilados a Salarios'}
+      {'IVA General' => 'IVA General'},
+      {'IVA RESICO' => 'IVA RESICO'},
+      {'DIOT' => 'DIOT'}
     ]
   end
 
