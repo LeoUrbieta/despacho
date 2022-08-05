@@ -17,8 +17,8 @@
 
   <div class="row mb-3">
     <div class="offset-md-1 col-md-3"> 
-    <%= form.label :fecha, style: "display: block" %>
-    <%= form.date_select :fecha, {discard_day: true} %>
+    <%= form.label :fecha,"Periodo Presentado" , style: "display: block" %>
+    <%= form.date_select :fecha, {default: Time.now - 1.month , discard_day: true} %>
     </div>
   </div>
 
