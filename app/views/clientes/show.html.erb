@@ -9,7 +9,7 @@
   </div>
 <% end %>
 
-<div class="row">
+<div class="row mb-3">
   <div class="offset-1 offset-md-1">
     <h1><%= @cliente.num_interno + ": " unless @cliente.num_interno.nil? %>
         <%= "BAJA: " if @cliente.num_interno.nil? %>
@@ -18,9 +18,34 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mb-3">
   <div class="offset-1 offset-md-1">
-    <h2> Asignado: <%= @cliente.user.nombre_usuario if @cliente.user != nil %> </h2>
+    <h3> Asignado: <%= @cliente.user.nombre_usuario if @cliente.user != nil %> </h3>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="offset-1 offset-md-1">
+    <h3> Regimenes Fiscales:    
+      <% @cliente.regimen_fiscal&.each_with_index do |ob,idx| %>
+        <%= ob if not ob.empty? %>
+        <%= "," if idx != @cliente.regimen_fiscal.size()-1 && !ob.empty? %>
+      <% end %>
+    </h3>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="offset-1 col-11 offset-sm-1 col-sm-11">
+    <h3><%if not @cliente.replegales.empty?%>
+          <% if @cliente.num_interno.to_i < 600 %> 
+            Asociado al Rep Legal: 
+          <%else%>
+            Representante Legal:
+          <%end%> 
+        <% end %>
+        <%= @cliente.replegales[0].nombre_completo + " --- RFC: " + 
+        @cliente.replegales[0].rfc if not @cliente.replegales.empty? %></h3>
   </div>
 </div>
 
@@ -52,19 +77,6 @@
 </div>
 <br>
 
-<div class="row">
-  <div class="offset-1 col-11 offset-sm-1 col-sm-11">
-    <h3><%if not @cliente.replegales.empty?%>
-          <% if @cliente.num_interno.to_i < 600 %> 
-            Asociado al Rep Legal: 
-          <%else%>
-            Representante Legal:
-          <%end%> 
-        <% end %>
-        <%= @cliente.replegales[0].nombre_completo + " --- RFC: " + 
-        @cliente.replegales[0].rfc if not @cliente.replegales.empty? %></h3>
-  </div>
-</div>
 <br>
 
 <%= render 'shared/casos_list', casos: @cliente.casos %>

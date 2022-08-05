@@ -66,6 +66,22 @@
                   {:class => "form-select date-select"}) %>
     </div>
   </div>
+  <div class="row mb-3">
+    <%= form.label :regimen_fiscal, "Regimen Fiscal (PERSONAS FISICAS):", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.collection_check_boxes :regimen_fiscal, Cliente.regimenes_fiscales_fisicas, :keys, :values, { }, {:class => "form-check-input"} do |f| %>
+        <%= f.check_box(checked: Cliente.tiene_este_regimen_fiscal?(f.value.first,cliente))+ " " + f.text.first%><br>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :regimen_fiscal, "Regimen Fiscal (PERSONAS MORALES):", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
+    <div class="col-md-4">
+      <%= form.collection_check_boxes :regimen_fiscal, Cliente.regimenes_fiscales_morales, :keys, :values, {include_hidden: false }, {:class => "form-check-input"} do |f| %>
+        <%= f.check_box(checked: Cliente.tiene_este_regimen_fiscal?(f.value.first,cliente))+ " " + f.text.first%><br>
+      <% end %>
+    </div>
+  </div>
   <%if Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario) == usuario_actual.nombre_usuario || usuario_actual.admin == true%>
       <div class="row mb-3">
       <%= form.label :user_id, "Usuario Asignado", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>

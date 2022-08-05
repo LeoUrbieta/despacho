@@ -14,12 +14,17 @@ class ActiveSupport::TestCase
     post login_path, params: {session: { nombre_usuario: user.nombre_usuario, password: password}}
   end
 
-  def crear_y_entrar_como_usuario_system_test(usuario,pass, admin, contabilidad)
-    User.create!(nombre_usuario: usuario, password: pass, admin: admin, contabilidad: contabilidad)
+  def entrar_como_usuario_system_test(usuario,pass)
     visit root_path
     fill_in with: usuario, id: 'session_nombre_usuario'
     fill_in with: pass, :id => 'session_password'
     click_on "Entrar"
     assert_text "Has entrado con éxito"
   end
+ 
+  def crear_y_entrar_como_usuario_system_test(usuario,pass, admin, contabilidad)
+    User.create!(nombre_usuario: usuario, password: pass, admin: admin, contabilidad: contabilidad)
+    entrar_como_usuario_system_test(usuario,pass)
+  end
+
 end

@@ -26,7 +26,7 @@
     <div class="offset-md-1 col-md-3"> 
       <%= form.label :presentadas, "ISR", style: "display: block" %>
       <%= form.collection_check_boxes :presentadas, Obligacion.isr(cliente.num_interno.to_i), :keys, :values, { }, {:class => "form-check-input"} do |f| %>
-        <%= f.check_box(checked: Obligacion.declaracion_presentada?(f.value.first,obligacion)) + " " + f.text.first%><br>
+        <%= f.check_box + " " + f.text.first%><br>
       <% end %>
     </div>
   </div>

@@ -12,7 +12,7 @@ class ObligacionesTest < ApplicationSystemTestCase
     @obligacion_dos = obligaciones(:two)
     @usuario_asignado_tres = @obligacion_dos.cliente.user
 
-    crear_y_entrar_como_usuario_system_test(@usuario_asignado.nombre_usuario,'testpassword4',false,false)
+    entrar_como_usuario_system_test(@usuario_asignado.nombre_usuario,'testpassword4')
   end
 
   test "visiting the index" do
@@ -65,7 +65,7 @@ class ObligacionesTest < ApplicationSystemTestCase
 
   test "should not update obligacion if another one exists with same date and belongs to same cliente" do
     click_on "Terminar Sesion"
-    crear_y_entrar_como_usuario_system_test(@usuario_asignado_tres.nombre_usuario,'testpassword3',false,false)
+    entrar_como_usuario_system_test(@usuario_asignado_tres.nombre_usuario,'testpassword3')
     click_on "Contabilidad"
     assert_text @obligacion_dos.cliente.razon_social
     click_link @obligacion_dos.cliente.razon_social

@@ -17,9 +17,9 @@
 <table class="table table-hover align-middle">
   <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
     <tr>
-      <th class="col-1"></th>
-      <th class="col-1">Número Interno</th>
-      <th class="col-3">Razón Social</th>
+      <th style="text-align:center" class="col-1">Número Interno</th>
+      <th class="col-2">Razón Social</th>
+      <th class="col-1">Regimen Fiscal</th>
       <th style="text-align:center" class="col-1">Asignado: </th>
       <th style="text-align:center" class="col-1">RFC</th>
       <th style="text-align:center" class="col-1">CIEC</th>
@@ -30,9 +30,14 @@
   <tbody>
     <% @clientes.each do |cliente| %>
       <tr> 
-        <td></td>
-        <td><%= cliente.num_interno %></td>
+        <td style="text-align:center"><%= cliente.num_interno %></td>
         <td><%= link_to cliente.razon_social, cliente %></td>
+        <td style="text-align:center">
+          <% cliente.regimen_fiscal&.each_with_index do |ob,idx| %>
+            <%= ob if not ob.empty? %>
+            <%= "," if idx != cliente.regimen_fiscal.size()-1 && !ob.empty? %>
+          <% end %>
+        </td>
         <td style="text-align: center"><% if cliente.user_id == nil%> - <%else%> <%=cliente.user.nombre_usuario%><%end%></td>
         <td data-controller="clipboard" style="text-align:center">
           <button data-action="clipboard#copy" data-clipboard-target="source" class="btn btn-success col-10"><%= cliente.rfc%></button>

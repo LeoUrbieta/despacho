@@ -32,4 +32,32 @@ class Cliente < ApplicationRecord
       end
     end
   end
+
+  def self.regimenes_fiscales_fisicas
+    [
+      {'PFAE'=>'Personas Físicas con Actividades Empresariales y Profesionales'},
+      {'RID'=>'Ingresos por Dividendos'},
+      {'RESICO'=>'Regimen Simplificado de Confianza' },
+      {'RARR'=>'Arrendamiento'},
+      {'RSSIAS'=>'Sueldos y Salarios e Ingresos Asimilados a Salarios'},
+      {'RDI'=>'Demás ingresos'},
+      {'RII'=>'Ingresos por intereses'},
+      {'AEIP'=>'Actividades Empresariales con ingresos a través de Plataformas tecnológicas'} 
+    ]
+  end
+
+  def self.regimenes_fiscales_morales
+    [
+      {'RGLPM'=>'Regimen General de Ley Personas Morales'},
+      {'RESICO'=>'Regimen Simplificado de Confianza'}
+    ]
+  end
+
+  def self.tiene_este_regimen_fiscal?(regimen,cliente)
+    if cliente.regimen_fiscal&.include? regimen
+      return true
+    else
+      return false
+    end
+  end
 end

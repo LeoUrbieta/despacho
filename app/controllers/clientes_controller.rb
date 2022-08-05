@@ -125,7 +125,7 @@ class ClientesController < ApplicationController
       end
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
                                       :fiel,:csd,:fiel_vencimiento,:csd_vencimiento,
-                                      :user_id,:current_id
+                                      :user_id,:current_id, regimen_fiscal: []
                                       )
     end
 
@@ -207,7 +207,7 @@ class ClientesController < ApplicationController
 
 
     def notice_asociacion_nuevo_cliente_a_replegal_existente
-      return "El cliente se creó exitosamente y además se asoció al representante legal " +
+      return "El cliente se creó exitosamente y además se asoció al representante legal" +
               @cliente.replegales.first.nombre_completo 
     end
 end
