@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_29_144936) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_05_180111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,7 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_144936) do
     t.string "razon_social"
     t.string "rfc"
     t.string "num_interno"
-    t.string "regimen_fiscal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "clave"
@@ -86,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_144936) do
     t.date "fiel_vencimiento", default: "2022-06-21"
     t.date "csd_vencimiento", default: "2022-06-21"
     t.bigint "user_id"
+    t.string "regimen_fiscal", array: true
     t.index ["user_id"], name: "index_clientes_on_user_id"
   end
 
@@ -137,29 +137,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_144936) do
     t.integer "folio"
     t.bigint "usuario_externo_id", null: false
     t.index ["usuario_externo_id"], name: "index_peticiones_on_usuario_externo_id"
-  end
-
-  create_table "productos", force: :cascade do |t|
-    t.string "nombre_producto"
-    t.string "clave_sat"
-    t.string "precio_1"
-    t.string "precio_2"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.date "fecha_de_compra"
-    t.integer "cantidad_comprada"
-    t.decimal "precio"
-    t.text "notas_adicionales"
-    t.integer "perdidas"
-    t.string "columna_relacionada_en_ventas"
-    t.string "precio_3"
-    t.string "precio_4"
-    t.string "precio_5"
-    t.string "precio_6"
-    t.string "precio_7"
-    t.string "precio_8"
-    t.decimal "costo_unitario"
-    t.boolean "costo_actual"
   end
 
   create_table "replegales", force: :cascade do |t|
