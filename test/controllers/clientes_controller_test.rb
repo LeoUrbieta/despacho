@@ -28,7 +28,8 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
       post clientes_url, params: { cliente: {:razon_social => "Otra razon",
                                              :rfc => "OTR342345IOL",
                                              :num_interno => "432",
-                                             :clave => "ABD"  } }
+                                             :clave => "ABD",
+                                             :regimen_fiscal => ["","REG1","REG2"]  } }
     end
 
     assert_redirected_to cliente_url(Cliente.find_by(num_interno: 432))
@@ -52,7 +53,8 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              :rfc => "OTR342345IOL",
                                              :num_interno => "432",
                                              :clave => "ABD",
-                                             :fiel => "Clave"  } }
+                                             :fiel => "Clave",
+                                             :regimen_fiscal => ["","REGMOD1","REGMOD2"]  } }
     assert_redirected_to cliente_url(@cliente_uno)
   end
 
@@ -113,7 +115,8 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                                            "fiel_vencimiento(1i)" => @cliente_uno.fiel_vencimiento.year,
                                                            "csd_vencimiento(3i)" => @cliente_uno.csd_vencimiento.day,
                                                            "csd_vencimiento(2i)" => @cliente_uno.csd_vencimiento.month,
-                                                           "csd_vencimiento(1i)" => @cliente_uno.csd_vencimiento.year}}
+                                                           "csd_vencimiento(1i)" => @cliente_uno.csd_vencimiento.year,
+                                                           :regimen_fiscal => @cliente_uno.regimen_fiscal}}
       @cliente_uno.reload
       assert_nil @cliente_uno.user_id
     end

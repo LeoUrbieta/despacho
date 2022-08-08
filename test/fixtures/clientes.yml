@@ -9,19 +9,23 @@ one:
   rfc: "VAJU781115XUJ"
   num_interno: 101 
   user: four
+  regimen_fiscal: ["","REG1"]
 two:
   razon_social: "MIRIAM CAMARGO"
   rfc: "CAMI660231IO3"
   num_interno: 102 
   user: three
+  regimen_fiscal: ["","REG2"]
 three:
   num_interno: 601
   razon_social: "EMPRESA EXAMPLE SA DE CV"
   rfc: "EXA101010UUU"
   user: three
+  regimen_fiscal: ["","REG3"]
 four:
   num_interno: 103
   razon_social: "JAIME SABINES"
   rfc: "SAJA900105YUF"
   user: three
+  regimen_fiscal: ["","REG4","REG5"]
 

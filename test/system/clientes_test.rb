@@ -17,6 +17,7 @@ class ClientesTest < ApplicationSystemTestCase
     fill_in with: "199", id: 'cliente_num_interno'
     fill_in with: "EMPRESA SA DE CV", id: 'cliente_razon_social'
     fill_in with: "EMP0000001N1", id: 'cliente_rfc'
+    first('input[type="checkbox"]').check
     click_on "Crear Cliente"
     assert_text "El Cliente fue creado exitosamente"
   end
@@ -37,8 +38,10 @@ class ClientesTest < ApplicationSystemTestCase
     click_link @cliente.razon_social
     click_on "Editar Cliente"
     fill_in with: "105", id: 'cliente_num_interno'
+    find('input[value="RID"]').check
     click_button "Actualizar Cliente"
     assert_text "El Cliente se actualizó exitosamente"
+    assert_text "RID"
   end
 
   test "usuario normal no tiene boton eliminar" do
