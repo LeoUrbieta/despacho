@@ -9,6 +9,7 @@
       <th class="col-1"></th>
       <th class="col-1">Número Interno</th>
       <th class="col-2">Razón Social</th>
+      <th class="col-1">Regimen Fiscal</th>
       <th class="col-2">Última obligación presentada</th>
       <th class="col-1">Asignado</th>
       <th class="col-1"></th>
@@ -20,6 +21,12 @@
         <td></td>
         <td><%= cliente.num_interno %></td>
         <td><%= link_to cliente.razon_social, cliente_obligaciones_path(cliente) %></td>
+        <td> 
+          <% cliente.regimen_fiscal&.each_with_index do |ob,idx| %>
+            <%= ob if not ob.empty? %>
+            <%= "," if idx != cliente.regimen_fiscal.size()-1 && !ob.empty? %>
+          <% end %>
+        </td>
         <td>
           <% if not cliente.obligaciones.empty? %>
             <!-- Se elige cliente.obligaciones.first porque es la declaracion con la fecha mas reciente -->
