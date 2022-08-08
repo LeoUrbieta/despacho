@@ -37,7 +37,7 @@ class Cliente < ApplicationRecord
     [
       {'PFAE'=>'Personas Físicas con Actividades Empresariales y Profesionales'},
       {'RID'=>'Ingresos por Dividendos'},
-      {'RESICO'=>'Regimen Simplificado de Confianza' },
+      {'RESICO PF'=>'Regimen Simplificado de Confianza' },
       {'RARR'=>'Arrendamiento'},
       {'RSSIAS'=>'Sueldos y Salarios e Ingresos Asimilados a Salarios'},
       {'RDI'=>'Demás ingresos'},
@@ -49,7 +49,7 @@ class Cliente < ApplicationRecord
   def self.regimenes_fiscales_morales
     [
       {'RGLPM'=>'Regimen General de Ley Personas Morales'},
-      {'RESICO'=>'Regimen Simplificado de Confianza'}
+      {'RESICO PM'=>'Regimen Simplificado de Confianza'}
     ]
   end
 
