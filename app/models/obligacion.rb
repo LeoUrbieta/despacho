@@ -42,8 +42,7 @@ class Obligacion < ApplicationRecord
   def self.iva
     [
       {'IVA General' => 'IVA General'},
-      {'IVA RESICO' => 'IVA RESICO'},
-      {'DIOT' => 'DIOT'}
+      {'IVA RESICO' => 'IVA RESICO'}
     ]
   end
 
