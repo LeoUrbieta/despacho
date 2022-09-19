@@ -1,7 +1,5 @@
 <% if @peticion.respuesta_idse.attached? %>
-  Si  <%= link_to "Ver Archivo", url_for(@peticion.respuesta_idse) %>
-<% else %>
-  No
+  <%= link_to "Respuesta IDSE", url_for(@peticion.respuesta_idse) %>
 <% end %>
 <div class="alert alert-primary">
   <% if params[:peticion].nil? %>
