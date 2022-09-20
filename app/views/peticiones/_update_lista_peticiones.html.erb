@@ -1,13 +1,13 @@
 <%= render "link_pagination_index", pagina: page, pag_minimas: pag_minimas, pag_maximas: pag_maximas %>
 <% peticiones.each do |peticion| %>
-  <div style="background-color: 
+  <div class="row mb-3 border-top border-bottom " style="background-color: 
     <%if peticion.movimiento == "Baja"%> 
       #F5F5DC"
     <%elsif peticion.movimiento == "Alta"%>
       #BDB76B"
     <% else %>
       #F0E68C"
-    <%end%> class="row mb-3">
+    <%end%> >
     <div class="row">
       <div class="col-4">
         <div class="row">
