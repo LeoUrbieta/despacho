@@ -7,7 +7,7 @@ class PeticionesController < ApplicationController
   PAGINA_MINIMA = 0
 
   def index
-    crearPaginas(Peticion.count, 50, Peticion)
+    crearPaginas(Peticion.count, 50, Peticion.all)
   end
 
   def show
@@ -83,6 +83,12 @@ class PeticionesController < ApplicationController
     redirect_to peticiones_path
   end
 
+  def post_listar_peticiones_usuario_externo
+    usuario_externo = UsuarioExterno.find(lista_peticiones_por_usuario_externo[:id_usuario])
+    @peticiones = usuario_externo.peticiones
+    crearPaginas(@peticiones.count,@peticiones.count+1, @peticiones)
+  end
+
   private
     def peticion_params
       params.require(:peticion).permit(:nombre_trabajador, :apellido_paterno, :apellido_materno, :empresa_solicitante, :persona_solicitante, :movimiento, :fecha_nacimiento, :domicilio, :numero_imss, :salario_integrado, :curp, :salario_sin_integrar, :rfc, :fecha_para_realizar_tramite, :observaciones, :respuesta_idse, :usuario_externo_id)
@@ -90,6 +96,10 @@ class PeticionesController < ApplicationController
 
     def agregar_usuario_externo
       params[:peticion][:usuario_externo_id] = usuario_externo_actual.id
+    end
+
+    def lista_peticiones_por_usuario_externo
+      params.require(:usuario_externo).permit(:id_usuario)
     end
 
     def pagination(pagina,pag_maxima,pag_minima)

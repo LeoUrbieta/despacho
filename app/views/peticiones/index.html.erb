@@ -1,186 +1,20 @@
 <div class="row">
-  <h1 class="offset-2 col-2 offset-sm-3 col-sm-9">Peticiones</h1>
+  <h1 style="text-align: center" class="col">Peticiones</h1>
 </div>
-<%= render "link_pagination_index", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
-<% @peticiones.each do |peticion| %>
-  <div style="background-color: 
-    <%if peticion.movimiento == "Baja"%> 
-      #F5F5DC"
-    <%elsif peticion.movimiento == "Alta"%>
-      #BDB76B"
-    <% else %>
-      #F0E68C"
-    <%end%>>
-    <br>
-    <div class="row">
-      <div class="col-4">
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <h3>#<%= peticion.folio %></h3>
-          </div>
-          <div class="col">
-            <h3><%= peticion.movimiento%></h3>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Usuario:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.usuario_externo.nombre_usuario%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Fecha de peticion:</strong> 
-          </div>
-          <div class="col">
-            <%=peticion.created_at.to_fs(:day_month_year)%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Empresa que solicita:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.empresa_solicitante%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Persona que solicita:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.persona_solicitante%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>A realizar el:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.fecha_para_realizar_tramite.to_time.to_fs(:day_month_year)%>
-          </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>NSS:</strong>
-          </div>
-          <div class="col">
-            <%= peticion.numero_imss %>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Nombre:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.nombre_trabajador%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Apellido Paterno:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.apellido_paterno%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Apellido Materno:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.apellido_materno%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Salario Integrado:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.salario_integrado%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Salario Sin Integrar:</strong>
-          </div>
-          <div class="col">
-            <%=peticion.salario_sin_integrar%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>Fecha de nacimiento:</strong>
-          </div>
-          <div class="col">
-            <%= peticion.fecha_nacimiento&.to_time&.to_fs(:day_month_year)%>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>RFC:</strong>
-          </div>
-          <div class="col">
-            <%= peticion.rfc %>
-          </div>
-        </div>
-        <div class="row">
-          <div style="text-align: right" class="col">
-            <strong>CURP:</strong>
-          </div>
-          <div class="col">
-            <%= peticion.curp %>
-          </div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="row">
-          <div class="col">
-            <strong>Domicilio:</strong> <%= peticion.domicilio %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <strong>Observaciones:</strong> <%= peticion.observaciones %>
-          </div>
-        </div>
-        <br>
-        <% if (usuario_actual.nombre_usuario ==  Rails.application.credentials.dig(:usuario_adjuntar_idse,:usuario) || usuario_actual.admin?) %>
-          <div class="row">
-            <div class="col" id="adjuntar_peticion_<%=peticion.folio.to_s%>">
-              <%= form_with(model: peticion, scope: :peticion) do |form| %>
-                <%= form.file_field :respuesta_idse %>
-                <%= form.submit %> 
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        <div class="row">
-          <div class="col" id="idse_peticion_<%=peticion.folio.to_s%>">
-            <% if peticion.respuesta_idse.attached? %>
-              <%= link_to "Respuesta IDSE", url_for(peticion.respuesta_idse) %>
-            <% end %>
-          </div>
-        </div>
-        <br>
-        <% if usuario_actual.admin? %>
-          <div class="row">
-            <div class="col">
-              <%= link_to "Editar Peticion", edit_peticion_path(peticion.id), :class =>"btn btn-primary" %>
-            </div>
-            <div class="col">
-              <%= button_to "Borrar Peticion", peticion_path(peticion.id), method: :delete, data: { confirm: '¿Estás seguro de querer borrar esta petición'},
-              :class =>"btn btn-danger" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <hr>
+<div class="row mb-3">
+  <div style="text-align: right" class="offset-1 col">
+    <p>Listar por cliente:</p>
   </div>
-<% end %>
-<%= render "link_pagination_index", pagina: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas %>
+  <div class="col">
+    <%= form_with scope: :usuario_externo ,url: listar_peticiones_usuario_externo_peticiones_path do |form| %>
+      <%= form.select :id_usuario, UsuarioExterno.all.collect {|p| [p.nombre_usuario,p.id]}%>
+      <%= form.submit "Filtrar" %>
+    <% end %>
+  </div>
+  <div class="col">
+  <%= link_to "Todas las peticiones", peticiones_path, {:class => "btn btn-primary"} %>
+    </div>
+</div>
+<div id="div_update_lista_peticiones"%>
+  <%= render partial: "update_lista_peticiones", locals: {peticiones: @peticiones, page: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas} %> 
+</div>

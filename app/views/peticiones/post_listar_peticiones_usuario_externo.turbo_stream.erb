@@ -1,0 +1,3 @@
+<%= turbo_stream.update "div_update_lista_peticiones" do %>
+  <%= render partial: "update_lista_peticiones", locals: {peticiones: @peticiones, page: @page, pag_minimas: @pag_minimas, pag_maximas: @pag_maximas}%>
+<% end %>
