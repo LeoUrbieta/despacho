@@ -71,29 +71,29 @@ GEM
     audited (5.0.2)
       activerecord (>= 5.0, < 7.1)
     aws-eventstream (1.2.0)
-    aws-partitions (1.628.0)
-    aws-sdk-core (3.144.0)
+    aws-partitions (1.670.0)
+    aws-sdk-core (3.168.2)
       aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.525.0)
-      aws-sigv4 (~> 1.1)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.58.0)
-      aws-sdk-core (~> 3, >= 3.127.0)
+    aws-sdk-kms (1.60.0)
+      aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.114.0)
-      aws-sdk-core (~> 3, >= 3.127.0)
+    aws-sdk-s3 (1.117.2)
+      aws-sdk-core (~> 3, >= 3.165.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
-    aws-sigv4 (1.5.1)
+    aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     bindex (0.8.1)
-    bootsnap (1.13.0)
+    bootsnap (1.15.0)
       msgpack (~> 1.2)
-    brakeman (5.3.1)
+    brakeman (5.4.0)
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.37.1)
+    capybara (3.38.0)
       addressable
       matrix
       mini_mime (>= 0.1.3)
@@ -102,10 +102,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
-    digest (3.1.0)
     erubi (1.11.0)
     ffi (1.15.5)
     globalid (1.0.0)
@@ -120,12 +118,12 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    jmespath (1.6.1)
+    jmespath (1.6.2)
     json (2.6.2)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.18.0)
+    loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -138,25 +136,19 @@ GEM
       rake
     mini_mime (1.1.2)
     minitest (5.16.3)
-    msgpack (1.5.6)
-    net-imap (0.2.3)
-      digest
+    msgpack (1.6.0)
+    net-imap (0.3.1)
       net-protocol
-      strscan
-    net-pop (0.1.1)
-      digest
+    net-pop (0.1.2)
       net-protocol
-      timeout
     net-protocol (0.1.3)
       timeout
-    net-smtp (0.3.1)
-      digest
+    net-smtp (0.3.3)
       net-protocol
-      timeout
     nio4r (2.5.8)
-    nokogiri (1.13.8-x86_64-linux)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
-    pg (1.4.3)
+    pg (1.4.5)
     public_suffix (5.0.0)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -203,7 +195,7 @@ GEM
     recaptcha (5.12.3)
       json
     redis (4.8.0)
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.1)
     rexml (3.2.5)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
@@ -216,12 +208,11 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.4.0)
-      childprocess (>= 0.5, < 5.0)
+    selenium-webdriver (4.7.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    spring (4.0.0)
+    spring (4.1.0)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -229,13 +220,12 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stimulus-rails (1.1.0)
+    stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    strscan (3.0.4)
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.3.0)
-    turbo-rails (1.1.1)
+    turbo-rails (1.3.2)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -249,7 +239,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.0.0)
+    webdrivers (5.2.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
@@ -259,7 +249,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   x86_64-linux
@@ -296,7 +286,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.1.3p185
 
 BUNDLED WITH
-   2.3.7
+   2.3.26
