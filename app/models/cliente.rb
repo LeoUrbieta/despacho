@@ -42,14 +42,17 @@ class Cliente < ApplicationRecord
       {'RSSIAS'=>'Sueldos y Salarios e Ingresos Asimilados a Salarios'},
       {'RDI'=>'Demás ingresos'},
       {'RII'=>'Ingresos por intereses'},
-      {'AEIP'=>'Actividades Empresariales con ingresos a través de Plataformas tecnológicas'} 
+      {'AEIP'=>'Actividades Empresariales con ingresos a través de Plataformas tecnológicas'},
+      {'SOF'=>'Sin Obligaciones Fiscales'},
+      {'SUSP PF'=>'Suspendido PF'}
     ]
   end
 
   def self.regimenes_fiscales_morales
     [
       {'RGLPM'=>'Regimen General de Ley Personas Morales'},
-      {'RESICO PM'=>'Regimen Simplificado de Confianza'}
+      {'RESICO PM'=>'Regimen Simplificado de Confianza'},
+      {'SUSP PM'=>'Suspendido PM'}
     ]
   end
 
