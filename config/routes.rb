@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get 'contabilidad'
       post 'contabilidad', to: 'clientes#post_contabilidad'
     end
-    resources :obligaciones, except: :show
+    resources :obligaciones, except: [:show, :new]
   end
   root "peticiones#new"
   resources :peticiones do

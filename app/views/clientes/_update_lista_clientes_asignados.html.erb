@@ -1,6 +1,6 @@
 <div class="row mb-3">
   <div class="offset-2 col-4">
-    <%= button_to "Descargar Lista de Clientes de #{@usuario.nombre_usuario}", options = {action: :contabilidad, format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @usuario_id}} %>
+    <%= button_to "Descargar Lista de Clientes de #{@usuario.nombre_usuario}", options = {action: :contabilidad, controller: 'clientes', format: 'csv'}, html_options = {class: 'btn btn-primary', params: {id: @usuario_id}} %>
   </div>
 </div>
 <table class="table table-hover align-middle" >
@@ -31,11 +31,7 @@
           <% if not cliente.obligaciones.empty? %>
             <!-- Se elige cliente.obligaciones.first porque es la declaracion con la fecha mas reciente -->
             <%= cliente.obligaciones.first.fecha.year.to_s + 
-              " " + I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + " - " %>
-            <% cliente.obligaciones.first.presentadas.each_with_index do |ob,idx| %>
-              <%= ob if not ob.empty? %>
-              <%= ", " if idx != cliente.obligaciones.first.presentadas.size()-1 && !ob.empty? %>
-            <% end %>
+              " " + I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) %>
           <% else %>
             <%= "Sin obligaciones presentadas" %>
           <% end %>
@@ -51,9 +47,15 @@
             <%= cliente.user&.nombre_usuario %>
           <% end %>
         </td>
-        <td><%= link_to "Añadir obligacion", new_cliente_obligacion_path(cliente), {:class => 'btn btn-success'} %></td>
-      </tr>
-    <% end %>
+        <td>
+          <%= form_with model: [cliente,Obligacion.new] do |form| %>
+              <%= form.date_select :fecha, {default: Time.now - 1.month , discard_day: true} %>
+              <%= form.select :current_id, [@usuario.id],{} , html_options =  {style: "display:none"} %>
+              <%= form.submit "Presentado",  {class: "btn btn-success"} %>
+          <% end %>
+        </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

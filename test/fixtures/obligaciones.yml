@@ -2,15 +2,12 @@
 
 one:
   fecha: <%= Time.new(2022,03,15) %>
-  presentadas: <%= Array["","Ob1","Ob2"] %>
   cliente: one
 
 two:
   fecha: <%= Time.new(2022,02,01) %>
-  presentadas: ["Ob5","Ob6"]
   cliente: two
 
 three:
   fecha: <%= Time.new(2022,01,01) %> 
-  presentadas: ["Ob3","Ob4"]
   cliente: two

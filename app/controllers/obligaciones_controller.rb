@@ -8,27 +8,35 @@ class ObligacionesController < ApplicationController
     @obligaciones = @cliente.obligaciones.all
   end
 
-  # GET :cliente_id/obligaciones/new
-  def new
-    @obligacion = Obligacion.new
-  end
-
   # GET :cliente_id/obligaciones/1/edit
   def edit
   end
 
   # POST :cliente_id/obligaciones
   def create
-    @obligacion = Obligacion.new(obligacion_params)
+    @obligacion = Obligacion.new(obligacion_params.except(:current_id))
     @obligacion.cliente = @cliente
+
+    #########################################
+    #Esto es para solicitud turbo_stream
+    if not obligacion_params[:current_id].nil?
+      @usuario = User.find(obligacion_params[:current_id])
+    else
+      @usuario = usuario_actual
+    end
+    @usuario_id = @usuario.id
+    @clientes = @usuario.clientes.all
+    ##########################################
 
     respond_to do |format|
       if @obligacion.save
         format.html { redirect_to contabilidad_clientes_path, notice: "La Obligacion se creó exitosamente" }
         format.json { render :show, status: :created, location: @obligacion }
+        format.turbo_stream 
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @obligacion.errors, status: :unprocessable_entity }
+        format.turbo_stream 
       end
     end
   end
@@ -68,6 +76,6 @@ class ObligacionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def obligacion_params
-      params.require(:obligacion).permit(:fecha, presentadas: [])
+      params.require(:obligacion).permit(:fecha,:current_id)
     end
 end

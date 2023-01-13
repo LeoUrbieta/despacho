@@ -14,12 +14,6 @@ class ObligacionesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    sign_in_as(@usuario,"password")
-    get new_cliente_obligacion_url(@obligacion)
-    assert_response :success
-  end
-
   test "should create obligacion" do
     sign_in_as(@usuario,"password")
     assert_difference("Obligacion.count") do

@@ -23,15 +23,13 @@ class ObligacionesTest < ApplicationSystemTestCase
   test "should create obligacion" do
     click_on "Contabilidad"
     assert_text @obligacion.cliente.razon_social
-    click_on "Añadir obligacion", match: :first
+    assert_select 'obligacion_fecha_2i', selected: I18n.t(@mes_seleccionado_nueva_obligacion.strftime('%B'))
+    assert_select 'obligacion_fecha_1i', selected: @mes_seleccionado_nueva_obligacion.strftime('%Y')
+    click_on "Presentado", match: :first
 
-    select 'Enero', from: 'obligacion_fecha_2i' 
-    select '2022', from: 'obligacion_fecha_1i' 
-    first('input[type="checkbox"]').check
-    click_on "Crear Obligacion"
-
-    assert_text @obligacion.cliente.razon_social
-    assert_text "La Obligacion se creó exitosamente"
+    assert_text I18n.t(@mes_seleccionado_nueva_obligacion.strftime('%B')), count: 2
+    #2 veces ya que debe aparecer en texto de Última Obligacion presentada y en el Select
+    assert_text @mes_seleccionado_nueva_obligacion.strftime('%Y'), count: 2
   end
 
   test "should update Obligacion" do
@@ -51,7 +49,6 @@ class ObligacionesTest < ApplicationSystemTestCase
   test "select in new obligacion must have previous month" do
     click_on "Contabilidad"
     assert_text @obligacion.cliente.razon_social
-    click_on "Añadir obligacion"
     assert_select 'obligacion_fecha_2i', selected: I18n.t(@mes_seleccionado_nueva_obligacion.strftime('%B'))
   end
 
@@ -84,6 +81,16 @@ class ObligacionesTest < ApplicationSystemTestCase
     click_on "Eliminar" 
 
     assert_text "Se eliminó la obligación correctamente"
+  end
+
+  test "when another user selected creating obligacion should turbo stream to this user" do
+    click_on "Contabilidad"
+    select @usuario_asignado_tres.nombre_usuario, from: 'id'
+    click_on "Cambiar"
+    assert_text @usuario_asignado_tres.clientes.first.razon_social
+    click_on "Presentado", match: :first
+    assert_select 'id', selected: @usuario_asignado_tres.nombre_usuario
+    assert_text @usuario_asignado_tres.clientes.first.razon_social
   end
 
 end

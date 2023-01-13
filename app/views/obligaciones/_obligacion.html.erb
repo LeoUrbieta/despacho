@@ -4,7 +4,6 @@
       <tr>
         <th class="col-1"></th>
         <th class="col-1">Fecha</th>
-        <th class="col-5">Obligaciones Presentadas</th>
         <th class="col-2"></th>
       </tr>
     </thead>
@@ -13,12 +12,6 @@
         <tr> 
           <td></td>
           <td><%= obligacion.fecha.year.to_s + " " + I18n.t(obligacion.fecha.strftime('%B'))=%></td>
-          <td>
-            <% obligacion.presentadas.each_with_index do |ob,idx| %>
-              <%= ob if not ob.empty? %>
-              <%= "," if idx != obligacion.presentadas.size()-1 && !ob.empty? %>
-            <% end %>
-          </td>
           <td><%= link_to "Editar", edit_cliente_obligacion_path(obligacion.cliente,obligacion), {:class => 'btn btn-primary'} %></td>
         </tr>
       <% end %>
