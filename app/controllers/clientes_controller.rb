@@ -135,12 +135,10 @@ class ClientesController < ApplicationController
         crea_asociacion_replegal_cliente
         return notice_asociacion_nuevo_cliente_a_replegal_existente
       when "CREADOACTUALIZADO"
-        unless params[:cliente][:num_interno].nil?
-          if params[:cliente][:num_interno].to_i < 600
-            if not @cliente.replegales.empty?
-              asigna_parametros
-              return "El cliente fue actualizado así como su registro de representante legal"
-            end
+        if params[:cliente][:num_interno].to_i < 600
+          if not @cliente.replegales.empty?
+            asigna_parametros
+            return "El cliente fue actualizado así como su registro de representante legal"
           end
         end
         #En este caso no hay representante legal asociado
@@ -191,7 +189,7 @@ class ClientesController < ApplicationController
                                params[:cliente]["csd_vencimiento(2i)"] + "-" +
                                params[:cliente]["csd_vencimiento(1i)"] 
  
-      @cliente.replegales.first.update(nombre_completo: params[:cliente][:razon_social], 
+      @cliente.replegales.first.update!(nombre_completo: params[:cliente][:razon_social], 
                                        rfc: params[:cliente][:rfc],
                                        clave: params[:cliente][:clave], 
                                        fiel: params[:cliente][:fiel], 
