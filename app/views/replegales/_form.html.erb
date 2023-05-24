@@ -1,15 +1,19 @@
 <div data-controller="deshabilita-campos-rep-legales">
   <%= form_with(model: replegal, html: {"data-deshabilita-campos-rep-legales-target" => "form"}) do |form| %>
-  <%= render "/shared/errores", modelo: @replegal %> 
+  <div class="row mb-3">
+    <div class="offset-md-2 col-md-4">
+      <%= render "/shared/errores", modelo: @replegal %> 
+    </div>
+  </div>
   <% unless request.fullpath == "/replegales/#{@replegal.id}/edit"%>
     <% if @replegal.clientes.where("LENGTH(rfc) = 13").empty? %>
       <div class="row mb-3">
-      <%= label :cliente_id, "Si el Representante Legal ya es un cliente, puede elegirlo de esta lista.
+      <%= label :cliente_id, "Si el Representante Legal ya es un cliente, puedes elegirlo de esta lista.
                   De manera automática, los campos de abajo se deshabilitarán y los datos se tomarán de 
                   su registro de Cliente.",
-        {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase"}%>
+        {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase; color: purple"}%>
       <div class="col-md-4">
-        <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").order(num_interno: :asc),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", multiple: true, size: 10}) %>
+        <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").reorder('razon_social ASC'),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", size: 10}) %>
       </div>
       </div>
     <% end %>
@@ -17,6 +21,11 @@
   <% if not @replegal.clientes.where("LENGTH(rfc) = 13").empty?%> 
     <span style="display: none">
   <% end %>
+      <div class="row mb-3">
+        <div class="offset-md-3 col-md-4">
+          <h6 style="color: purple">Si el Representante Legal no está en la lista de arriba, introduce sus datos a continuación</h6>
+        </div>
+      </div>
       <div class="row mb-3">
         <%= form.label :nombre_completo, "# Nombre Completo*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
         <div class="col-md-4">
@@ -81,8 +90,10 @@
       <div class="offset-md-3 col-md-4 col-4">
         <h6 style="color: purple">
           Este Representante Legal ya se encuentra en la lista de Clientes. 
-          Cualquier cambio en los datos del representante, por favor, realízalo en esa lista.
-          NOTA: PUEDE ESTAR EN LA LISTA DE BAJAS<br>
+          Cualquier cambio (vencimiento de FIEL, RFC), por favor, realízalo en esa lista.
+          <br>
+          <%= link_to 'Ir al perfil del Cliente', cliente_path(@replegal.clientes.where(
+            "LENGTH(rfc) = 13").first), :class => 'btn btn-warning' %>
           <br>
           Aquí puedes actualizar las empresas que tiene asignadas.
         </h6>

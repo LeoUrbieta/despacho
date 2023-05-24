@@ -1,6 +1,10 @@
 <%= form_with(model: cliente, html: {"data-turbo" => "false"}) do |form| %>
   
-  <%= render "/shared/errores", modelo: @cliente %> 
+  <div class="row mb-3">
+    <div class="offset-md-2 col-md-4">
+      <%= render "/shared/errores", modelo: @cliente %> 
+    </div>
+  </div>
  
   <div class="row mb-3">
     <%= form.label :num_interno, "# Interno Despacho*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>

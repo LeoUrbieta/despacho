@@ -51,4 +51,16 @@ class ReplegalesTest < ApplicationSystemTestCase
     assert_text "El representante legal se eliminó correctamente"
     assert_selector "h1", text: "Representantes Legales"
   end
+
+  test "Mostrar boton a perfil de cliente si replegal ya esta en esa lista" do
+    visit replegales_url
+    assert_text "AMADO NERVO"
+    click_link "AMADO NERVO"
+    click_link "Editar Rep. Legal"
+    assert_link "Ir al perfil del Cliente"
+    click_link "Ir al perfil del Cliente"
+    assert_text "AMADO NERVO"
+    assert_text "BAJA:"
+    assert_text "Editar Cliente"
+  end
 end
