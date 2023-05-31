@@ -34,3 +34,15 @@ five:
   regimen_fiscal: ["","REG2"]
   fiel_vencimiento: "2023-05-03"
   replegales: two
+six:
+  razon_social: "LA GATA SA DE CV"
+  rfc: "LGT001223YKU"
+  num_interno: 602
+  regimen_fiscal: ["","REG1","REG2"]
+  fiel_vencimiento: "2025-03-04"
+seven:
+  razon_social: "ADRIAN JIMENEZ"
+  num_interno: 103
+  rfc: "JIAM123456TYU"
+  clave: "clave"
+  regimen_fiscal: ["","REG1"]

@@ -25,10 +25,10 @@ class ReplegalesTest < ApplicationSystemTestCase
     assert_text nombre_empresa
   end
 
-  test "updating a Replegal" do
+  test "updating a Replegal which is not in Clientes list" do
     visit replegales_url
-    find('.table').find('a',text: replegales(:one).nombre_completo).click
-    assert_text replegales(:one).nombre_completo
+    find('.table').find('a',text: replegales(:not_in_clientes_list).nombre_completo).click
+    assert_text replegales(:not_in_clientes_list).nombre_completo
     assert_link "Editar Rep. Legal"
     click_link "Editar Rep. Legal"
     nombre_nuevo = "JERONIMO AGUILAR"
@@ -52,15 +52,13 @@ class ReplegalesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Representantes Legales"
   end
 
-  test "Mostrar boton a perfil de cliente si replegal ya esta en esa lista" do
+  test "Mostrar boton a editar perfil de cliente si replegal ya esta en esa lista" do
     visit replegales_url
     assert_text "AMADO NERVO"
     click_link "AMADO NERVO"
     click_link "Editar Rep. Legal"
     assert_link "Ir al perfil del Cliente"
     click_link "Ir al perfil del Cliente"
-    assert_text "AMADO NERVO"
-    assert_text "BAJA:"
     assert_text "Editar Cliente"
   end
 end

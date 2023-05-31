@@ -5,27 +5,30 @@
       <%= render "/shared/errores", modelo: @replegal %> 
     </div>
   </div>
-  <% unless request.fullpath == "/replegales/#{@replegal.id}/edit"%>
+  <% unless request.fullpath == "/replegales/#{@replegal.id}/edit" || request.fullpath == "/replegales/#{@replegal.id}"%>
+    <!-- El segundo request es porque se hace un POST a esa direccion y cuando sale un error, render nos regresa a ese URL
+      y no a /replegales/@replegal.id/edit-->
     <% if @replegal.clientes.where("LENGTH(rfc) = 13").empty? %>
       <div class="row mb-3">
       <%= label :cliente_id, "Si el Representante Legal ya es un cliente, puedes elegirlo de esta lista.
                   De manera automática, los campos de abajo se deshabilitarán y los datos se tomarán de 
                   su registro de Cliente.",
         {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase; color: purple"}%>
-      <div class="col-md-4">
-        <%= collection_select(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) < CAST(600 AS integer)").reorder('razon_social ASC'),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", size: 10}) %>
+        <div class="col-md-4">
+          <%= collection_select(:replegal,:cliente_ids, Cliente.where("(num_interno is null AND LENGTH(rfc) = 13) OR (CAST(num_interno AS integer) < CAST(600 AS integer))").reorder('razon_social ASC'),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", :multiple => true, size: 10}) %>
+          <!-- El multiple true en collection select es fundamental para que la salida de este select sea un Array y no un String -->
+        </div>
       </div>
+      <div class="row mb-3">
+        <div class="offset-md-3 col-md-4">
+          <h6 style="color: purple">Si el Representante Legal no está en la lista de arriba, introduce sus datos a continuación</h6>
+        </div>
       </div>
     <% end %>
   <% end %>
   <% if not @replegal.clientes.where("LENGTH(rfc) = 13").empty?%> 
     <span style="display: none">
   <% end %>
-      <div class="row mb-3">
-        <div class="offset-md-3 col-md-4">
-          <h6 style="color: purple">Si el Representante Legal no está en la lista de arriba, introduce sus datos a continuación</h6>
-        </div>
-      </div>
       <div class="row mb-3">
         <%= form.label :nombre_completo, "# Nombre Completo*:", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}%>
         <div class="col-md-4">
@@ -92,7 +95,7 @@
           Este Representante Legal ya se encuentra en la lista de Clientes. 
           Cualquier cambio (vencimiento de FIEL, RFC), por favor, realízalo en esa lista.
           <br>
-          <%= link_to 'Ir al perfil del Cliente', cliente_path(@replegal.clientes.where(
+          <%= link_to 'Ir al perfil del Cliente', edit_cliente_path(@replegal.clientes.where(
             "LENGTH(rfc) = 13").first), :class => 'btn btn-warning' %>
           <br>
           Aquí puedes actualizar las empresas que tiene asignadas.

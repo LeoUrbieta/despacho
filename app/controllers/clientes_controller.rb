@@ -205,7 +205,7 @@ class ClientesController < ApplicationController
 
 
     def notice_asociacion_nuevo_cliente_a_replegal_existente
-      return "El cliente se creó exitosamente y además se asoció al representante legal" +
+      return "El cliente se creó exitosamente y está asociado al representante legal " +
               @cliente.replegales.first.nombre_completo 
     end
 end

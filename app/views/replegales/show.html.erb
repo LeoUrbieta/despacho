@@ -13,7 +13,7 @@
   </div>
   <div class="col-2 col-sm-2">
     <% if not @replegal.cliente_ids.one? {|id| Cliente.find(id).num_interno.to_i < 600} %>
-      <%= link_to 'Dar de alta como Cliente',clientes_path('',
+      <%= button_to 'Dar de alta como Cliente',clientes_path('',
                   :params => {:cliente => {:num_interno => Cliente.obten_numero_interno('FISICA'),
                   :razon_social => @replegal.nombre_completo,
                   :rfc => @replegal.rfc,
@@ -24,9 +24,8 @@
                   :csd_vencimiento => @replegal.vencimiento_csd},
                   :replegal => "REPLEGAL"}),
                   method: :post,
-                  :class => 'btn btn-warning',
-         data: { confirm: "Se dará de alta al Representante Legal #{@replegal.nombre_completo}
-                 en la lista de Clientes"}%>
+                  :class => 'btn btn-warning'
+      %>
     <% end %>
     
   </div>

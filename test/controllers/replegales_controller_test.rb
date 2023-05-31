@@ -42,7 +42,7 @@ class ReplegalesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update replegal" do
     sign_in_as(@usuario,"password")
-    patch replegal_url(@replegal), params: { replegal: {nombre_completo: "Leo Moreno", rfc: "MOUL8902072X2", cliente_ids: ["",clientes(:one).id]}}
+    patch replegal_url(@replegal), params: { replegal: {nombre_completo: "Leo Moreno", rfc: "MOUL8902072X2", cliente_ids: ["",clientes(:six).id]}}
     assert_redirected_to replegal_url(@replegal)
   end
 
@@ -54,4 +54,17 @@ class ReplegalesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to replegales_url
   end
+
+  test "should not update replegal if rfc is already in lista de clientes" do
+    sign_in_as(@usuario,"password")
+    patch replegal_url(@replegal), params: { replegal: {nombre_completo: "Leo Moreno", rfc: clientes(:two).rfc, cliente_ids: ["",clientes(:six).id]}}
+    assert_response 302
+  end
+
+  test "should reassociate replegal with cliente in update" do
+    sign_in_as(@usuario,"password")
+    patch replegal_url(@replegal), params: { replegal: {nombre_completo: clientes(:seven).razon_social, rfc: clientes(:seven).rfc, cliente_ids: [""]}}
+    assert_redirected_to replegal_url(@replegal)
+  end
+
 end

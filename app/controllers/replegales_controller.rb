@@ -35,7 +35,7 @@ class ReplegalesController < ApplicationController
       if existe_en_clientes || !agregados_correctamente
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @replegal.errors, status: :unprocessable_entity }
-      elsif @replegal.save 
+      elsif @replegal.save
         format.html { redirect_to @replegal, notice: "El Representante legal se creó correctamente" }
         format.json { render :show, status: :created, location: @replegal }
       else
@@ -48,19 +48,26 @@ class ReplegalesController < ApplicationController
   # PATCH/PUT /replegales/1 or /replegales/1.json
   def update
     rfc_introducido_en_campo = replegal_params[:rfc]
-    agregados_correctamente,@replegal,params = Replegal.agregar_clientes(replegal_params,@replegal)
-    if Cliente.find_by(rfc: rfc_introducido_en_campo)
-      existe_en_clientes = true 
-      @replegal.errors.add(:rfc, "Ese RFC ya está dado de alta en la lista de clientes.
-                           Por favor, elígelo de la lista directamente")
-    else
+    #Este bloque es para replegales que no están asociados a un cliente persona física. De esta
+    #manera evitamos que al actualizarse tomemos un RFC que ya está dado de alta como cliente
+    #y se muestre el error respectivo
+    if not @replegal.clientes.where("(num_interno is null AND LENGTH(rfc) = 13) OR CAST(num_interno AS integer) < CAST(600 AS integer)").first 
+      if Cliente.find_by(rfc:rfc_introducido_en_campo)
+        existe_en_clientes = true 
+        @replegal.errors.add(:rfc, "Ese RFC ya está dado de alta en la lista de clientes.
+                             Por favor, elígelo de la lista directamente")
+      else
       existe_en_clientes = false 
+      end
     end
+    ########
+    
+    agregados_correctamente,@replegal,parametros = Replegal.agregar_clientes(replegal_params,@replegal)
     respond_to do |format|
       if existe_en_clientes || !agregados_correctamente
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @replegal.errors, status: :unprocessable_entity }
-      elsif @replegal.update(params) 
+      elsif @replegal.update(parametros) 
         format.html { redirect_to @replegal, notice: "El representante legal se actualizó correctamente" }
         format.json { render :show, status: :ok, location: @replegal }
       else
