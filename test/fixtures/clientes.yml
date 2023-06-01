@@ -30,6 +30,7 @@ four:
   regimen_fiscal: ["","REG4","REG5"]
 five:
   razon_social: "AMADO NERVO"
+  num_interno: 104
   rfc: "NEAM190923JZ4"
   regimen_fiscal: ["","REG2"]
   fiel_vencimiento: "2023-05-03"
@@ -46,3 +47,23 @@ seven:
   rfc: "JIAM123456TYU"
   clave: "clave"
   regimen_fiscal: ["","REG1"]
+persona_fisica_no_asociada_a_replegal_1:
+  razon_social: "JIMENA CANTU"
+  num_interno: 110
+  rfc: "CAJI010101UIS"
+  regimen_fiscal: ["","REG3"]
+persona_fisica_no_asociada_a_replegal_2:
+  razon_social: "JAVIER IBARGUENGOITIA"
+  num_interno: 111
+  rfc: "IBJA990623BNM"
+  regimen_fiscal: ["","REG4"]
+empresa_sin_replegal:
+  razon_social: "SIN REPLEGAL SA DE CV"
+  num_interno: 701
+  rfc: "RES001201DUY"
+  regimen_fiscal: ["","REG5"]
+empresa_de_adrian_jimenez:
+  razon_social: "ADRIAN JIMENEZ CORP SA DE CV"
+  rfc: "JIAC761113ZV1"
+  num_interno: 702
+  regimen_fiscal: ["","REG7"]

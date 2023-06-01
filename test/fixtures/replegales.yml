@@ -8,7 +8,7 @@ one:
   nombre_completo: "ADRIAN JIMENEZ" 
   rfc: "JIAM123456TYU"
   clave: "clave"
-  clientes: seven
+  clientes: seven, empresa_de_adrian_jimenez 
   vencimiento_fiel: "2027-04-04"
   vencimiento_csd: "2026-12-28"
 two: 
