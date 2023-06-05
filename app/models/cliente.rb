@@ -3,6 +3,7 @@ class Cliente < ApplicationRecord
   require 'csv'
  
   validates :razon_social, presence: true
+  validates :presentar_contabilidad, inclusion: [true, false]
   validates :rfc, presence: true, uniqueness: true
   validates :num_interno, presence: true, uniqueness: true, allow_nil: true 
   has_many :casos, dependent: :restrict_with_error

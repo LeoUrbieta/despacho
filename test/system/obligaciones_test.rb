@@ -93,4 +93,18 @@ class ObligacionesTest < ApplicationSystemTestCase
     assert_text @usuario_asignado_tres.clientes.first.razon_social
   end
 
+  test "if cliente asignado no se presenta contabilidad debe haber boton de no presentar" do
+    click_on "Contabilidad"
+    select @usuario_asignado_tres.nombre_usuario, from: 'id'
+    click_on "Cambiar"
+    assert_text @usuario_asignado_tres.clientes.first.razon_social
+    nombre_cliente_que_no_se_presenta_contabilidad = 
+      @usuario_asignado_tres.clientes.where("presentar_contabilidad = FALSE").first.razon_social
+    fila_cliente_cuya_contabilidad_no_se_presenta = 
+      find('tr', text: nombre_cliente_que_no_se_presenta_contabilidad)
+    within fila_cliente_cuya_contabilidad_no_se_presenta do
+      find('td', text: "No presentar")
+    end
+  end
+
 end

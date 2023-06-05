@@ -5,6 +5,8 @@ class ReplegalesTest < ApplicationSystemTestCase
     @adrian_jimenez = replegales(:one)
     @empresa_sin_replegal = clientes(:empresa_sin_replegal) 
     crear_y_entrar_como_usuario_system_test('user_rep_legal','user12345',false,false)
+    @replegal_not_in_clientes = replegales(:not_in_clientes_list)
+    @cliente = clientes(:one)
   end
 
   test "visiting the index" do
@@ -113,4 +115,25 @@ class ReplegalesTest < ApplicationSystemTestCase
     assert_text("1 error")
     assert_text("Un representante legal solo puede estar asociado a una persona física")
   end
+
+  test "button not present if 'Asociado al Cliente' is present" do
+    visit replegal_path(@adrian_jimenez)
+    assert_no_selector "button", text: "Dar de alta como Cliente", visible: :all, wait: 10
+    assert_text "Asociado al Cliente"
+  end
+
+  test "button present if 'Asociado al Cientes' is not present" do
+    visit replegal_path(@replegal_not_in_clientes)
+    assert_selector "button", text: "Dar de alta como Cliente", visible: :all, wait: 10
+    assert_no_text "Asociado al Cliente"
+  end
+    
+  test "do not create replegal if rfc is in clientes and show error" do
+    visit replegales_url
+    click_link "Nuevo Representante Legal"
+    fill_in "replegal[rfc]", with: @cliente.rfc
+    find('input[value="Crear Replegal"]').click
+    assert_text "Ese RFC ya está dado de alta en la lista de clientes."
+  end
+  
 end

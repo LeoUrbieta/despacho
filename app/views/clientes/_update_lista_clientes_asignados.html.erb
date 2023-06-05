@@ -48,10 +48,14 @@
           <% end %>
         </td>
         <td>
-          <%= form_with model: [cliente,Obligacion.new] do |form| %>
-              <%= form.date_select :fecha, {default: Time.now - 1.month , discard_day: true} %>
-              <%= form.select :current_id, [@usuario.id],{} , html_options =  {style: "display:none"} %>
-              <%= form.submit "Presentado",  {class: "btn btn-success"} %>
+          <% if cliente.presentar_contabilidad %>
+            <%= form_with model: [cliente,Obligacion.new] do |form| %>
+                <%= form.date_select :fecha, {default: Time.now - 1.month , discard_day: true} %>
+                <%= form.select :current_id, [@usuario.id],{} , html_options =  {style: "display:none"} %>
+                <%= form.submit "Presentado",  {class: "btn btn-success"} %>
+            <% end %>
+          <% else %>
+            <div class="btn btn-warning">No presentar</div>
           <% end %>
         </td>
     </tr>

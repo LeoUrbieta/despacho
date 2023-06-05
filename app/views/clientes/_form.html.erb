@@ -97,11 +97,27 @@
       <% end %>
     </div>
   </div>
+  <div class="row mb-3">
+    <%= form.label :presentar_contabilidad, {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
+    <div class="col-md-4">
+      <%= form.select :presentar_contabilidad, [["Si",true],["No",false]]%>
+    </div>
+  </div>
   <%if Rails.application.credentials.dig(:usuario_jefe_contabilidad,:usuario) == usuario_actual.nombre_usuario || usuario_actual.admin == true%>
-      <div class="row mb-3">
+    <div class="row mb-3">
+      <div class="offset-md-2 col-md-4" style="color: blue">
+        Menú Jefe Contabilidad ================= 
+      </div>
+    </div>
+    <div class="row mb-3">
       <%= form.label :user_id, "Usuario Asignado", {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"} %>
       <div class="col-md-4">
         <%= form.collection_select(:user_id, User.where(contabilidad: true), :id, :nombre_usuario, { include_blank: true}) %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="offset-md-2 col-md-4" style="color: blue">
+        ======================================= 
       </div>
     </div>
   <% end %>

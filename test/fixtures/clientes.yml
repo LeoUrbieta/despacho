@@ -10,24 +10,28 @@ one:
   num_interno: 101 
   user: four
   regimen_fiscal: ["","REG1"]
+  presentar_contabilidad: true
 two:
   razon_social: "MIRIAM CAMARGO"
   rfc: "CAMI660231IO3"
   num_interno: 102 
   user: three
   regimen_fiscal: ["","REG2"]
+  presentar_contabilidad: true
 three:
   num_interno: 601
   razon_social: "EMPRESA EXAMPLE SA DE CV"
   rfc: "EXA101010UUU"
   user: three
   regimen_fiscal: ["","REG3"]
+  presentar_contabilidad: true
 four:
   num_interno: 103
   razon_social: "JAIME SABINES"
   rfc: "SAJA900105YUF"
   user: three
   regimen_fiscal: ["","REG4","REG5"]
+  presentar_contabilidad: true
 five:
   razon_social: "AMADO NERVO"
   num_interno: 104
@@ -35,35 +39,49 @@ five:
   regimen_fiscal: ["","REG2"]
   fiel_vencimiento: "2023-05-03"
   replegales: two
+  presentar_contabilidad: true
 six:
   razon_social: "LA GATA SA DE CV"
   rfc: "LGT001223YKU"
   num_interno: 602
   regimen_fiscal: ["","REG1","REG2"]
   fiel_vencimiento: "2025-03-04"
+  presentar_contabilidad: true
 seven:
   razon_social: "ADRIAN JIMENEZ"
   num_interno: 103
   rfc: "JIAM123456TYU"
   clave: "clave"
   regimen_fiscal: ["","REG1"]
+  presentar_contabilidad: true
 persona_fisica_no_asociada_a_replegal_1:
   razon_social: "JIMENA CANTU"
   num_interno: 110
   rfc: "CAJI010101UIS"
   regimen_fiscal: ["","REG3"]
+  presentar_contabilidad: true
 persona_fisica_no_asociada_a_replegal_2:
   razon_social: "JAVIER IBARGUENGOITIA"
   num_interno: 111
   rfc: "IBJA990623BNM"
   regimen_fiscal: ["","REG4"]
+  presentar_contabilidad: true
 empresa_sin_replegal:
   razon_social: "SIN REPLEGAL SA DE CV"
   num_interno: 701
   rfc: "RES001201DUY"
   regimen_fiscal: ["","REG5"]
+  presentar_contabilidad: true
 empresa_de_adrian_jimenez:
   razon_social: "ADRIAN JIMENEZ CORP SA DE CV"
   rfc: "JIAC761113ZV1"
   num_interno: 702
   regimen_fiscal: ["","REG7"]
+  presentar_contabilidad: true
+cliente_no_se_presenta_contabilidad:
+  razon_social: "MANUEL JIMENEZ HERNANDEZ"
+  rfc: "JIMH771019BN8"
+  num_interno: 120
+  regimen_fiscal: ["","REG1"]
+  presentar_contabilidad: false
+  user: three

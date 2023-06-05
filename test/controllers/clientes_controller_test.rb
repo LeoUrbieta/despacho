@@ -30,7 +30,10 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              :rfc => "OTR342345IOL",
                                              :num_interno => "432",
                                              :clave => "ABD",
-                                             :regimen_fiscal => ["","REG1","REG2"]  } }
+                                             :regimen_fiscal => ["","REG1","REG2"], 
+                                             :presentar_contabilidad => true 
+      } }
+
     end
 
     assert_redirected_to cliente_url(Cliente.find_by(num_interno: 432))
@@ -55,7 +58,9 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              :num_interno => "432",
                                              :clave => "ABD",
                                              :fiel => "Clave",
-                                             :regimen_fiscal => ["","REGMOD1","REGMOD2"]  } }
+                                             :regimen_fiscal => ["","REGMOD1","REGMOD2"], 
+                                             :presentar_contabilidad => true 
+    } }
     assert_redirected_to cliente_url(@cliente_uno)
   end
 

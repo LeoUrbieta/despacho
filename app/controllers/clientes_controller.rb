@@ -125,7 +125,8 @@ class ClientesController < ApplicationController
       end
       params.require(:cliente).permit(:razon_social,:rfc,:num_interno,:clave,
                                       :fiel,:csd,:fiel_vencimiento,:csd_vencimiento,
-                                      :user_id,:current_id, regimen_fiscal: []
+                                      :user_id,:current_id, :presentar_contabilidad, 
+                                      regimen_fiscal: []
                                       )
     end
 
