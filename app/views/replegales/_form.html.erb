@@ -15,7 +15,7 @@
                   su registro de Cliente.",
         {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase; color: purple"}%>
         <div class="col-md-4">
-          <%= collection_select(:replegal,:cliente_ids, Cliente.where("(num_interno is null AND LENGTH(rfc) = 13) OR (CAST(num_interno AS integer) < CAST(600 AS integer))").reorder('razon_social ASC'),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", :multiple => true, size: 10}) %>
+          <%= collection_select(:replegal,:cliente_ids, Cliente.left_outer_joins(:replegales).where('(replegales.id IS NULL) AND ((num_interno is null AND LENGTH(clientes.rfc) = 13) OR (CAST(num_interno AS integer) < CAST(600 AS integer)))').reorder('razon_social ASC'),:id, :razon_social,{include_blank: true},{:class => "form-select", "data-deshabilita-campos-rep-legales-target"=> "source", "data-action" => "deshabilita-campos-rep-legales#deshabilita", :multiple => true, size: 10}) %>
           <!-- El multiple true en collection select es fundamental para que la salida de este select sea un Array y no un String -->
         </div>
       </div>
@@ -107,8 +107,7 @@
     <%= label :cliente_id, "Empresas A Asignar",
       {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right; text-transform: uppercase"}%>
     <div class="form-check col-md-4">
-      <%= collection_check_boxes(:replegal, :cliente_ids, Cliente.where("CAST(num_interno AS integer) >= CAST(600 AS integer)").order(num_interno: :asc),#Cliente.where("num_interno >= CAST(600 AS varchar)"), # Cliente.left_outer_joins(:replegales)
-        #.where("replegales.id is null AND num_interno >= CAST(600 AS varchar)").order(num_interno: :asc),
+      <%= collection_check_boxes(:replegal, :cliente_ids, Cliente.left_outer_joins(:replegales).where('(num_interno is null AND LENGTH(clientes.rfc) = 12) OR (CAST(num_interno AS integer) >= CAST(600 AS integer))').reorder('razon_social ASC'),
                                :id, :razon_social,{},{:class => "form-check-input"}) do |b|%>
                                <%=b.check_box + b.object.num_interno + " - " + b.label(class: "form-check-label")%><br>
   <% end %>

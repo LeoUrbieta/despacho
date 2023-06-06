@@ -20,12 +20,13 @@ class ReplegalesTest < ApplicationSystemTestCase
     nombre = "MARIANO MATAMOROES"
     fill_in with: nombre, id: 'replegal_nombre_completo'
     fill_in with: "MAMO991011DFA", id: 'replegal_rfc'
-    first('input[type="checkbox"]').check
-    nombre_empresa = first('label[class="form-check-label"]').text
+    empresa_a_asignar = clientes(:empresa_sin_replegal) 
+    find('input[value="' + empresa_a_asignar.id.to_s + '"]').check
+    find('label', text: empresa_a_asignar.razon_social)
     click_on "Crear Replegal"
     assert_text "El Representante legal se creó correctamente"
     assert_text nombre
-    assert_text nombre_empresa
+    assert_text empresa_a_asignar.razon_social
   end
 
   test "create a replegal from lista clientes" do

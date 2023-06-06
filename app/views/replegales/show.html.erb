@@ -46,6 +46,9 @@
              <% end %>
            <% end %>
            <% if cliente.num_interno.nil? %>
+             <% if cliente.rfc.length == 13 %>
+               Asociado al Cliente:
+             <% end %>
              <span style="color: red;">(BAJA)</span>
            <% else %>
              <span style="color: blue;"><%= cliente.num_interno%></span>
