@@ -109,7 +109,7 @@
     <div class="form-check col-md-4">
       <%= collection_check_boxes(:replegal, :cliente_ids, Cliente.left_outer_joins(:replegales).where('(num_interno is null AND LENGTH(clientes.rfc) = 12) OR (CAST(num_interno AS integer) >= CAST(600 AS integer))').reorder('razon_social ASC'),
                                :id, :razon_social,{},{:class => "form-check-input"}) do |b|%>
-                               <%=b.check_box + b.object.num_interno + " - " + b.label(class: "form-check-label")%><br>
+                               <%=b.check_box + if not b.object.num_interno then "BAJA" else b.object.num_interno end + " - " + b.label(class: "form-check-label")%><br>
   <% end %>
     </div>
   </div>
