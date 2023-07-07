@@ -19,9 +19,13 @@ class Cliente < ApplicationRecord
       csv << attributes
 
       all.each do |cliente|
-        csv << [cliente.num_interno, cliente.razon_social, 
-                I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + 
-                cliente.obligaciones.first.fecha.strftime('-%Y')]
+        if cliente.presentar_contabilidad
+          fecha = I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + 
+                cliente.obligaciones.first.fecha.strftime('-%Y')
+        else
+          fecha = "No se presenta"
+        end
+        csv << [cliente.num_interno, cliente.razon_social, fecha ]
       end
     end
   end
