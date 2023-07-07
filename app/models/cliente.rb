@@ -13,13 +13,15 @@ class Cliente < ApplicationRecord
   default_scope -> {order(num_interno: :asc)} 
 
   def self.to_csv
-    attributes = %w{num_interno razon_social}
+    attributes = ["Numero Interno","Razon Social","Ultima Obligacion Presentada"]
 
     CSV.generate(headers: true, col_sep: ",") do |csv|
       csv << attributes
 
       all.each do |cliente|
-        csv << attributes.map{ |attr| cliente.send(attr)  }
+        csv << [cliente.num_interno, cliente.razon_social, 
+                I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + 
+                cliente.obligaciones.first.fecha.strftime('-%Y')]
       end
     end
   end
