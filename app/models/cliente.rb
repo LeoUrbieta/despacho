@@ -12,20 +12,28 @@ class Cliente < ApplicationRecord
   belongs_to :user, optional: true
   default_scope -> {order(num_interno: :asc)} 
 
-  def self.to_csv
-    attributes = ["Numero Interno","Razon Social","Ultima Obligacion Presentada"]
+  def self.to_csv(contabilidad)
+    if contabilidad
+      attributes = ["Numero Interno","Razon Social","Ultima Obligacion Presentada"]
+    else
+      attributes = ["Numero Interno","Razon Social"]
+    end
 
     CSV.generate(headers: true, col_sep: ",") do |csv|
       csv << attributes
 
       all.each do |cliente|
-        if cliente.presentar_contabilidad
-          fecha = I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + 
-                cliente.obligaciones.first.fecha.strftime('-%Y')
+        if contabilidad
+          if cliente.presentar_contabilidad
+            fecha = I18n.t(cliente.obligaciones.first.fecha.strftime('%B')) + 
+                  cliente.obligaciones.first.fecha.strftime('-%Y')
+          else
+            fecha = "No se presenta"
+          end
+          csv << [cliente.num_interno, cliente.razon_social, fecha ]
         else
-          fecha = "No se presenta"
+          csv << [cliente.num_interno, cliente.razon_social]
         end
-        csv << [cliente.num_interno, cliente.razon_social, fecha ]
       end
     end
   end

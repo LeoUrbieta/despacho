@@ -9,7 +9,7 @@ class ClientesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv {send_data @clientes.to_csv, filename: "clientes-#{Date.today}.csv"}
+      format.csv {send_data @clientes.to_csv(false), filename: "clientes-#{Date.today}.csv"}
     end
   end
 
@@ -103,7 +103,7 @@ class ClientesController < ApplicationController
     @clientes = @usuario.clientes.all
     respond_to do |format|
       format.html {redirect_to contabilidad_clientes_path, notice: "Turbo streams no puede renovar la tabla"}
-      format.csv {send_data @clientes.to_csv, filename: "Clientes-#{@usuario.nombre_usuario}-#{Date.today}.csv"}
+      format.csv {send_data @clientes.to_csv(true), filename: "Clientes-#{@usuario.nombre_usuario}-#{Date.today}.csv"}
       format.turbo_stream
     end
   end
