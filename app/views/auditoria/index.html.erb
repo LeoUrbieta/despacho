@@ -64,18 +64,6 @@
       </tr>
     <% end %>
   <% end %>
-  <% @casos.each do |caso| %>
-    <% caso.audits.each do |audit| %>
-      <tr style="background-color: #db8d27">
-        <td><%= audit.id %></td>
-        <td><%= audit.user.nombre_usuario %></td>
-        <td><%= audit.action %></td>
-        <td><%= "Caso: " + caso.cliente.razon_social%></td>
-        <td><%= audit.audited_changes %></td>
-        <td><%= audit.created_at %></td>
-      </tr>
-    <% end %>
-  <% end %>
   </tbody>
 </table>
 
