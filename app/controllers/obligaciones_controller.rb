@@ -1,7 +1,7 @@
 class ObligacionesController < ApplicationController
   before_action :require_user
   before_action :set_obligacion, only: %i[ edit update destroy ]
-  before_action :set_cliente, only: %i[index new create edit update]
+  before_action :set_cliente, only: %i[index create edit update]
 
   # GET :cliente_id/obligaciones 
   def index

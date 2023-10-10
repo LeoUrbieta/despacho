@@ -123,8 +123,8 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
 
   test "Cambios en cliente dado de baja deben de verse reflejados en replegal asociado" do
     sign_in_as(@usuario,"password")
-    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.fiel_vencimiento.to_fs, "2023-05-03"
-    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.replegales.first.vencimiento_fiel.to_fs, "2023-05-03"
+    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.fiel_vencimiento.to_date.to_s, "2023-05-03"
+    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.replegales.first.vencimiento_fiel.to_date.to_s, "2023-05-03"
     patch cliente_url(@cliente_dado_de_baja_y_tambien_es_replegal), params: { cliente: {:num_interno => "",
                                                            :razon_social => @cliente_dado_de_baja_y_tambien_es_replegal.razon_social,
                                                            :rfc => @cliente_dado_de_baja_y_tambien_es_replegal.rfc,
@@ -137,8 +137,8 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                                            "csd_vencimiento(1i)" => @cliente_dado_de_baja_y_tambien_es_replegal.csd_vencimiento.year,
                                                            :regimen_fiscal => @cliente_dado_de_baja_y_tambien_es_replegal.regimen_fiscal}}
     @cliente_dado_de_baja_y_tambien_es_replegal.reload
-    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.fiel_vencimiento.to_fs, "2024-07-11"
-    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.replegales.first.vencimiento_fiel.to_fs, "2024-07-11"
+    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.fiel_vencimiento.to_date.to_s, "2024-07-11"
+    assert_equal @cliente_dado_de_baja_y_tambien_es_replegal.replegales.first.vencimiento_fiel.to_date.to_s, "2024-07-11"
     assert_nil @cliente_dado_de_baja_y_tambien_es_replegal.num_interno
   end
 end

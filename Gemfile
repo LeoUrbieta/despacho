@@ -5,7 +5,7 @@ ruby '3.1.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.0'
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '>= 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
