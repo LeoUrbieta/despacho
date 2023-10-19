@@ -77,9 +77,14 @@ class PeticionesController < ApplicationController
 
   def destroy
     @peticion = Peticion.find(params[:id])
-    @peticion.destroy
-
-    flash[:success] = "Se borró la petición de manera exitosa"
+    if @peticion.respuesta_idse.attached?
+      flash[:success] = "La peticion y el documento adjunto fueron eliminados" 
+      @peticion.respuesta_idse.purge
+      @peticion.destroy
+    else
+      @peticion.destroy
+      flash[:success] = "Se borró la petición de manera exitosa"
+    end
     redirect_to peticiones_path
   end
 
