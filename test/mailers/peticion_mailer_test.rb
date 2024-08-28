@@ -14,7 +14,7 @@ class PeticionMailerTest < ActionMailer::TestCase
       assert_emails 1 do
         mail.deliver_now
       end
-      assert_equal [Rails.application.credentials.dig(:gmail, :user)], mail.from
+      assert_equal [Rails.application.credentials.dig(:outlook, :user)], mail.from
       assert_equal ["example@example.com"], mail.to
       assert_includes mail.body.to_s, Rails.application.credentials.dig(:production,:host)
     end

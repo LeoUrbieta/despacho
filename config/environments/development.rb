@@ -39,12 +39,12 @@ Rails.application.configure do
   # Configuracion para enviar desde gmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
+    address:              'smtp.office365.com',
     port:                 587,
-    domain:               'gmail.com',
-    user_name:            Rails.application.credentials.dig(:gmail,:user),
-    password:             Rails.application.credentials.dig(:gmail,:pass),
-    authentication:       'plain',
+    domain:               'outlook.com',
+    user_name:            Rails.application.credentials.dig(:outlook,:user),
+    password:             Rails.application.credentials.dig(:outlook,:pass),
+    authentication:       :login,
     enable_starttls_auto: true,
     open_timeout:         5,
     read_timeout:         5 }
