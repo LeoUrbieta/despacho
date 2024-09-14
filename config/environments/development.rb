@@ -36,16 +36,16 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :amazon
 
-  # Configuracion para enviar desde gmail
+  # Configuracion para enviar desde outlook
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.office365.com',
-    port:                 587,
-    domain:               'outlook.com',
-    user_name:            Rails.application.credentials.dig(:outlook,:user),
-    password:             Rails.application.credentials.dig(:outlook,:pass),
+    address:              'smtp.mailbox.org',
+    port:                 465,
+    domain:               'mailbox.org',
+    user_name:            Rails.application.credentials.dig(:mailbox,:user),
+    password:             Rails.application.credentials.dig(:mailbox,:pass),
     authentication:       :login,
-    enable_starttls_auto: true,
+    tls:                  true,
     open_timeout:         5,
     read_timeout:         5 }
   

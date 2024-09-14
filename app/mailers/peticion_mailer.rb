@@ -1,5 +1,5 @@
 class PeticionMailer < ApplicationMailer
-  default from: Rails.application.credentials.dig(:outlook,:user)
+  default from: Rails.application.credentials.dig(:mailbox,:user)
 
   def welcome_email
     @user = params[:usuario_externo]
