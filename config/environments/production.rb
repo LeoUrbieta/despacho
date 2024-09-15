@@ -68,16 +68,16 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
 
-  #Agregado el 3 de Mayo 2022 por Leo
+  #Agregado el 3 de Mayo 2022 por Leo (modificado 15 Sep 2024)
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.office365.com',
-    port:                 587,
-    domain:               'outlook.com',
-    user_name:            Rails.application.credentials.dig(:outlook,:user),
-    password:             Rails.application.credentials.dig(:outlook,:pass),
+    address:              'smtp.mailbox.org',
+    port:                 465,
+    domain:               'mailbox.org',
+    user_name:            Rails.application.credentials.dig(:mailbox,:user),
+    password:             Rails.application.credentials.dig(:mailbox,:pass),
     authentication:       :login,
-    enable_starttls_auto: true,
+    tls:                  true,
     open_timeout:         5,
     read_timeout:         5 }
   
