@@ -329,10 +329,10 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)
-  webdrivers
+  webdrivers (= 5.3.1)
 
 RUBY VERSION
-   ruby 3.1.7p261
+   ruby 3.2.8p263
 
 BUNDLED WITH
-   2.3.27
+   2.4.19
