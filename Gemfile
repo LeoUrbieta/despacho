@@ -8,14 +8,10 @@ gem 'rails', '~> 8.0'
 gem 'puma', '>= 5.0'
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-# Use SCSS for stylesheets
-#gem 'sass-rails', '>= 6'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+#gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
-# Use Redis adapter to run Action Cable in production
-#gem 'redis', '~> 4.0'
+#gem 'jbuilder'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 #Usar gema de posgresql

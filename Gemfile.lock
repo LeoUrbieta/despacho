@@ -137,9 +137,6 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.13.0)
-      actionview (>= 5.0.0)
-      activesupport (>= 5.0.0)
     jmespath (1.6.2)
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -258,9 +255,6 @@ GEM
     turbo-rails (2.0.13)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uri (1.0.3)
@@ -296,7 +290,6 @@ DEPENDENCIES
   capybara
   importmap-rails
   invisible_captcha
-  jbuilder
   listen (~> 3.3)
   mail (~> 2.7)
   mimemagic
@@ -311,7 +304,6 @@ DEPENDENCIES
   spring
   stimulus-rails
   turbo-rails
-  turbolinks (~> 5)
   tzinfo-data
   web-console
   webdrivers (= 5.3.1)
