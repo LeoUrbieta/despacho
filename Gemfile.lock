@@ -234,7 +234,6 @@ GEM
     rdoc (6.13.1)
       psych (>= 4.0.0)
     recaptcha (5.19.0)
-    redis (4.8.1)
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -321,7 +320,6 @@ DEPENDENCIES
   rails (~> 8.0)
   rails-controller-testing
   recaptcha (~> 5.10)
-  redis (~> 4.0)
   sass-rails (>= 6)
   selenium-webdriver
   spring
