@@ -8,17 +8,10 @@ gem 'rails', '~> 8.0'
 gem 'puma', '>= 5.0'
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-#gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-#gem 'jbuilder'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 #Usar gema de posgresql
 gem 'pg'
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-gem 'mimemagic'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 # Incluir gema para auditoría en base de datos
@@ -31,6 +24,12 @@ gem 'importmap-rails'
 gem 'stimulus-rails'
 # Turbo gem
 gem 'turbo-rails'
+#Gema para enviar correos electrónicos
+gem "mail", "~> 2.7"
+#Gema para usar Active Storage con Amazon S3
+gem "aws-sdk-s3", "~> 1.113"
+#Gema para usar recaptcha en login form
+gem "recaptcha", "~> 5.10"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -63,16 +62,3 @@ group :test do
   gem 'webdrivers', '= 5.3.1'
   gem 'rails-controller-testing'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-
-#Gema para enviar correos electrónicos
-gem "mail", "~> 2.7"
-
-#Gema para usar Active Storage con Amazon S3
-gem "aws-sdk-s3", "~> 1.113"
-
-#Gema para usar recaptcha en login form
-gem "recaptcha", "~> 5.10"

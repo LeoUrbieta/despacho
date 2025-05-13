@@ -152,9 +152,6 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
-    mimemagic (0.4.3)
-      nokogiri (~> 1)
-      rake
     mini_mime (1.1.5)
     minitest (5.25.5)
     msgpack (1.8.0)
@@ -292,7 +289,6 @@ DEPENDENCIES
   invisible_captcha
   listen (~> 3.3)
   mail (~> 2.7)
-  mimemagic
   pg
   propshaft
   puma (>= 5.0)
@@ -304,7 +300,6 @@ DEPENDENCIES
   spring
   stimulus-rails
   turbo-rails
-  tzinfo-data
   web-console
   webdrivers (= 5.3.1)
 
