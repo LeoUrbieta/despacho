@@ -47,6 +47,9 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "localhost:3000" }
 
   # Aqui termina la configuracion necesaria para gmail
+  # Replace the default in-process and non-durable queuing backend for Active Job.
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.logger = ActiveSupport::Logger.new(STDOUT)
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true

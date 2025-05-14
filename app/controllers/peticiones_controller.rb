@@ -59,7 +59,7 @@ class PeticionesController < ApplicationController
     else
       if @peticion.update(peticion_params)
         if peticion_params[:respuesta_idse]
-          PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now
+          PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_later
           respond_to do |format|
             format.html { redirect_to peticiones_path, notice: "Peticion enviada a #{@peticion.usuario_externo.nombre_usuario}" }
             format.turbo_stream

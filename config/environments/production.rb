@@ -50,7 +50,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
-  # config.active_job.queue_adapter = :resque
+  config.active_job.queue_adapter = :solid_queue
 
   # Agregado el 3 de Mayo 2022 por Leo (modificado 15 Sep 2024)
   config.action_mailer.delivery_method = :smtp
@@ -67,11 +67,7 @@ Rails.application.configure do
 
 
   # Termina Agregado del 3 de Mayo de 2022
-
-  # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "despacho_production"
-
+  
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.

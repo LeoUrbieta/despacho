@@ -30,6 +30,8 @@ gem "mail", "~> 2.7"
 gem "aws-sdk-s3", "~> 1.113"
 #Gema para usar recaptcha en login form
 gem "recaptcha", "~> 5.10"
+#Gema para usar solid queue
+gem "solid_queue"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
