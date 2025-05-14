@@ -1,7 +1,6 @@
 require "test_helper"
 
 class LoginUserTest < ActionDispatch::IntegrationTest
-
   def setup
     @usuario = User.create!(nombre_usuario: "Leo", password: "password", admin: false)
     @peticion = Peticion.create!(nombre_trabajador: "Gerardo", apellido_paterno: "Gonzalez",
@@ -10,9 +9,9 @@ class LoginUserTest < ActionDispatch::IntegrationTest
   end
 
   test "login a user" do
-    sign_in_as(@usuario,"password")
+    sign_in_as(@usuario, "password")
     assert_redirected_to peticiones_path
     follow_redirect!
-    assert_template 'peticiones/index'
+    assert_template "peticiones/index"
   end
 end

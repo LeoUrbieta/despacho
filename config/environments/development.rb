@@ -34,19 +34,19 @@ Rails.application.configure do
   # Configuracion para enviar desde outlook
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.mailbox.org',
+    address:              "smtp.mailbox.org",
     port:                 465,
-    domain:               'mailbox.org',
-    user_name:            Rails.application.credentials.dig(:mailbox,:user),
-    password:             Rails.application.credentials.dig(:mailbox,:pass),
+    domain:               "mailbox.org",
+    user_name:            Rails.application.credentials.dig(:mailbox, :user),
+    password:             Rails.application.credentials.dig(:mailbox, :pass),
     authentication:       :login,
     tls:                  true,
     open_timeout:         5,
     read_timeout:         5 }
-  
-  config.action_mailer.default_url_options = {host: 'localhost:3000'}
 
-  #Aqui termina la configuracion necesaria para gmail
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
+
+  # Aqui termina la configuracion necesaria para gmail
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true

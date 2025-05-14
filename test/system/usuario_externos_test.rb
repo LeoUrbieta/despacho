@@ -4,7 +4,7 @@ class UsuarioExternosTest < ApplicationSystemTestCase
   setup do
     @usuario_externo = usuario_externos(:one)
     @usuario_externo_sin_peticiones = usuario_externos(:two)
-    crear_y_entrar_como_usuario_system_test('user_usuario_externo','user12345',true,false)
+    crear_y_entrar_como_usuario_system_test("user_usuario_externo", "user12345", true, false)
   end
 
   test "visiting the index" do
@@ -22,7 +22,7 @@ class UsuarioExternosTest < ApplicationSystemTestCase
     fill_in with: correo_usuario, id: "usuario_externo_nombre_usuario"
     fill_in with: password, id: "usuario_externo_password"
     fill_in with: password, id: "usuario_externo_password_confirmation"
-    
+
     click_on "Crear Usuario externo"
     assert_text "Usuario externo fue creado exitosamente"
     assert_text correo_usuario
@@ -68,7 +68,7 @@ class UsuarioExternosTest < ApplicationSystemTestCase
     fill_in with: correo_usuario, id: "usuario_externo_nombre_usuario"
     fill_in with: password, id: "usuario_externo_password"
     fill_in with: password, id: "usuario_externo_password_confirmation"
-    
+
     click_on "Crear Usuario externo"
     assert_selector "h2", text: "1 error impidieron completar tu solicitu"
     assert_text "Nombre usuario ya ha sido tomado"

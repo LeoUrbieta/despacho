@@ -1,11 +1,10 @@
 class SessionsController < ApplicationController
-
   def create
-    @peticion = Peticion.new#Esto es para que al hacer render 'peticiones/new' no nos marque error
+    @peticion = Peticion.new# Esto es para que al hacer render 'peticiones/new' no nos marque error
 
-    success = verify_recaptcha(action: 'login', minimum_score:0.5, secret_key: Rails.application.credentials.dig(:recaptcha,:secret))
-    checkbox_success = verify_recaptcha secret_key: Rails.application.credentials.dig(:recaptchav2,:secret) unless success
-    if success || checkbox_success || params[:session][:nombre_usuario] = Rails.application.credentials.dig(:usuario_descarga,:usuario)
+    success = verify_recaptcha(action: "login", minimum_score: 0.5, secret_key: Rails.application.credentials.dig(:recaptcha, :secret))
+    checkbox_success = verify_recaptcha secret_key: Rails.application.credentials.dig(:recaptchav2, :secret) unless success
+    if success || checkbox_success || params[:session][:nombre_usuario] = Rails.application.credentials.dig(:usuario_descarga, :usuario)
       usuario = User.find_by(nombre_usuario: params[:session][:nombre_usuario])
       if not usuario
         usuario_externo = UsuarioExterno.find_by(nombre_usuario: params[:session][:nombre_usuario])
@@ -19,21 +18,21 @@ class SessionsController < ApplicationController
         if usuario_externo.email_confirmado
           reset_session
           session[:usuario_externo_id] = usuario_externo.id
-          flash[:success] = "Bienvenido #{usuario_externo.nombre_usuario}" 
+          flash[:success] = "Bienvenido #{usuario_externo.nombre_usuario}"
           redirect_to root_path
         else
           flash.now[:error] = "No has validado tu correo aún. Por favor, da click en el enlace que te llegó en el correo que recibiste al dar de alta la cuenta"
-          render 'peticiones/new' 
+          render "peticiones/new"
         end
       else
         flash.now[:danger] = "Hubo un error con los datos introducidos"
-        render 'peticiones/new' 
+        render "peticiones/new"
       end
     else
       if !success
         @show_checkbox_recaptcha = true
       end
-      render 'peticiones/new'
+      render "peticiones/new"
     end
   end
 
@@ -47,5 +46,4 @@ class SessionsController < ApplicationController
     flash[:success] = "Has salido de tu sesión"
     redirect_to root_path
   end
-
 end

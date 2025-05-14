@@ -52,26 +52,26 @@ Rails.application.configure do
   # Replace the default in-process and non-durable queuing backend for Active Job.
   # config.active_job.queue_adapter = :resque
 
-  #Agregado el 3 de Mayo 2022 por Leo (modificado 15 Sep 2024)
+  # Agregado el 3 de Mayo 2022 por Leo (modificado 15 Sep 2024)
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.mailbox.org',
+    address:              "smtp.mailbox.org",
     port:                 465,
-    domain:               'mailbox.org',
-    user_name:            Rails.application.credentials.dig(:mailbox,:user),
-    password:             Rails.application.credentials.dig(:mailbox,:pass),
+    domain:               "mailbox.org",
+    user_name:            Rails.application.credentials.dig(:mailbox, :user),
+    password:             Rails.application.credentials.dig(:mailbox, :pass),
     authentication:       :login,
     tls:                  true,
     open_timeout:         5,
     read_timeout:         5 }
-  
+
 
   # Termina Agregado del 3 de Mayo de 2022
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "despacho_production"
-   
+
   config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -79,7 +79,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = {host: Rails.application.credentials.dig(:production,:host)}
+  config.action_mailer.default_url_options = { host: Rails.application.credentials.dig(:production, :host) }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {

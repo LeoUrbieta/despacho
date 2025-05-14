@@ -23,13 +23,13 @@ class ReplegalesController < ApplicationController
   # POST /replegales or /replegales.json
   def create
     rfc_introducido_en_campo = replegal_params[:rfc]
-    agregados_correctamente,@replegal = Replegal.agregar_clientes(replegal_params,nil)
+    agregados_correctamente, @replegal = Replegal.agregar_clientes(replegal_params, nil)
     if Cliente.find_by(rfc: rfc_introducido_en_campo)
-      existe_en_clientes = true 
+      existe_en_clientes = true
       @replegal.errors.add(:rfc, "Ese RFC ya está dado de alta en la lista de clientes.
                            Por favor, elígelo de la lista directamente")
     else
-      existe_en_clientes = false 
+      existe_en_clientes = false
     end
     respond_to do |format|
       if existe_en_clientes || !agregados_correctamente
@@ -48,26 +48,26 @@ class ReplegalesController < ApplicationController
   # PATCH/PUT /replegales/1 or /replegales/1.json
   def update
     rfc_introducido_en_campo = replegal_params[:rfc]
-    #Este bloque es para replegales que no están asociados a un cliente persona física. De esta
-    #manera evitamos que al actualizarse tomemos un RFC que ya está dado de alta como cliente
-    #y se muestre el error respectivo
-    if not @replegal.clientes.where("(num_interno is null AND LENGTH(rfc) = 13) OR CAST(num_interno AS integer) < CAST(600 AS integer)").first 
-      if Cliente.find_by(rfc:rfc_introducido_en_campo)
-        existe_en_clientes = true 
+    # Este bloque es para replegales que no están asociados a un cliente persona física. De esta
+    # manera evitamos que al actualizarse tomemos un RFC que ya está dado de alta como cliente
+    # y se muestre el error respectivo
+    if not @replegal.clientes.where("(num_interno is null AND LENGTH(rfc) = 13) OR CAST(num_interno AS integer) < CAST(600 AS integer)").first
+      if Cliente.find_by(rfc: rfc_introducido_en_campo)
+        existe_en_clientes = true
         @replegal.errors.add(:rfc, "Ese RFC ya está dado de alta en la lista de clientes.
                              Por favor, elígelo de la lista directamente")
       else
-      existe_en_clientes = false 
+      existe_en_clientes = false
       end
     end
     ########
-    
-    agregados_correctamente,@replegal,parametros = Replegal.agregar_clientes(replegal_params,@replegal)
+
+    agregados_correctamente, @replegal, parametros = Replegal.agregar_clientes(replegal_params, @replegal)
     respond_to do |format|
       if existe_en_clientes || !agregados_correctamente
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @replegal.errors, status: :unprocessable_entity }
-      elsif @replegal.update(parametros) 
+      elsif @replegal.update(parametros)
         format.html { redirect_to @replegal, notice: "El representante legal se actualizó correctamente" }
         format.json { render :show, status: :ok, location: @replegal }
       else
@@ -97,8 +97,8 @@ class ReplegalesController < ApplicationController
       params[:replegal][:nombre_completo] = params[:replegal][:nombre_completo].
         mb_chars.upcase.to_s
       params[:replegal][:rfc] = params[:replegal][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
-      params.require(:replegal).permit(:nombre_completo,:rfc,:clave,:fiel,
-                                       :csd,:vencimiento_fiel,:vencimiento_csd,
-                                       :cliente_ids => [])
+      params.require(:replegal).permit(:nombre_completo, :rfc, :clave, :fiel,
+                                       :csd, :vencimiento_fiel, :vencimiento_csd,
+                                       cliente_ids: [])
     end
 end

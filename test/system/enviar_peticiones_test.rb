@@ -1,14 +1,13 @@
 require "application_system_test_case"
 
 class EnviarPeticionesTest < ApplicationSystemTestCase
-
   include ActionMailer::TestHelper
 
   setup do
-    User.create!(nombre_usuario: Rails.application.credentials.dig(:usuario_adjuntar_idse,:usuario), password: 'password', admin: false, contabilidad: false)
+    User.create!(nombre_usuario: Rails.application.credentials.dig(:usuario_adjuntar_idse, :usuario), password: "password", admin: false, contabilidad: false)
     visit root_path
-    fill_in with: Rails.application.credentials.dig(:usuario_adjuntar_idse,:usuario), id: 'session_nombre_usuario'
-    fill_in with: 'password', :id => 'session_password'
+    fill_in with: Rails.application.credentials.dig(:usuario_adjuntar_idse, :usuario), id: "session_nombre_usuario"
+    fill_in with: "password", id: "session_password"
     click_on "Entrar"
     assert_text "Has entrado con éxito"
   end

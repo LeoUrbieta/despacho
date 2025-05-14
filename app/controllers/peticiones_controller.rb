@@ -1,8 +1,7 @@
 class PeticionesController < ApplicationController
-
-  before_action :require_user, except: [:new,:create]
-  before_action :require_admin, only: [:edit, :update, :destroy]
-  before_action :agregar_usuario_externo, only: [:create]
+  before_action :require_user, except: [ :new, :create ]
+  before_action :require_admin, only: [ :edit, :update, :destroy ]
+  before_action :agregar_usuario_externo, only: [ :create ]
 
   PAGINA_MINIMA = 0
 
@@ -28,7 +27,7 @@ class PeticionesController < ApplicationController
       @peticiones = usuario_externo_actual.peticiones
       crearPaginas(usuario_externo_actual.peticiones.count, 10, usuario_externo_actual.peticiones)
     end
-    
+
     if Peticion.first.nil?
       folio_peticion_anterior = 0
     else
@@ -42,7 +41,7 @@ class PeticionesController < ApplicationController
     else
       render :new
     end
-  end 
+  end
 
   def edit
     @peticion = Peticion.find(params[:id])
@@ -50,19 +49,19 @@ class PeticionesController < ApplicationController
 
   def update
     @peticion = Peticion.find(params[:id])
-    #crearPaginas(Peticion.count, 50, Peticion)
+    # crearPaginas(Peticion.count, 50, Peticion)
 
     if params[:peticion].nil?
       respond_to do |format|
-        format.html {redirect_to peticiones_path, notice: "Tienes que adjuntar un archivo antes"}
+        format.html { redirect_to peticiones_path, notice: "Tienes que adjuntar un archivo antes" }
         format.turbo_stream
       end
     else
       if @peticion.update(peticion_params)
         if peticion_params[:respuesta_idse]
-          PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now 
+          PeticionMailer.with(peticion: @peticion).enviar_respuesta_idse.deliver_now
           respond_to do |format|
-            format.html {redirect_to peticiones_path, notice: "Peticion enviada a #{@peticion.usuario_externo.nombre_usuario}"}
+            format.html { redirect_to peticiones_path, notice: "Peticion enviada a #{@peticion.usuario_externo.nombre_usuario}" }
             format.turbo_stream
           end
         else
@@ -78,7 +77,7 @@ class PeticionesController < ApplicationController
   def destroy
     @peticion = Peticion.find(params[:id])
     if @peticion.respuesta_idse.attached?
-      flash[:success] = "La peticion y el documento adjunto fueron eliminados" 
+      flash[:success] = "La peticion y el documento adjunto fueron eliminados"
       @peticion.respuesta_idse.purge
       @peticion.destroy
     else
@@ -91,7 +90,7 @@ class PeticionesController < ApplicationController
   def post_listar_peticiones_usuario_externo
     usuario_externo = UsuarioExterno.find(lista_peticiones_por_usuario_externo[:id_usuario])
     @peticiones = usuario_externo.peticiones
-    crearPaginas(@peticiones.count,@peticiones.count+1, @peticiones)
+    crearPaginas(@peticiones.count, @peticiones.count+1, @peticiones)
   end
 
   private
@@ -107,22 +106,22 @@ class PeticionesController < ApplicationController
       params.require(:usuario_externo).permit(:id_usuario)
     end
 
-    def pagination(pagina,pag_maxima,pag_minima)
+    def pagination(pagina, pag_maxima, pag_minima)
       if pagina <= pag_maxima and pagina >= pag_minima
-          pagina = params.fetch(:page,0).to_i
+          pagina = params.fetch(:page, 0).to_i
       elsif pagina > pag_maxima
         pagina = pag_maxima
       elsif pagina < pag_minima
-        pagina = pag_minima 
+        pagina = pag_minima
       end
-      return pagina
+      pagina
     end
 
     def crearPaginas(numero_de_peticiones, peticiones_por_pagina, peticiones)
       @pag_maximas = numero_de_peticiones / peticiones_por_pagina
       @pag_minimas = PAGINA_MINIMA
-      @page = params.fetch(:page,0).to_i
-      @page = pagination(@page,@pag_maximas,PAGINA_MINIMA)
+      @page = params.fetch(:page, 0).to_i
+      @page = pagination(@page, @pag_maximas, PAGINA_MINIMA)
       @peticiones = peticiones.offset(@page * peticiones_por_pagina).limit(peticiones_por_pagina)
     end
 end

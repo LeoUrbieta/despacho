@@ -1,8 +1,8 @@
 class UsuarioExternosController < ApplicationController
   before_action :set_usuario_externo, only: %i[ show edit update destroy ]
   before_action :require_user, :require_admin, except: %i[new create confirm_email]
-  invisible_captcha only: [:create]
-  
+  invisible_captcha only: [ :create ]
+
   # GET /usuario_externos or /usuario_externos.json
   def index
     @usuario_externos = UsuarioExterno.all
@@ -33,7 +33,7 @@ class UsuarioExternosController < ApplicationController
           format.html { redirect_to usuario_externo_url(@usuario_externo), notice: "Usuario externo fue creado exitosamente" }
           format.json { render :show, status: :created, location: @usuario_externo }
         else
-          format.html { redirect_to root_path, notice: "Enviamos un correo de verificación al correo que nos diste. Por favor, da click en el enlace de ese correo para verificarlo. ¡Gracias!"}
+          format.html { redirect_to root_path, notice: "Enviamos un correo de verificación al correo que nos diste. Por favor, da click en el enlace de ese correo para verificarlo. ¡Gracias!" }
         end
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class UsuarioExternosController < ApplicationController
         format.json { head :no_content }
       end
     else
-      render 'show'
+      render "show"
     end
   end
 

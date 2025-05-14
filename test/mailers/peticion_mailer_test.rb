@@ -1,7 +1,6 @@
 require "test_helper"
 
 class PeticionMailerTest < ActionMailer::TestCase
-
   setup do
     @peticion_con_respuesta_idse = peticiones(:two)
   end
@@ -14,21 +13,21 @@ class PeticionMailerTest < ActionMailer::TestCase
       assert_emails 1 do
         mail.deliver_now
       end
-      assert_equal [Rails.application.credentials.dig(:outlook, :user)], mail.from
-      assert_equal ["example@example.com"], mail.to
-      assert_includes mail.body.to_s, Rails.application.credentials.dig(:production,:host)
+      assert_equal [ Rails.application.credentials.dig(:outlook, :user) ], mail.from
+      assert_equal [ "example@example.com" ], mail.to
+      assert_includes mail.body.to_s, Rails.application.credentials.dig(:production, :host)
     end
   end
 
   test "enviar documento idse al adjuntarlo a la peticion" do
-    if @peticion_con_respuesta_idse.respuesta_idse.attached? 
+    if @peticion_con_respuesta_idse.respuesta_idse.attached?
       mail = PeticionMailer.with(peticion: @peticion_con_respuesta_idse).enviar_respuesta_idse
       assert_no_emails
       assert_emails 1 do
         mail.deliver_now
       end
-      puts mail.body.to_s
-      assert_equal [@peticion_con_respuesta_idse.usuario_externo.nombre_usuario], mail.to
+      puts mail.body
+      assert_equal [ @peticion_con_respuesta_idse.usuario_externo.nombre_usuario ], mail.to
       assert_includes mail.subject, "Documento IDSE"
     end
   end

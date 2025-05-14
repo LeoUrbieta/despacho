@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-
   helper_method :usuario_actual, :logged_in?, :usuario_externo_actual, :usuario_externo_logged_in?, :require_usuario_externo, :require_admin
 
   def usuario_actual
@@ -31,10 +30,10 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-  
+
   def require_admin
     if not usuario_actual.admin?
-      unless usuario_actual.nombre_usuario == Rails.application.credentials.dig(:usuario_adjuntar_idse,:usuario) && request.request_method == "PATCH" 
+      unless usuario_actual.nombre_usuario == Rails.application.credentials.dig(:usuario_adjuntar_idse, :usuario) && request.request_method == "PATCH"
         flash[:danger] = "La página no está disponible"
         redirect_to root_path
       end

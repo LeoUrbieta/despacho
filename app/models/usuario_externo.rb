@@ -5,15 +5,15 @@ class UsuarioExterno < ApplicationRecord
 
   has_many :peticiones, dependent: :restrict_with_error
 
-  validates :nombre_usuario, presence: true, uniqueness: true 
-  validates :password, length: { minimum: 8}, on: :create
+  validates :nombre_usuario, presence: true, uniqueness: true
+  validates :password, length: { minimum: 8 }, on: :create
 
   def activar_email
     self.email_confirmado = true
     self.confirm_token = nil
-    save!(:validate => false)
+    save!(validate: false)
   end
-  
+
   private
 
   def confirmation_token
