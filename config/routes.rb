@@ -10,10 +10,7 @@ Rails.application.routes.draw do
   resources :clientes do
     collection do
       get "bajas"
-      get "contabilidad"
-      post "contabilidad", to: "clientes#post_contabilidad"
     end
-    resources :obligaciones, except: [ :show, :new ]
   end
   root "peticiones#new"
   resources :peticiones do

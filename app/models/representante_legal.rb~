@@ -1,4 +1,0 @@
-class RepresentanteLegal < ApplicationRecord
-  validate :nombre_completo, :rfc, presence: true
-  has_and_belongs_to_many :clientes
-end

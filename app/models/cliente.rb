@@ -3,36 +3,19 @@ class Cliente < ApplicationRecord
   require "csv"
 
   validates :razon_social, presence: true
-  validates :presentar_contabilidad, inclusion: [ true, false ]
   validates :rfc, presence: true, uniqueness: true
   validates :num_interno, presence: true, uniqueness: true, allow_nil: true
-  has_many :obligaciones, dependent: :restrict_with_error
   has_and_belongs_to_many :replegales
   belongs_to :user, optional: true
   default_scope -> { order(num_interno: :asc) }
 
-  def self.to_csv(contabilidad)
-    if contabilidad
-      attributes = [ "Numero Interno", "Razon Social", "Ultima Obligacion Presentada" ]
-    else
-      attributes = [ "Numero Interno", "Razon Social" ]
-    end
+  def self.to_csv
+    attributes = [ "Numero Interno", "Razon Social" ]
 
     CSV.generate(headers: true, col_sep: ",") do |csv|
       csv << attributes
-
       all.each do |cliente|
-        if contabilidad
-          if cliente.presentar_contabilidad
-            fecha = I18n.t(cliente.obligaciones.first.fecha.strftime("%B")) +
-                  cliente.obligaciones.first.fecha.strftime("-%Y")
-          else
-            fecha = "No se presenta"
-          end
-          csv << [ cliente.num_interno, cliente.razon_social, fecha ]
-        else
-          csv << [ cliente.num_interno, cliente.razon_social ]
-        end
+        csv << [ cliente.num_interno, cliente.razon_social ]
       end
     end
   end

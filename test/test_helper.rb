@@ -22,8 +22,8 @@ class ActiveSupport::TestCase
     assert_text "Has entrado con éxito"
   end
 
-  def crear_y_entrar_como_usuario_system_test(usuario, pass, admin, contabilidad)
-    User.create!(nombre_usuario: usuario, password: pass, admin: admin, contabilidad: contabilidad)
+  def crear_y_entrar_como_usuario_system_test(usuario, pass, admin)
+    User.create!(nombre_usuario: usuario, password: pass, admin: admin)
     entrar_como_usuario_system_test(usuario, pass)
   end
 end

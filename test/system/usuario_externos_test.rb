@@ -4,7 +4,7 @@ class UsuarioExternosTest < ApplicationSystemTestCase
   setup do
     @usuario_externo = usuario_externos(:one)
     @usuario_externo_sin_peticiones = usuario_externos(:two)
-    crear_y_entrar_como_usuario_system_test("user_usuario_externo", "user12345", true, false)
+    crear_y_entrar_como_usuario_system_test("user_usuario_externo", "user12345", true)
   end
 
   test "visiting the index" do

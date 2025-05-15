@@ -9,7 +9,7 @@ class ClientesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @clientes.to_csv(false), filename: "clientes-#{Date.today}.csv" }
+      format.csv { send_data @clientes.to_csv, filename: "clientes-#{Date.today}.csv" }
     end
   end
 
@@ -46,14 +46,6 @@ class ClientesController < ApplicationController
   def update
     if not params[:cliente][:num_interno].nil? and params[:cliente][:num_interno].empty?
       params[:cliente][:num_interno] = nil
-      params[:cliente][:user_id] = nil
-    end
-    # Sirve solo cuando la post request se genera de la accion de contabilidad
-    if not cliente_params[:current_id].nil?
-      @usuario = User.find(cliente_params[:current_id])
-      @clientes = @usuario.clientes.all
-      @usuario_id = @usuario.id
-      params.dig(:cliente).extract!(:current_id)
     end
     string_notificacion, estatus_dar_de_alta=actualizar_replegal_asociado
     respond_to do |format|
@@ -62,9 +54,6 @@ class ClientesController < ApplicationController
         # Html responde a la peticion que venga de clientes/:cliente_id
         # La forma tiene la opcion data-turbo = false
         format.html { redirect_to @cliente, notice: notice_a_poner }
-        # Turbo Stream responde a la peticion que viene de
-        # clientes/contabilidad
-        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -87,26 +76,6 @@ class ClientesController < ApplicationController
     @clientes = Cliente.where("num_interno IS NULL")
   end
 
-  def contabilidad
-    @clientes = usuario_actual.clientes.all
-    @usuario = usuario_actual
-  end
-
-  def post_contabilidad
-    if not params[:id].empty?
-      @usuario = User.find(params[:id])
-    else
-      @usuario = usuario_actual
-    end
-    @usuario_id = @usuario.id
-    @clientes = @usuario.clientes.all
-    respond_to do |format|
-      format.html { redirect_to contabilidad_clientes_path, notice: "Turbo streams no puede renovar la tabla" }
-      format.csv { send_data @clientes.to_csv(true), filename: "Clientes-#{@usuario.nombre_usuario}-#{Date.today}.csv" }
-      format.turbo_stream
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cliente
@@ -124,9 +93,8 @@ class ClientesController < ApplicationController
       end
       params.require(:cliente).permit(:razon_social, :rfc, :num_interno, :clave,
                                       :fiel, :csd, :fiel_vencimiento, :csd_vencimiento,
-                                      :user_id, :current_id, :presentar_contabilidad,
-                                      regimen_fiscal: []
-                                      )
+                                      :user_id, :current_id, regimen_fiscal: []
+                                     )
     end
 
     def notice_a_mostrar(string_notificacion, string_nuevo_u_update)

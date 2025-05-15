@@ -6,8 +6,6 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @usuario_admin = User.create!(nombre_usuario: "Admin", password: "admin", admin: true)
     @cliente_uno = clientes(:one)
     @cliente_dos = clientes(:two)
-    @user_four = users(:four)
-    @cliente_sin_obligaciones = clientes(:four)
     @cliente_dado_de_baja_y_tambien_es_replegal = clientes(:five)
   end
 
@@ -30,8 +28,7 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              rfc: "OTR342345IOL",
                                              num_interno: "432",
                                              clave: "ABD",
-                                             regimen_fiscal: [ "", "REG1", "REG2" ],
-                                             presentar_contabilidad: true
+                                             regimen_fiscal: [ "", "REG1", "REG2" ]
       } }
     end
 
@@ -57,21 +54,10 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
                                              num_interno: "432",
                                              clave: "ABD",
                                              fiel: "Clave",
-                                             regimen_fiscal: [ "", "REGMOD1", "REGMOD2" ],
-                                             presentar_contabilidad: true
+                                             regimen_fiscal: [ "", "REGMOD1", "REGMOD2" ]
     } }
     assert_redirected_to cliente_url(@cliente_uno)
   end
-
-  test "should destroy cliente si no tiene obligaciones" do
-    # Solo Admin puede borrar clientes
-    sign_in_as(@usuario_admin, "admin")
-    assert_difference("Cliente.count", -1) do
-      delete cliente_url(@cliente_sin_obligaciones)
-    end
-    assert_redirected_to clientes_url
-  end
-
 
   test "should send cliente to lista de baja" do
     sign_in_as(@usuario, "password")
@@ -79,13 +65,6 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @cliente_uno.reload
     assert_redirected_to cliente_path(@cliente_uno)
     assert_nil @cliente_uno.num_interno
-  end
-
-  test "should not destroy cliente si tiene obligaciones registradas" do
-    sign_in_as(@usuario_admin, "admin")
-    assert_no_difference("Cliente.count") do
-      delete cliente_url(@cliente_uno)
-    end
   end
 
   test "El rfc y num_interno deben ser únicos" do
@@ -98,25 +77,6 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Cliente.count" do
       patch cliente_url(@cliente_dos), params: { cliente: { rfc: rfc_cliente_uno, razon_social: razon_cliente_uno } }
       patch cliente_url(@cliente_dos), params: { cliente: { num_interno: num_interno_cliente_uno, razon_social: razon_cliente_dos, rfc: rfc_cliente_dos } }
-    end
-  end
-
-  test "Dar de baja cliente debe eliminar usuario asignado" do
-    sign_in_as(@usuario, "password")
-    assert_difference "@user_four.clientes.count", -1 do
-      patch cliente_url(@cliente_uno), params: { cliente: { :num_interno => "",
-                                                           :razon_social => @cliente_uno.razon_social,
-                                                           :rfc => @cliente_uno.rfc,
-                                                           :clave => @cliente_uno.clave,
-                                                           "fiel_vencimiento(3i)" => @cliente_uno.fiel_vencimiento.day,
-                                                           "fiel_vencimiento(2i)" => @cliente_uno.fiel_vencimiento.month,
-                                                           "fiel_vencimiento(1i)" => @cliente_uno.fiel_vencimiento.year,
-                                                           "csd_vencimiento(3i)" => @cliente_uno.csd_vencimiento.day,
-                                                           "csd_vencimiento(2i)" => @cliente_uno.csd_vencimiento.month,
-                                                           "csd_vencimiento(1i)" => @cliente_uno.csd_vencimiento.year,
-                                                           :regimen_fiscal => @cliente_uno.regimen_fiscal } }
-      @cliente_uno.reload
-      assert_nil @cliente_uno.user_id
     end
   end
 

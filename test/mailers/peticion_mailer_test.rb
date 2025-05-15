@@ -6,17 +6,17 @@ class PeticionMailerTest < ActionMailer::TestCase
   end
 
   test "enviar correo confirmacion" do
-    @usuario_externo = UsuarioExterno.new(nombre_usuario: "example@example.com", password: "password")
-    if @usuario_externo.save
-      mail = PeticionMailer.with(usuario_externo: @usuario_externo).welcome_email
-      assert_no_emails
-      assert_emails 1 do
-        mail.deliver_now
-      end
-      assert_equal [ Rails.application.credentials.dig(:outlook, :user) ], mail.from
-      assert_equal [ "example@example.com" ], mail.to
-      assert_includes mail.body.to_s, Rails.application.credentials.dig(:production, :host)
+    @usuario_externo = UsuarioExterno.new(nombre_usuario: "example@examplereal.com", password: "password90", email_confirmado: false)
+    assert @usuario_externo.save, "UsuarioExterno should be saved successfully"
+
+    mail = PeticionMailer.with(usuario_externo: @usuario_externo).welcome_email
+    assert_no_emails
+    assert_emails 1 do
+      mail.deliver_now
     end
+    assert_equal [ Rails.application.credentials.dig(:mailbox, :user) ], mail.from
+    assert_equal [ @usuario_externo.nombre_usuario ], mail.to
+    assert_includes mail.body.to_s, Rails.application.credentials.dig(:production, :host)
   end
 
   test "enviar documento idse al adjuntarlo a la peticion" do

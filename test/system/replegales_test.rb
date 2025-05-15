@@ -4,7 +4,7 @@ class ReplegalesTest < ApplicationSystemTestCase
   setup do
     @adrian_jimenez = replegales(:one)
     @empresa_sin_replegal = clientes(:empresa_sin_replegal)
-    crear_y_entrar_como_usuario_system_test("user_rep_legal", "user12345", false, false)
+    crear_y_entrar_como_usuario_system_test("user_rep_legal", "user12345", false)
     @replegal_not_in_clientes = replegales(:not_in_clientes_list)
     @cliente = clientes(:one)
   end
@@ -86,7 +86,7 @@ class ReplegalesTest < ApplicationSystemTestCase
     visit replegales_url
     assert_no_button "Eliminar"
     click_button "Terminar Sesion"
-    crear_y_entrar_como_usuario_system_test("user_admin", "user12345", true, false)
+    crear_y_entrar_como_usuario_system_test("user_admin", "user12345", true)
     visit replegales_url
     find(".table").find("a", text: replegales(:one).nombre_completo).click
     assert_text replegales(:one).nombre_completo

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_14_033438) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_15_005250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,10 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_033438) do
     t.string "csd"
     t.date "fiel_vencimiento", default: "2022-06-21"
     t.date "csd_vencimiento", default: "2022-06-21"
-    t.bigint "user_id"
     t.string "regimen_fiscal", array: true
-    t.boolean "presentar_contabilidad"
-    t.index ["user_id"], name: "index_clientes_on_user_id"
   end
 
   create_table "clientes_replegales", id: false, force: :cascade do |t|
@@ -97,14 +94,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_033438) do
     t.datetime "updated_at", precision: nil, null: false
     t.date "fecha"
     t.boolean "iva_acreditable_bool"
-  end
-
-  create_table "obligaciones", force: :cascade do |t|
-    t.datetime "fecha"
-    t.bigint "cliente_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cliente_id"], name: "index_obligaciones_on_cliente_id"
   end
 
   create_table "peticiones", force: :cascade do |t|
@@ -270,7 +259,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_033438) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.boolean "admin", default: false
-    t.boolean "contabilidad", default: false
   end
 
   create_table "usuario_externos", force: :cascade do |t|
@@ -284,8 +272,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_033438) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "clientes", "users"
-  add_foreign_key "obligaciones", "clientes"
   add_foreign_key "peticiones", "usuario_externos"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

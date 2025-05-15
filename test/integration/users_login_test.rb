@@ -3,6 +3,7 @@ require "test_helper"
 class UsersLoginTest < ActionDispatch::IntegrationTest
   def setup
     @usuario = User.create!(nombre_usuario: "Leo", password: "password")
+    @usuario_externo = UsuarioExterno.create!(nombre_usuario: "Snoopy", password: "secreto128jk")
   end
 
   test "Entrada invalida es rechazada" do
@@ -26,9 +27,5 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     delete logout_path
     assert_redirected_to root_path
     assert_equal "Has salido de tu sesión", flash[:success]
-  end
-
-  test "Peticiones solo disponibles si Usuario Externo ha iniciado sesión" do
-    get root_path
   end
 end
