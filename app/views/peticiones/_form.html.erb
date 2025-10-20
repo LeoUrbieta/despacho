@@ -7,14 +7,14 @@
 <% if logged_in? || usuario_externo_logged_in? %>
   <div class="row mb-3">
     <div class="offset-md-1 col-md-10">
-      <h2 style="color: red">Al enviar incapacidades, favor de poner en el campo de observaciones la fecha de inicio y de término de la incapacidad. Por favor enviar el documento de la incapacidad al correo de mfiscalistas@gmail.com. Gracias</h2>
+      <h2 style="color: red">Favor de enviar las incapacidades al correo mfiscalistas@gmail.com</h2>
     </div>
   </div>
   <%= form_with model: peticion, data: {turbo: false} do |form| %>
     <div class="row mb-3">
     <%= form.label :movimiento, {:class => "form-label offset-md-1 col-md-2 col-form-label",:style => "text-align: right"}  %>
       <div class="col-md-2">
-        <%= form.select(:movimiento, [["Baja","Baja"], ["Alta","Alta"], ["Modificación","Modificacion"], ["Incapacidad","Incapacidad"]],{},{:class => "form-select"}) %>
+        <%= form.select(:movimiento, [["Baja","Baja"], ["Alta","Alta"], ["Modificación","Modificacion"]],{},{:class => "form-select"}) %>
       </div>
       <%= form.label :fecha_para_realizar_tramite, {:class => "form-label col-md-2 col-form-label", :style => "text-align: right"} %>
       <div class="col-md-3">
