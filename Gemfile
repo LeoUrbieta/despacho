@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-ruby "3.2.9"
+ruby "3.4.8"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.0"
@@ -32,6 +32,8 @@ gem "aws-sdk-s3", "~> 1.113"
 gem "recaptcha", "~> 5.10"
 # Gema para usar solid queue
 gem "solid_queue"
+# Instalr csv a partir de ruby 3.4
+gem "csv"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

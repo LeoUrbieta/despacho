@@ -121,6 +121,7 @@ GEM
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
     crass (1.0.6)
+    csv (3.3.5)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -364,6 +365,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   brakeman
   capybara
+  csv
   debug
   importmap-rails
   invisible_captcha
@@ -383,7 +385,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.2.9p265
+   ruby 3.4.8p72
 
 BUNDLED WITH
    2.6.9
