@@ -56,7 +56,11 @@
     <% replegal.audits.each do |audit| %>
       <tr style="background-color: #7ec95e">
         <td><%= audit.id %></td>
-        <td><%= audit.user.nombre_usuario %></td>
+        <% if audit.user.present? %>
+          <td><%= audit.user.nombre_usuario %></td>
+        <% else %>
+          <td>USUARIO ELIMINADO</td>
+        <% end %>
         <td><%= audit.action %></td>
         <td><%= "RepLegal: " + replegal.nombre_completo%></td>
         <td><%= audit.audited_changes %></td>
