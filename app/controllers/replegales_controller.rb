@@ -94,9 +94,8 @@ class ReplegalesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def replegal_params
-      params[:replegal][:nombre_completo] = params[:replegal][:nombre_completo].
-        mb_chars.upcase.to_s
-      params[:replegal][:rfc] = params[:replegal][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
+      params[:replegal][:nombre_completo] = params[:replegal][:nombre_completo].upcase
+      params[:replegal][:rfc] = params[:replegal][:rfc].upcase.gsub(/\s+/, "")
       params.require(:replegal).permit(:nombre_completo, :rfc, :clave, :fiel,
                                        :csd, :vencimiento_fiel, :vencimiento_csd,
                                        cliente_ids: [])

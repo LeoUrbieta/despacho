@@ -85,11 +85,10 @@ class ClientesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def cliente_params
       if not params[:cliente][:razon_social].nil?
-        params[:cliente][:razon_social] = params[:cliente][:razon_social].
-          mb_chars.upcase.to_s
+        params[:cliente][:razon_social] = params[:cliente][:razon_social].upcase
       end
       if not params[:cliente][:rfc].nil?
-        params[:cliente][:rfc] = params[:cliente][:rfc].mb_chars.upcase.to_s.gsub(/\s+/, "")
+        params[:cliente][:rfc] = params[:cliente][:rfc].upcase.gsub(/\s+/, "")
       end
       params.require(:cliente).permit(:razon_social, :rfc, :num_interno, :clave,
                                       :fiel, :csd, :fiel_vencimiento, :csd_vencimiento,
