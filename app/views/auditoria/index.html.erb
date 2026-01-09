@@ -8,7 +8,7 @@
     <h4>Empresas que no tienen representante legal asignado</h4>
   </div>
 </div>
-<table class="table align-middle">
+<table class="table table-striped align-middle">
   <thead class="table-primary">
     <tr>
       <th class="col-1"># Interno</th>
@@ -26,7 +26,7 @@
   <% end %>
   </tbody>
 </table>
-<table class="table table-hover align-middle">
+<table class="table table-striped table-hover align-middle">
   <thead style="position:sticky; top: 0; position: -webkit-sticky;", class="table-primary" >
     <tr>
       <th class="col-1">Audit ID</th>
@@ -40,11 +40,11 @@
   <tbody>
   <% @clientes.each do |cliente| %>
     <% cliente.audits.each do |audit| %>
-      <tr style="background-color: #4ba8c6">
+      <tr>
         <td><%= audit.id %></td>
         <!-- La siguiente condicion solo aplica si no habia sesion iniciada por un usuario
           i.e. se realizo desde la linea de comandos remota -->
-        <%if not audit.user.nil? %><td><%= audit.user.nombre_usuario %></td><%else%><td>-</td><% end %>
+        <%if not audit.user.nil? %><td><%= audit.user.nombre_usuario %></td><%else%><td>USUARIO DE CONSOLA O ELIMINADO</td><% end %>
         <td><%= audit.action %></td>
         <td><%= "Cliente: " + cliente.razon_social%></td>
         <td><%= audit.audited_changes %></td>
@@ -59,7 +59,7 @@
         <% if audit.user.present? %>
           <td><%= audit.user.nombre_usuario %></td>
         <% else %>
-          <td>USUARIO ELIMINADO</td>
+          <td>USUARIO DE CONSOLA O ELIMINADO</td>
         <% end %>
         <td><%= audit.action %></td>
         <td><%= "RepLegal: " + replegal.nombre_completo%></td>
