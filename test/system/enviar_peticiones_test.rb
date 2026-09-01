@@ -21,7 +21,7 @@ class EnviarPeticionesTest < ApplicationSystemTestCase
   test "enviar peticion" do
     assert_button "Actualizar Peticion"
     attach_file "peticion[respuesta_idse]", "./test/fixtures/files/PDF.pdf", match: :first
-    assert_emails 1 do
+    assert_enqueued_emails 1 do
       first('input[value="Actualizar Peticion"]').click
     end
     assert_text "Peticion enviada"
